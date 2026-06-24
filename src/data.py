@@ -2,6 +2,7 @@
 import numpy as np
 import librosa
 import soundfile as sf
+from scipy.signal import butter, lfilter
 from typing import Optional, Tuple
 
 
@@ -30,6 +31,7 @@ def inject_noise(
     noise_type: Optional[str] = None,
     snr_db: float = 20.0,
     rt60: float = 0.5,
+    seed: Optional[int] = None,
 ) -> np.ndarray:
     """Apply acoustic degradation to an audio signal.
 
@@ -39,6 +41,7 @@ def inject_noise(
         noise_type: "white", "babble", "reverb", or None (no degradation).
         snr_db: Signal-to-noise ratio in dB (for white/babble).
         rt60: Reverberation time in seconds (for reverb).
+        seed: Random seed for reproducible noise generation.
 
     Returns:
         Degraded audio array, same shape and dtype as input.
@@ -46,25 +49,26 @@ def inject_noise(
     if noise_type is None:
         return audio.copy()
 
+    rng = np.random.RandomState(seed) if seed is not None else np.random
+
     if noise_type in ("white", "babble"):
-        return _add_noise(audio, noise_type, snr_db)
+        return _add_noise(audio, noise_type, snr_db, rng)
     elif noise_type == "reverb":
-        return _add_reverb(audio, sr, rt60)
+        return _add_reverb(audio, sr, rt60, rng)
     else:
         raise ValueError(f"Unknown noise_type: {noise_type}")
 
 
-def _add_noise(audio: np.ndarray, noise_type: str, snr_db: float) -> np.ndarray:
+def _add_noise(audio: np.ndarray, noise_type: str, snr_db: float, rng) -> np.ndarray:
     """Add white or babble noise at specified SNR."""
     signal_power = np.mean(audio ** 2)
     snr_linear = 10 ** (snr_db / 10.0)
     target_noise_power = signal_power / snr_linear
 
     if noise_type == "white":
-        noise = np.random.randn(len(audio)).astype(np.float32)
-    else:  # babble: simulate with filtered noise (colored noise approximation)
-        noise = np.random.randn(len(audio)).astype(np.float32)
-        from scipy.signal import butter, lfilter
+        noise = rng.randn(len(audio)).astype(np.float32)
+    else:  # babble: band-pass filtered noise approximates speech-shaped noise
+        noise = rng.randn(len(audio)).astype(np.float32)
         b, a_coeff = butter(4, [0.2, 0.6], btype="band")
         noise = lfilter(b, a_coeff, noise).astype(np.float32)
 
@@ -73,8 +77,8 @@ def _add_noise(audio: np.ndarray, noise_type: str, snr_db: float) -> np.ndarray:
     return (audio + noise).astype(np.float32)
 
 
-def _add_reverb(audio: np.ndarray, sr: int, rt60: float) -> np.ndarray:
-    """Add synthetic reverberation using a simple exponential decay model."""
+def _add_reverb(audio: np.ndarray, sr: int, rt60: float, rng) -> np.ndarray:
+    """Add synthetic reverberation using an exponential decay model with diffusion."""
     decay_samples = int(rt60 * sr)
     impulse_len = min(decay_samples, sr * 2)
     impulse = np.zeros(impulse_len, dtype=np.float32)
@@ -83,7 +87,7 @@ def _add_reverb(audio: np.ndarray, sr: int, rt60: float) -> np.ndarray:
     decay_linear = 10 ** (-decay_db_per_sample / 20.0)
     for i in range(1, impulse_len):
         impulse[i] = impulse[i - 1] * decay_linear
-        impulse[i] += np.random.randn() * 0.001
+        impulse[i] += rng.randn() * 0.001
 
     reverbed = np.convolve(audio, impulse, mode="full")[:len(audio)]
     reverbed = reverbed / (np.max(np.abs(reverbed)) + 1e-8)
