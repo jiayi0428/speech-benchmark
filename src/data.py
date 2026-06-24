@@ -1,9 +1,10 @@
 """Audio loading, preprocessing, and noise injection."""
+import json
 import numpy as np
 import librosa
 import soundfile as sf
 from scipy.signal import butter, lfilter
-from typing import Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 
 def load_audio(path: str, target_sr: int = 16000) -> Tuple[np.ndarray, int]:
@@ -100,3 +101,77 @@ def normalize_audio(audio: np.ndarray) -> np.ndarray:
     if peak > 0:
         return audio / peak
     return audio
+
+
+def prepare_clip_metadata(raw_entry: Dict[str, Any]) -> Dict[str, Any]:
+    """Normalize a raw dataset entry to our standard metadata format.
+
+    Args:
+        raw_entry: Dict with at least 'audio_path', 'transcript'.
+
+    Returns:
+        Standardized dict with keys: audio_path, transcript, speaker, duration.
+    """
+    return {
+        "audio_path": raw_entry["audio_path"],
+        "transcript": raw_entry.get("transcript", ""),
+        "speaker": raw_entry.get("speaker", "unknown"),
+        "duration": raw_entry.get("duration", 0.0),
+    }
+
+
+def split_dataset(
+    entries: List[Dict[str, Any]],
+    dev: int,
+    test: int,
+    seed: int = 42,
+) -> Dict[str, List[Dict[str, Any]]]:
+    """Randomly split entries into dev and test sets.
+
+    Args:
+        entries: List of metadata dicts.
+        dev: Number of dev samples.
+        test: Number of test samples.
+        seed: Random seed for reproducibility.
+
+    Returns:
+        {"dev": [...], "test": [...]}
+
+    Raises:
+        ValueError: If dev + test exceeds available entries.
+    """
+    if dev + test > len(entries):
+        raise ValueError(
+            f"Requested {dev + test} samples but only {len(entries)} available."
+        )
+    rng = np.random.RandomState(seed)
+    indices = rng.permutation(len(entries))
+    return {
+        "dev": [entries[i] for i in indices[:dev]],
+        "test": [entries[i] for i in indices[dev:dev + test]],
+    }
+
+
+def generate_noise_variants(
+    clip: Dict[str, Any],
+    conditions: Dict[str, Dict[str, Any]],
+) -> Dict[str, Dict[str, Any]]:
+    """Create metadata entries for all noise variants of a clip.
+
+    Does NOT generate audio files -- creates metadata entries describing
+    which noise condition to apply at inference time.
+
+    Args:
+        clip: Standardized metadata dict.
+        conditions: Dict mapping condition name to noise kwargs.
+
+    Returns:
+        Dict mapping condition name to clip metadata with noise info attached.
+    """
+    variants = {}
+    for cond_name, noise_kwargs in conditions.items():
+        variant = dict(clip)
+        variant["noise_condition"] = cond_name
+        variant["noise_kwargs"] = noise_kwargs
+        variants[cond_name] = variant
+    return variants
