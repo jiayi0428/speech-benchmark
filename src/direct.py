@@ -5,7 +5,7 @@ from typing import Any, Dict
 
 from openai import OpenAI
 
-from src.config import OPENAI_API_KEY, SPEECH_LLM_MODEL
+from src.config import SPEECH_LLM_API_KEY, SPEECH_LLM_MODEL
 
 SYSTEM_PROMPTS = {
     "summarization": (
@@ -53,7 +53,7 @@ class DirectPipeline:
     """GPT-4o Audio mode pipeline for end-to-end speech understanding."""
 
     def __init__(self) -> None:
-        self.client = OpenAI(api_key=OPENAI_API_KEY)
+        self.client = OpenAI(api_key=SPEECH_LLM_API_KEY)
         self.model = SPEECH_LLM_MODEL
 
     def run(self, audio_path: str, task: str) -> Dict[str, Any]:
