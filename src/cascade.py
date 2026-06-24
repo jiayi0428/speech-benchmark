@@ -11,7 +11,8 @@ from src.config import (
     WHISPER_DEVICE,
     WHISPER_COMPUTE_TYPE,
     TEXT_LLM_MODEL,
-    OPENAI_API_KEY,
+    TEXT_LLM_API_KEY,
+    TEXT_LLM_BASE_URL,
 )
 
 logger = logging.getLogger(__name__)
@@ -60,8 +61,11 @@ class CascadePipeline:
             device=WHISPER_DEVICE,
             compute_type=WHISPER_COMPUTE_TYPE,
         )
-        if OPENAI_API_KEY:
-            self.client = OpenAI(api_key=OPENAI_API_KEY)
+        if TEXT_LLM_API_KEY:
+            self.client = OpenAI(
+                api_key=TEXT_LLM_API_KEY,
+                base_url=TEXT_LLM_BASE_URL,
+            )
         else:
             self.client = None  # type: ignore[assignment]
 
@@ -82,7 +86,7 @@ class CascadePipeline:
         """Send transcript to GPT-4o-mini for task inference."""
         if self.client is None:
             raise RuntimeError(
-                "OpenAI client not initialized – OPENAI_API_KEY is not set."
+                "OpenAI client not initialized – no API key found. Set OPENAI_API_KEY or DEEPSEEK_API_KEY in .env."
             )
         system_prompt = SYSTEM_PROMPTS.get(task, SYSTEM_PROMPTS["summarization"])
         response = self.client.chat.completions.create(

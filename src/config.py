@@ -30,9 +30,32 @@ else:
     WHISPER_DEVICE = _WHISPER_DEVICE_RAW
 WHISPER_COMPUTE_TYPE = "float16" if WHISPER_DEVICE == "cuda" else "int8"
 
-# --- API Models ---
-TEXT_LLM_MODEL = "gpt-4o-mini"
+# --- API Provider Selection ---
+# Supports OpenAI and DeepSeek (OpenAI-compatible API)
+# Priority: OPENAI_API_KEY > DEEPSEEK_API_KEY
+_OPENAI_KEY = os.getenv("OPENAI_API_KEY")
+_DEEPSEEK_KEY = os.getenv("DEEPSEEK_API_KEY")
+
+if _OPENAI_KEY:
+    TEXT_LLM_PROVIDER = "openai"
+    TEXT_LLM_MODEL = "gpt-4o-mini"
+    TEXT_LLM_BASE_URL = "https://api.openai.com/v1"
+    TEXT_LLM_API_KEY = _OPENAI_KEY
+elif _DEEPSEEK_KEY:
+    TEXT_LLM_PROVIDER = "deepseek"
+    TEXT_LLM_MODEL = "deepseek-chat"
+    TEXT_LLM_BASE_URL = "https://api.deepseek.com"
+    TEXT_LLM_API_KEY = _DEEPSEEK_KEY
+else:
+    TEXT_LLM_PROVIDER = None
+    TEXT_LLM_MODEL = "gpt-4o-mini"  # fallback
+    TEXT_LLM_BASE_URL = "https://api.openai.com/v1"
+    TEXT_LLM_API_KEY = None
+
+# --- Speech LLM (Direct Pipeline) ---
+# Only OpenAI supports audio mode currently
 SPEECH_LLM_MODEL = "gpt-4o-audio-preview"
+SPEECH_LLM_API_KEY = _OPENAI_KEY  # requires real OpenAI key
 
 # --- Audio ---
 SAMPLE_RATE = 16000
@@ -55,11 +78,10 @@ NOISE_CONDITIONS = {
 # --- Tasks ---
 TASKS = ["summarization", "sentiment", "keywords", "intent"]
 
-# --- API Key ---
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-if not OPENAI_API_KEY:
+# --- API Key Validation ---
+if not _OPENAI_KEY and not _DEEPSEEK_KEY:
     import warnings
     warnings.warn(
-        "OPENAI_API_KEY not set. LLM-based tasks will fail. "
-        "Copy .env.example to .env and fill in your key."
+        "No API key found. Set OPENAI_API_KEY or DEEPSEEK_API_KEY in .env. "
+        "LLM-based tasks will fail."
     )
