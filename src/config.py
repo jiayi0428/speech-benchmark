@@ -18,8 +18,17 @@ for d in [RAW_DIR, PROCESSED_DIR, RESULTS_DIR]:
 
 # --- ASR Model ---
 WHISPER_MODEL = "large-v3"
-WHISPER_DEVICE = "cuda"
-WHISPER_COMPUTE_TYPE = "float16"
+_WHISPER_DEVICE_RAW = os.getenv("WHISPER_DEVICE", "auto")
+if _WHISPER_DEVICE_RAW == "auto":
+    try:
+        import torch
+
+        WHISPER_DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+    except ImportError:
+        WHISPER_DEVICE = "cpu"
+else:
+    WHISPER_DEVICE = _WHISPER_DEVICE_RAW
+WHISPER_COMPUTE_TYPE = "float16" if WHISPER_DEVICE == "cuda" else "int8"
 
 # --- API Models ---
 TEXT_LLM_MODEL = "gpt-4o-mini"
@@ -49,4 +58,8 @@ TASKS = ["summarization", "sentiment", "keywords", "intent"]
 # --- API Key ---
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
-    raise RuntimeError("OPENAI_API_KEY not set. Copy .env.example to .env and fill in your key.")
+    import warnings
+    warnings.warn(
+        "OPENAI_API_KEY not set. LLM-based tasks will fail. "
+        "Copy .env.example to .env and fill in your key."
+    )
