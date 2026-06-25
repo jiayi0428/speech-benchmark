@@ -1,6 +1,6 @@
 # Cascade vs End-to-End: A Robustness-Aware Benchmark of Speech Understanding Architectures
 
-**Author:** [Your Name]
+**Author:** Jiayi Li
 **Date:** June–August 2026
 **Course:** Undergraduate Summer Research
 
