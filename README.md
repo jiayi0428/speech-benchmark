@@ -8,10 +8,11 @@ An undergraduate summer research project comparing two speech understanding arch
 
 | | Cascade Pipeline | Direct Pipeline |
 |---|---|---|
-| **Approach** | faster-whisper (ASR) → GPT-4o-mini (text) | GPT-4o Audio mode (end-to-end) |
+| **Approach** | faster-whisper (ASR) → DeepSeek-chat (text) | Qwen2-Audio-7B (end-to-end, local) |
 | **Speech cues** | Lost in transcription | Captured (tone, prosody) |
-| **Cost** | ~$0.004/task | ~$0.018/task |
-| **Hardware** | Local GPU for ASR + API | API only |
+| **Cost** | ~$0.0005/task | FREE (local GPU) |
+| **Latency** | ~12.5s avg | ~60.5s avg |
+| **Hardware** | Local GPU + API | Local GPU only |
 
 ## Tasks Evaluated
 
