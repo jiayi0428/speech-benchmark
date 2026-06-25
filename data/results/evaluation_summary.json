@@ -1,0 +1,17 @@
+{
+  "cascade_avg_latency": 12.5065,
+  "direct_avg_latency": 60.544375,
+  "latency_ratio": 4.841032663015232,
+  "cascade_scores": {
+    "Summarization": 1.0,
+    "Sentiment": 0.9,
+    "Keywords": 0.75,
+    "Intent": 0.9
+  },
+  "direct_scores": {
+    "Summarization": 1.0,
+    "Sentiment": 0.3,
+    "Keywords": 0.3,
+    "Intent": 0.4
+  }
+}
