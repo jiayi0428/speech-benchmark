@@ -38,3 +38,4 @@ data/results/*
 # Jupyter
 .ipynb_checkpoints/
 test_smoke.wav
+_smoke_qwen.py

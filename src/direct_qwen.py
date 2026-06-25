@@ -9,7 +9,11 @@ from typing import Any, Dict
 
 import librosa
 import torch
-from transformers import AutoProcessor, Qwen2AudioForConditionalGeneration
+from transformers import (
+    AutoProcessor,
+    BitsAndBytesConfig,
+    Qwen2AudioForConditionalGeneration,
+)
 
 from src.config import SAMPLE_RATE
 
@@ -50,12 +54,16 @@ class QwenAudioPipeline:
 
         self.processor = AutoProcessor.from_pretrained(MODEL_ID, trust_remote_code=True)
 
+        quantization_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.float16,
+        )
+
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             self.model = Qwen2AudioForConditionalGeneration.from_pretrained(
                 MODEL_ID,
-                load_in_4bit=True,
-                bnb_4bit_compute_dtype=torch.float16,
+                quantization_config=quantization_config,
                 device_map="auto",
                 trust_remote_code=True,
             )
@@ -93,7 +101,7 @@ class QwenAudioPipeline:
         )
         inputs = self.processor(
             text=text,
-            audios=[audio],
+            audio=[audio],
             return_tensors="pt",
             sampling_rate=self.sample_rate,
         )
