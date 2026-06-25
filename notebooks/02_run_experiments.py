@@ -10,7 +10,6 @@ import json
 from pathlib import Path
 from tqdm import tqdm
 from src.cascade import CascadePipeline
-from src.direct_gemini import GeminiDirectPipeline
 from src.data import load_audio, inject_noise, save_audio
 from src.config import PROCESSED_DIR, RESULTS_DIR, TASKS, SPEECH_LLM_PROVIDER
 
@@ -22,8 +21,19 @@ RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 # %%
 print("Loading Cascade pipeline...")
 cascade = CascadePipeline()
-print(f"Loading Direct pipeline ({SPEECH_LLM_PROVIDER})...")
-direct = GeminiDirectPipeline()
+# Auto-select Direct pipeline based on available API keys
+if SPEECH_LLM_PROVIDER == "gemini":
+    from src.direct_gemini import GeminiDirectPipeline
+    DirectClass = GeminiDirectPipeline
+elif SPEECH_LLM_PROVIDER == "openai":
+    from src.direct import DirectPipeline
+    DirectClass = DirectPipeline
+else:
+    from src.direct_qwen import QwenAudioPipeline
+    DirectClass = QwenAudioPipeline
+
+print(f"Loading Direct pipeline ({SPEECH_LLM_PROVIDER}: {DirectClass.__name__})...")
+direct = DirectClass()
 print("Both pipelines ready.")
 
 # %% [markdown]

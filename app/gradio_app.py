@@ -6,15 +6,25 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 import gradio as gr
 import tempfile
 from src.cascade import CascadePipeline
-from src.direct_gemini import GeminiDirectPipeline
 from src.data import inject_noise, load_audio, save_audio
 from src.config import TASKS, SPEECH_LLM_PROVIDER
 
-# Load pipelines once at startup (may download models on first run)
-print("Loading Cascade pipeline (faster-whisper + DeepSeek)...")
+# Auto-select Direct pipeline
+if SPEECH_LLM_PROVIDER == "gemini":
+    from src.direct_gemini import GeminiDirectPipeline
+    DirectClass = GeminiDirectPipeline
+elif SPEECH_LLM_PROVIDER == "openai":
+    from src.direct import DirectPipeline
+    DirectClass = DirectPipeline
+else:
+    from src.direct_qwen import QwenAudioPipeline
+    DirectClass = QwenAudioPipeline
+
+# Load pipelines once at startup
+print(f"Loading Cascade pipeline (faster-whisper + DeepSeek)...")
 cascade = CascadePipeline()
-print(f"Loading Direct pipeline ({SPEECH_LLM_PROVIDER})...")
-direct = GeminiDirectPipeline()
+print(f"Loading Direct pipeline ({SPEECH_LLM_PROVIDER}: {DirectClass.__name__})...")
+direct = DirectClass()
 print("Both pipelines ready!")
 
 NOISE_CHOICES = [

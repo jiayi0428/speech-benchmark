@@ -53,8 +53,8 @@ else:
     TEXT_LLM_API_KEY = None
 
 # --- Speech LLM (Direct Pipeline) ---
-# Supports: OpenAI GPT-4o Audio (paid) or Gemini (free tier)
-# Priority: GEMINI_API_KEY > OPENAI_API_KEY (audio)
+# Supports: Gemini (free API), OpenAI GPT-4o Audio (paid), Qwen2-Audio (local)
+# Priority: GEMINI_API_KEY > OPENAI_API_KEY > local Qwen2-Audio
 _GEMINI_KEY = os.getenv("GEMINI_API_KEY")
 
 if _GEMINI_KEY:
@@ -66,8 +66,9 @@ elif _OPENAI_KEY:
     SPEECH_LLM_MODEL = "gpt-4o-audio-preview"
     SPEECH_LLM_API_KEY = _OPENAI_KEY
 else:
-    SPEECH_LLM_PROVIDER = None
-    SPEECH_LLM_MODEL = "gemini-2.5-flash"
+    # Fallback to local Qwen2-Audio (no API key required)
+    SPEECH_LLM_PROVIDER = "qwen"
+    SPEECH_LLM_MODEL = "Qwen/Qwen2-Audio-7B-Instruct"
     SPEECH_LLM_API_KEY = None
 
 # --- Audio ---
