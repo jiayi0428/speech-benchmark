@@ -53,9 +53,22 @@ else:
     TEXT_LLM_API_KEY = None
 
 # --- Speech LLM (Direct Pipeline) ---
-# Only OpenAI supports audio mode currently
-SPEECH_LLM_MODEL = "gpt-4o-audio-preview"
-SPEECH_LLM_API_KEY = _OPENAI_KEY  # requires real OpenAI key
+# Supports: OpenAI GPT-4o Audio (paid) or Gemini (free tier)
+# Priority: GEMINI_API_KEY > OPENAI_API_KEY (audio)
+_GEMINI_KEY = os.getenv("GEMINI_API_KEY")
+
+if _GEMINI_KEY:
+    SPEECH_LLM_PROVIDER = "gemini"
+    SPEECH_LLM_MODEL = "gemini-2.5-flash"
+    SPEECH_LLM_API_KEY = _GEMINI_KEY
+elif _OPENAI_KEY:
+    SPEECH_LLM_PROVIDER = "openai"
+    SPEECH_LLM_MODEL = "gpt-4o-audio-preview"
+    SPEECH_LLM_API_KEY = _OPENAI_KEY
+else:
+    SPEECH_LLM_PROVIDER = None
+    SPEECH_LLM_MODEL = "gemini-2.5-flash"
+    SPEECH_LLM_API_KEY = None
 
 # --- Audio ---
 SAMPLE_RATE = 16000
@@ -79,9 +92,9 @@ NOISE_CONDITIONS = {
 TASKS = ["summarization", "sentiment", "keywords", "intent"]
 
 # --- API Key Validation ---
-if not _OPENAI_KEY and not _DEEPSEEK_KEY:
+if not _OPENAI_KEY and not _DEEPSEEK_KEY and not _GEMINI_KEY:
     import warnings
     warnings.warn(
-        "No API key found. Set OPENAI_API_KEY or DEEPSEEK_API_KEY in .env. "
-        "LLM-based tasks will fail."
+        "No API key found. Set DEEPSEEK_API_KEY, GEMINI_API_KEY, or OPENAI_API_KEY "
+        "in .env. LLM and speech tasks will fail."
     )

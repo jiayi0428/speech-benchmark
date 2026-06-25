@@ -10,9 +10,9 @@ import json
 from pathlib import Path
 from tqdm import tqdm
 from src.cascade import CascadePipeline
-from src.direct import DirectPipeline
+from src.direct_gemini import GeminiDirectPipeline
 from src.data import load_audio, inject_noise, save_audio
-from src.config import PROCESSED_DIR, RESULTS_DIR, TASKS
+from src.config import PROCESSED_DIR, RESULTS_DIR, TASKS, SPEECH_LLM_PROVIDER
 
 RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -22,8 +22,8 @@ RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 # %%
 print("Loading Cascade pipeline...")
 cascade = CascadePipeline()
-print("Loading Direct pipeline...")
-direct = DirectPipeline()
+print(f"Loading Direct pipeline ({SPEECH_LLM_PROVIDER})...")
+direct = GeminiDirectPipeline()
 print("Both pipelines ready.")
 
 # %% [markdown]

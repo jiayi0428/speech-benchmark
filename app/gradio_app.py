@@ -6,15 +6,15 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 import gradio as gr
 import tempfile
 from src.cascade import CascadePipeline
-from src.direct import DirectPipeline
+from src.direct_gemini import GeminiDirectPipeline
 from src.data import inject_noise, load_audio, save_audio
-from src.config import TASKS
+from src.config import TASKS, SPEECH_LLM_PROVIDER
 
 # Load pipelines once at startup (may download models on first run)
-print("Loading Cascade pipeline (faster-whisper + GPT-4o-mini)...")
+print("Loading Cascade pipeline (faster-whisper + DeepSeek)...")
 cascade = CascadePipeline()
-print("Loading Direct pipeline (GPT-4o Audio)...")
-direct = DirectPipeline()
+print(f"Loading Direct pipeline ({SPEECH_LLM_PROVIDER})...")
+direct = GeminiDirectPipeline()
 print("Both pipelines ready!")
 
 NOISE_CHOICES = [
@@ -84,8 +84,8 @@ with gr.Blocks(title="Speech Understanding Benchmark", theme=gr.themes.Soft()) a
 
     Upload an audio file and see how two different AI architectures understand it side-by-side.
 
-    - **Cascade (left):** faster-whisper transcribes, then GPT-4o-mini analyzes the text
-    - **Direct (right):** GPT-4o listens to the audio directly, including tone and emotion
+    - **Cascade (left):** faster-whisper transcribes, then DeepSeek analyzes the text
+    - **Direct (right):** Gemini 2.5 Flash listens to the audio directly, including tone and emotion
     """)
 
     with gr.Row():
@@ -122,7 +122,7 @@ with gr.Blocks(title="Speech Understanding Benchmark", theme=gr.themes.Soft()) a
             )
 
         with gr.Column():
-            gr.Markdown("### 🚀 Direct (GPT-4o Audio)")
+            gr.Markdown("### 🚀 Direct (Gemini 2.5 Flash)")
             direct_summary_out = gr.Textbox(
                 label="📊 Summary", lines=4, interactive=False
             )
@@ -151,11 +151,11 @@ with gr.Blocks(title="Speech Understanding Benchmark", theme=gr.themes.Soft()) a
     ---
     ### Architecture Comparison
 
-    | | 🔧 Cascade (ASR + LLM) | 🚀 Direct (GPT-4o Audio) |
+    | | 🔧 Cascade (ASR + LLM) | 🚀 Direct (Gemini Audio) |
     |---|------------------------|---------------------------|
-    | **How it works** | Whisper transcribes audio → GPT-4o-mini reads text | GPT-4o listens to audio directly |
+    | **How it works** | Whisper transcribes audio → DeepSeek reads text | Gemini listens to audio directly |
     | **Speech cues** | Lost (tone, pace, emotion not in text) | Captured (prosody, tone, emphasis) |
-    | **Cost per run** | ~$0.004 | ~$0.018 |
+    | **Cost per run** | ~$0.0005 (DeepSeek) | Free (Gemini tier) |
     | **Latency** | ~2-3s | ~3-5s |
     | **Best for** | Factual tasks, cost-sensitive apps | Emotion-heavy, nuanced understanding |
     """)

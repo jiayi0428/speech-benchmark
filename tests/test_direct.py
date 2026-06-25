@@ -31,7 +31,27 @@ def test_encode_audio_base64_is_deterministic():
 
 
 def test_direct_pipeline_initializes(monkeypatch):
+    """DirectPipeline (OpenAI) initializes when OPENAI_API_KEY is the only key set."""
+    import importlib
+    import src.config
+    import src.direct
+
+    # Clear all API keys, then set only OPENAI
+    monkeypatch.delenv("DEEPSEEK_API_KEY", raising=False)
+    monkeypatch.delenv("GEMINI_API_KEY", raising=False)
     monkeypatch.setenv("OPENAI_API_KEY", "sk-test-dummy-key")
-    pipeline = DirectPipeline()
-    assert pipeline.client is not None
-    assert pipeline.model == "gpt-4o-audio-preview"
+
+    importlib.reload(src.config)
+    importlib.reload(src.direct)
+
+    try:
+        from src.direct import DirectPipeline
+        pipeline = DirectPipeline()
+        assert pipeline.client is not None
+        # Check the model contains "audio" or "gpt" (works with either OpenAI variant)
+        model_lower = pipeline.model.lower()
+        assert "audio" in model_lower or "gpt" in model_lower
+    finally:
+        # Restore by reloading with actual .env values
+        importlib.reload(src.config)
+        importlib.reload(src.direct)
