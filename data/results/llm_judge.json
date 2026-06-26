@@ -1,0 +1,202 @@
+[
+  {
+    "cascade_score": 9,
+    "direct_score": 8,
+    "winner": "A",
+    "reason": "System A is more concise and closer to the ground truth without adding extraneous details like 'drought-resistant crops' or 'fighting cancer' that were not in the original, while maintaining high accuracy and completeness.",
+    "sample": "science_crispr",
+    "task": "summarization",
+    "cascade_output": "CRISPR enables precise DNA modification, offering transformative potential for treating genetic dise",
+    "direct_output": "CRISPR gene editing technology allows scientists to modify DNA with unprecedented precision, which h"
+  },
+  {
+    "cascade_score": 9,
+    "direct_score": 10,
+    "winner": "B",
+    "reason": "System B is more accurate and complete, closely matching the ground truth's phrasing and details, while System A omits the 'golden age' metaphor and slightly rephrases the discoveries.",
+    "sample": "science_space",
+    "task": "summarization",
+    "cascade_output": "Space exploration is experiencing a renaissance, driven by private companies creating cost-effective",
+    "direct_output": "Space exploration has entered a new golden age. Private companies are developing reusable rockets th"
+  },
+  {
+    "cascade_score": 8,
+    "direct_score": 9,
+    "winner": "B",
+    "reason": "System B is more concise and closely matches the ground truth's key points without adding extra details, while System A includes unsupported claims about saving millions of lives and matching human accuracy, reducing conciseness and accuracy.",
+    "sample": "tech_ai_healthcare",
+    "task": "summarization",
+    "cascade_output": "AI is revolutionizing healthcare by enabling faster, more accurate disease detection from medical im",
+    "direct_output": "AI is transforming healthcare through faster diagnosis and personalized treatment plans. Machine lea"
+  },
+  {
+    "cascade_score": 8,
+    "direct_score": 7,
+    "winner": "A",
+    "reason": "System A is more accurate and complete, explicitly covering all three learning styles and real-time adaptation, while System B omits the specific learning styles and is less comprehensive.",
+    "sample": "tech_education",
+    "task": "summarization",
+    "cascade_output": "AI-powered personalized learning tailors education to individual student needs, adapting to differen",
+    "direct_output": "The future of education lies in personalized learning powered by artificial intelligence. AI tutors "
+  },
+  {
+    "cascade_score": 9,
+    "direct_score": 9,
+    "winner": "tie",
+    "reason": "Both systems accurately capture all key information from the ground truth with high completeness and conciseness, differing only in minor phrasing, making them equally good.",
+    "sample": "tech_quantum",
+    "task": "summarization",
+    "cascade_output": "Quantum computing marks a fundamental shift from classical computing by using quantum bits (qubits) ",
+    "direct_output": "Quantum computing represents a fundamental shift in how we process information by allowing quantum b"
+  },
+  {
+    "cascade_score": 10,
+    "direct_score": 1,
+    "winner": "A",
+    "reason": "System A perfectly matches the ground truth with a neutral sentiment and high confidence, while System B provides an irrelevant, detailed statement about genetic diseases and crops that completely ignores the required neutral sentiment output.",
+    "sample": "science_crispr",
+    "task": "sentiment",
+    "cascade_output": "{\"sentiment\": \"neutral\", \"confidence\": 0.85}",
+    "direct_output": "Enormous potential for treating genetic diseases, developing drought-resistant crops, and even fight"
+  },
+  {
+    "cascade_score": 10,
+    "direct_score": 8,
+    "winner": "A",
+    "reason": "System A provides the exact sentiment with a confidence score in the required JSON format, while System B is correct but lacks the structured output and confidence detail.",
+    "sample": "science_space",
+    "task": "sentiment",
+    "cascade_output": "{\"sentiment\": \"positive\", \"confidence\": 0.95}",
+    "direct_output": "positive"
+  },
+  {
+    "cascade_score": 10,
+    "direct_score": 6,
+    "winner": "A",
+    "reason": "System A accurately captures the ground truth sentiment with a structured JSON output including a confidence score, while System B is correct but lacks completeness and format compliance by omitting the required JSON structure and confidence metric.",
+    "sample": "tech_ai_healthcare",
+    "task": "sentiment",
+    "cascade_output": "{\"sentiment\": \"positive\", \"confidence\": 0.85}",
+    "direct_output": "Positive."
+  },
+  {
+    "cascade_score": 10,
+    "direct_score": 1,
+    "winner": "A",
+    "reason": "System A accurately extracts the sentiment 'positive' in the required JSON format, while System B outputs an irrelevant sentence that completely misses the ground truth.",
+    "sample": "tech_education",
+    "task": "sentiment",
+    "cascade_output": "{\"sentiment\": \"positive\", \"confidence\": 0.9}",
+    "direct_output": "The future of education lies in personalized learning powered by artificial intelligence."
+  },
+  {
+    "cascade_score": 10,
+    "direct_score": 1,
+    "winner": "A",
+    "reason": "System A accurately outputs the requested neutral sentiment in the correct JSON format, while System B provides an irrelevant factual statement that completely ignores the ground truth.",
+    "sample": "tech_quantum",
+    "task": "sentiment",
+    "cascade_output": "{\"sentiment\": \"neutral\", \"confidence\": 0.95}",
+    "direct_output": "Quantum computing represents a fundamental shift in how we process information."
+  },
+  {
+    "cascade_score": 8,
+    "direct_score": 7,
+    "winner": "A",
+    "reason": "System A is more accurate and complete, including all ground truth terms plus relevant extras, while System B misses 'DNA modification' and 'ethics' explicitly, and is less comprehensive.",
+    "sample": "science_crispr",
+    "task": "keywords",
+    "cascade_output": "[\"CRISPR gene editing\", \"DNA modification\", \"genetic diseases\", \"drought-resistant crops\", \"cancer t",
+    "direct_output": "CRISPR gene editing technology, genetic diseases, drought-resistant crops, cancer treatment, ethical"
+  },
+  {
+    "cascade_score": 7,
+    "direct_score": 9,
+    "winner": "B",
+    "reason": "System B matches the ground truth exactly in content and format, while System A adds extra terms not present in the ground truth, reducing accuracy and conciseness.",
+    "sample": "science_space",
+    "task": "keywords",
+    "cascade_output": "[\"space exploration\", \"reusable rockets\", \"NASA\", \"return to the moon\", \"Mars missions\", \"James Webb",
+    "direct_output": "\"space exploration, reusable rockets, nasa, moon, mars, james webb space telescope, early universe\""
+  },
+  {
+    "cascade_score": 8,
+    "direct_score": 9,
+    "winner": "B",
+    "reason": "System B is more complete and natural, covering all ground truth concepts in a coherent sentence, while System A is fragmented and lacks the explicit mention of 'bias' and 'diagnosis' as a unified concept.",
+    "sample": "tech_ai_healthcare",
+    "task": "keywords",
+    "cascade_output": "[\"AI in healthcare\", \"faster diagnosis\", \"personalized treatment plans\", \"machine learning models\", ",
+    "direct_output": "AI transforming healthcare through faster diagnosis and personalized treatment plans, machine learni"
+  },
+  {
+    "cascade_score": 8,
+    "direct_score": 5,
+    "winner": "A",
+    "reason": "System A captures more key terms from the ground truth and provides a comprehensive, concise list, while System B is overly brief and misses most of the required concepts.",
+    "sample": "tech_education",
+    "task": "keywords",
+    "cascade_output": "[\"personalized learning\", \"artificial intelligence\", \"AI tutors\", \"learning styles\", \"visual learner",
+    "direct_output": "The future of education lies in personalized learning powered by artificial intelligence."
+  },
+  {
+    "cascade_score": 7,
+    "direct_score": 6,
+    "winner": "A",
+    "reason": "System A includes more key terms from the ground truth (qubits, classical bits, exponential speedup) and adds relevant context, while System B misses 'qubits' and 'classical bits' and is less complete.",
+    "sample": "tech_quantum",
+    "task": "keywords",
+    "cascade_output": "[\"quantum computing\", \"superposition\", \"quantum bits\", \"classical bits\", \"information processing\", \"",
+    "direct_output": "quantum computing, superposition, exponential speedup, classical computers"
+  },
+  {
+    "cascade_score": 10,
+    "direct_score": 1,
+    "winner": "A",
+    "reason": "System A accurately and concisely outputs the required intent in the specified JSON format, while System B provides an irrelevant, verbose paragraph about CRISPR that completely ignores the ground truth.",
+    "sample": "science_crispr",
+    "task": "intent",
+    "cascade_output": "{\"intent\": \"inform\", \"confidence\": 0.95}",
+    "direct_output": "CRISPR gene editing technology has enormous potential for treating genetic diseases, developing drou"
+  },
+  {
+    "cascade_score": 10,
+    "direct_score": 1,
+    "winner": "A",
+    "reason": "System A exactly matches the ground truth intent with high confidence in the required format, while System B provides an irrelevant description of content instead of the requested intent.",
+    "sample": "science_space",
+    "task": "intent",
+    "cascade_output": "{\"intent\": \"inform\", \"confidence\": 0.95}",
+    "direct_output": "The speech is about space exploration."
+  },
+  {
+    "cascade_score": 10,
+    "direct_score": 3,
+    "winner": "A",
+    "reason": "System A exactly matches the ground truth intent with correct format and no extra information, while System B adds unsupported details and fails to comply with the required concise intent-only output.",
+    "sample": "tech_ai_healthcare",
+    "task": "intent",
+    "cascade_output": "{\"intent\": \"inform\", \"confidence\": 0.9}",
+    "direct_output": "The primary communicative intent is to inform about AI's impact on healthcare through faster diagnos"
+  },
+  {
+    "cascade_score": 1,
+    "direct_score": 1,
+    "winner": "tie",
+    "reason": "Both systems completely fail to match the ground truth intent 'inform', with System A outputting an unrelated intent and System B providing a generic statement about education.",
+    "sample": "tech_education",
+    "task": "intent",
+    "cascade_output": "{\"intent\": \"persuade\", \"confidence\": 0.85}",
+    "direct_output": "The future of education lies in personalized learning powered by artificial intelligence."
+  },
+  {
+    "cascade_score": 10,
+    "direct_score": 1,
+    "winner": "A",
+    "reason": "System A exactly matches the ground truth intent with proper format, while System B outputs an irrelevant factual statement that completely misses the required intent.",
+    "sample": "tech_quantum",
+    "task": "intent",
+    "cascade_output": "{\"intent\": \"inform\", \"confidence\": 0.95}",
+    "direct_output": "quantum computing represents a fundamental shift in how we process information."
+  }
+]
