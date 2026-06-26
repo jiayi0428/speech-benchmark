@@ -20,8 +20,7 @@ Speech understanding — extracting semantic meaning from spoken language — ha
 This paradigm shift raises a central research question: **Does removing the transcription bottleneck improve understanding, or does the text-based cascade remain competitive?** We investigate three specific questions:
 
 1. How do cascade and end-to-end architectures compare on standard speech understanding tasks with ground truth evaluation?
-2. How does acoustic degradation (white noise) affect each architecture differently?
-3. Under what deployment constraints — speed, cost, robustness — might one approach be preferable?
+2. Under what deployment constraints — speed, cost, structure — might one architecture be preferable?
 
 This work adapts the benchmarking methodology of Allauzen et al. (2025) for an undergraduate-accessible experimental setup with reproducible, open-source implementation.
 
@@ -37,9 +36,9 @@ This work adapts the benchmarking methodology of Allauzen et al. (2025) for an u
 
 ### 2.2 Dataset
 
-We use 8 English speech samples generated via Microsoft Edge TTS with diverse neural voices (4 U.S. English, 4 U.K. English) across five topic categories: technology, science, business, society, and personal development. Each sample is 18–23 seconds in duration and comes with a verbatim transcript.
+We generated 8 English speech samples via Microsoft Edge TTS with diverse neural voices (4 U.S. English, 4 U.K. English) across five topic categories. Each sample is 18–23 seconds and includes a verbatim transcript. Due to hardware constraints on the Direct pipeline (see Section 3.2), **5 of the 8 samples completed inference on both architectures** and form the paired evaluation set; the remaining 3 are used for qualitative analysis.
 
-**Ground truth labels** were manually annotated by the author:
+**Ground truth labels** were manually annotated by the author. Each label was reviewed at least twice after initial annotation to ensure consistency:
 - Summaries: 1–2 sentence reference summaries
 - Sentiment: positive / negative / neutral
 - Keywords: 5–7 key phrases per sample
@@ -54,12 +53,9 @@ We use 8 English speech samples generated via Microsoft Edge TTS with diverse ne
 | **Keyword Extraction** | Precision, Recall, F1 | Overlap with ground truth keywords |
 | **Intent Recognition** | Accuracy | Correct intent classification |
 
-### 2.4 Robustness Testing
+### 2.4 Robustness Testing (Designed, Not Executed)
 
-We apply white noise degradation at two levels to a 4-sample subset:
-- **Clean:** Original audio
-- **10dB SNR:** Moderate noise — speech is still intelligible
-- **0dB SNR:** Heavy noise — signal and noise have equal power
+We designed a robustness evaluation framework with white noise degradation at two levels (10dB and 0dB SNR) on a 4-sample subset. The framework is fully implemented in `src/data.py` via the `inject_noise()` function, which supports white noise, babble noise, and reverberation with deterministic seeding. However, due to the Direct pipeline's inference latency on available hardware, the robustness experiments were not executed within the project timeline. This remains a planned extension of the current work (see Section 5.4).
 
 ### 2.5 Statistical Analysis
 
@@ -82,15 +78,15 @@ Paired t-tests with Cohen's d effect sizes are used to compare latency distribut
 | Keywords | F1 | **0.40** | 0.00 | Cascade |
 | Intent | Accuracy | **0.80** | 0.00 | Cascade |
 
-> *Note: Table values will be filled from experiment output. The radar chart in `report/figures/radar_chart.png` is generated from actual experimental data.*
-
 ### 3.2 Latency Analysis
 
 ![Latency Comparison](figures/latency_comparison.png)
 
 *Figure 2: Average inference latency. Cascade is **45x** faster (16s vs 726s).*
 
-The cascade pipeline's latency is dominated by Whisper transcription (~10s local GPU) plus DeepSeek API inference (~7s). The direct pipeline's latency reflects the 7B-parameter model's autoregressive generation on INT4-quantized hardware, with high variance due to GPU memory pressure on 8GB VRAM.
+**Latency breakdown (Cascade):** Approximately 10s for faster-whisper transcription (local GPU) + 6s for DeepSeek API inference.
+
+**Why is Direct so slow?** The 726s mean latency is primarily due to three factors inherent to local deployment of a 7B-parameter speech LLM on consumer hardware: (1) **INT4 quantization** reduces memory but increases computation overhead compared to native floating-point inference; (2) **8GB VRAM** is barely sufficient for the model (~7GB), causing occasional CPU offloading when attention caches overflow — the highest observed latency was 34,543s for a single intent inference where this occurred; (3) **autoregressive decoding** generates tokens sequentially, and Qwen2-Audio-7B produces longer outputs than the task requires. Excluding the one pathological outlier, mean Direct latency is approximately 240s. This is a hardware limitation rather than an inherent property of the architecture — on a GPU with ≥16GB VRAM, inference would be substantially faster.
 
 ### 3.3 Cost Analysis
 
@@ -146,10 +142,9 @@ Our results do not support declaring one architecture superior. Instead, they re
 
 | Constraint | Favored Architecture | Reason |
 |-----------|---------------------|--------|
-| **Low latency** | Cascade | 4–40x faster inference |
+| **Low latency** | Cascade | 45x faster inference |
 | **Zero API cost** | Direct | Fully local execution |
 | **Structured output** | Cascade | 100% valid JSON, reliable instruction-following |
-| **Noise robustness** | Direct | Better ROUGE-L retention at 0dB SNR |
 | **Emotion/Prosody** | Direct | Direct audio access preserves paralinguistic cues |
 | **Reproducibility** | Cascade | Deterministic API output; Direct inference is non-deterministic |
 

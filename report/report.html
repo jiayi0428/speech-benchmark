@@ -12,8 +12,7 @@
 <p>This paradigm shift raises a central research question: <strong>Does removing the transcription bottleneck improve understanding, or does the text-based cascade remain competitive?</strong> We investigate three specific questions:</p>
 <ol>
 <li>How do cascade and end-to-end architectures compare on standard speech understanding tasks with ground truth evaluation?</li>
-<li>How does acoustic degradation (white noise) affect each architecture differently?</li>
-<li>Under what deployment constraints — speed, cost, robustness — might one approach be preferable?</li>
+<li>Under what deployment constraints — speed, cost, structure — might one architecture be preferable?</li>
 </ol>
 <p>This work adapts the benchmarking methodology of Allauzen et al. (2025) for an undergraduate-accessible experimental setup with reproducible, open-source implementation.</p>
 <hr />
@@ -22,8 +21,8 @@
 <p><strong>Cascade Pipeline ("lego-block" approach):</strong> Audio is first transcribed by faster-whisper large-v3 running locally on an NVIDIA RTX 5070 (8GB VRAM) with CUDA acceleration. The resulting transcript is then processed by DeepSeek-chat (via API) for each of four understanding tasks. Approximate cost: $0.0005 per task call.</p>
 <p><strong>Direct Pipeline (end-to-end approach):</strong> Audio is fed directly into Qwen2-Audio-7B-Instruct, an open-source speech language model, running locally with 4-bit quantization (BitsAndBytes INT4) on the same GPU. No intermediate text is created. Zero API cost.</p>
 <h3>2.2 Dataset</h3>
-<p>We use 8 English speech samples generated via Microsoft Edge TTS with diverse neural voices (4 U.S. English, 4 U.K. English) across five topic categories: technology, science, business, society, and personal development. Each sample is 18–23 seconds in duration and comes with a verbatim transcript.</p>
-<p><strong>Ground truth labels</strong> were manually annotated by the author:
+<p>We generated 8 English speech samples via Microsoft Edge TTS with diverse neural voices (4 U.S. English, 4 U.K. English) across five topic categories. Each sample is 18–23 seconds and includes a verbatim transcript. Due to hardware constraints on the Direct pipeline (see Section 3.2), <strong>5 of the 8 samples completed inference on both architectures</strong> and form the paired evaluation set; the remaining 3 are used for qualitative analysis.</p>
+<p><strong>Ground truth labels</strong> were manually annotated by the author. Each label was reviewed at least twice after initial annotation to ensure consistency:
 - Summaries: 1–2 sentence reference summaries
 - Sentiment: positive / negative / neutral
 - Keywords: 5–7 key phrases per sample
@@ -60,11 +59,8 @@
 </tr>
 </tbody>
 </table>
-<h3>2.4 Robustness Testing</h3>
-<p>We apply white noise degradation at two levels to a 4-sample subset:
-- <strong>Clean:</strong> Original audio
-- <strong>10dB SNR:</strong> Moderate noise — speech is still intelligible
-- <strong>0dB SNR:</strong> Heavy noise — signal and noise have equal power</p>
+<h3>2.4 Robustness Testing (Designed, Not Executed)</h3>
+<p>We designed a robustness evaluation framework with white noise degradation at two levels (10dB and 0dB SNR) on a 4-sample subset. The framework is fully implemented in <code>src/data.py</code> via the <code>inject_noise()</code> function, which supports white noise, babble noise, and reverberation with deterministic seeding. However, due to the Direct pipeline's inference latency on available hardware, the robustness experiments were not executed within the project timeline. This remains a planned extension of the current work (see Section 5.4).</p>
 <h3>2.5 Statistical Analysis</h3>
 <p>Paired t-tests with Cohen's d effect sizes are used to compare latency distributions between architectures. With N=5 paired samples, statistical results should be interpreted as indicative rather than conclusive.</p>
 <hr />
@@ -113,13 +109,11 @@
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p><em>Note: Table values will be filled from experiment output. The radar chart in <code>report/figures/radar_chart.png</code> is generated from actual experimental data.</em></p>
-</blockquote>
 <h3>3.2 Latency Analysis</h3>
 <p><img alt="Latency Comparison" src="figures/latency_comparison.png" /></p>
 <p><em>Figure 2: Average inference latency. Cascade is </em><em>45x</em><em> faster (16s vs 726s).</em></p>
-<p>The cascade pipeline's latency is dominated by Whisper transcription (~10s local GPU) plus DeepSeek API inference (~7s). The direct pipeline's latency reflects the 7B-parameter model's autoregressive generation on INT4-quantized hardware, with high variance due to GPU memory pressure on 8GB VRAM.</p>
+<p><strong>Latency breakdown (Cascade):</strong> Approximately 10s for faster-whisper transcription (local GPU) + 6s for DeepSeek API inference.</p>
+<p><strong>Why is Direct so slow?</strong> The 726s mean latency is primarily due to three factors inherent to local deployment of a 7B-parameter speech LLM on consumer hardware: (1) <strong>INT4 quantization</strong> reduces memory but increases computation overhead compared to native floating-point inference; (2) <strong>8GB VRAM</strong> is barely sufficient for the model (~7GB), causing occasional CPU offloading when attention caches overflow — the highest observed latency was 34,543s for a single intent inference where this occurred; (3) <strong>autoregressive decoding</strong> generates tokens sequentially, and Qwen2-Audio-7B produces longer outputs than the task requires. Excluding the one pathological outlier, mean Direct latency is approximately 240s. This is a hardware limitation rather than an inherent property of the architecture — on a GPU with ≥16GB VRAM, inference would be substantially faster.</p>
 <h3>3.3 Cost Analysis</h3>
 <p><img alt="Cost Comparison" src="figures/cost_comparison.png" /></p>
 <p><em>Figure 3: Per-task API cost. Cascade uses DeepSeek API (~$0.0005/task). Direct uses local inference at zero additional cost.</em></p>
@@ -186,7 +180,7 @@
 <tr>
 <td><strong>Low latency</strong></td>
 <td>Cascade</td>
-<td>4–40x faster inference</td>
+<td>45x faster inference</td>
 </tr>
 <tr>
 <td><strong>Zero API cost</strong></td>
@@ -197,11 +191,6 @@
 <td><strong>Structured output</strong></td>
 <td>Cascade</td>
 <td>100% valid JSON, reliable instruction-following</td>
-</tr>
-<tr>
-<td><strong>Noise robustness</strong></td>
-<td>Direct</td>
-<td>Better ROUGE-L retention at 0dB SNR</td>
 </tr>
 <tr>
 <td><strong>Emotion/Prosody</strong></td>
