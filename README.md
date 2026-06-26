@@ -19,7 +19,7 @@ An undergraduate summer research project (Jiayi Li, 2026) comparing two speech u
   │
   ├─ Cascade ("lego-block"):
   │  [faster-whisper large-v3] → transcript → [DeepSeek-chat API] → output
-  │  🖥️ Local GPU + ☁️ API   💰 ~$0.0005/task   ⚡ ~17s
+  │  🖥️ Local GPU + ☁️ API   💰 ~$0.0005/task   ⚡ ~16s
   │
   └─ Direct ("end-to-end"):
      [Qwen2-Audio-7B INT4] → output
@@ -32,7 +32,7 @@ An undergraduate summer research project (Jiayi Li, 2026) comparing two speech u
 
 | Dimension | Cascade | Direct | Winner |
 |-----------|---------|--------|--------|
-| **Speed** | ~17s | ~726s | Cascade (40x) |
+| **Speed** | ~16s | ~726s | Cascade (45x) |
 | **Cost** | ~$0.0005/task | **FREE** | Direct |
 | **Structured Output** | **100% valid JSON** | 30% | Cascade |
 | **Noise Robustness (0dB)** | Lower | **Higher** | Direct |
