@@ -1,0 +1,50 @@
+{
+  "science_brain": {
+    "summary": "The human brain contains 86 billion neurons forming a network of immense complexity, yet we are only beginning to understand how it generates consciousness, memory, and emotion.",
+    "sentiment": "neutral",
+    "keywords": ["human brain", "neurons", "consciousness", "memory", "neuroscience", "emotion"],
+    "intent": "inform"
+  },
+  "science_climate": {
+    "summary": "Climate change has caused 1.2°C of warming since pre-industrial times, with effects including extreme weather and rising sea levels; the scientific consensus is that urgent action is needed.",
+    "sentiment": "negative",
+    "keywords": ["climate change", "global warming", "sea levels", "extreme weather", "scientific consensus", "urgent action"],
+    "intent": "persuade"
+  },
+  "science_crispr": {
+    "summary": "CRISPR enables precise DNA modification with potential for treating genetic diseases and improving crops, but raises ethical concerns about designer babies and genetic inequality.",
+    "sentiment": "neutral",
+    "keywords": ["CRISPR", "gene editing", "DNA modification", "genetic diseases", "designer babies", "ethics", "genetic inequality"],
+    "intent": "inform"
+  },
+  "science_space": {
+    "summary": "Space exploration has entered a golden age with reusable rockets, planned moon and Mars missions, and discoveries from the James Webb Space Telescope revealing secrets of the early universe.",
+    "sentiment": "positive",
+    "keywords": ["space exploration", "reusable rockets", "NASA", "Mars", "moon", "James Webb Space Telescope"],
+    "intent": "inform"
+  },
+  "tech_ai_healthcare": {
+    "summary": "AI is revolutionizing healthcare through faster diagnosis and personalized treatment plans, but diverse training data is essential to avoid algorithmic bias.",
+    "sentiment": "positive",
+    "keywords": ["AI", "healthcare", "diagnosis", "machine learning", "medical imaging", "bias"],
+    "intent": "inform"
+  },
+  "tech_blockchain": {
+    "summary": "Blockchain enables tamper-proof decentralized records with applications in supply chain, identity verification, and voting, with trust without central authority as its key innovation.",
+    "sentiment": "neutral",
+    "keywords": ["blockchain", "decentralized", "supply chain", "digital identity", "voting", "trust"],
+    "intent": "inform"
+  },
+  "tech_education": {
+    "summary": "AI-powered personalized learning adapts to individual student needs in real time, accommodating visual, reading, and hands-on learning styles.",
+    "sentiment": "positive",
+    "keywords": ["personalized learning", "AI", "education", "learning styles", "AI tutors", "adaptive learning"],
+    "intent": "inform"
+  },
+  "tech_quantum": {
+    "summary": "Quantum computing uses qubits that can exist in multiple states through superposition, enabling exponentially faster solutions to certain problems than classical computers.",
+    "sentiment": "neutral",
+    "keywords": ["quantum computing", "qubits", "superposition", "classical bits", "exponential speedup"],
+    "intent": "inform"
+  }
+}
