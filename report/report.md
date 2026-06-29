@@ -3,7 +3,7 @@
 **Author:** Jiayi Li  
 **Date:** June–August 2026  
 **Course:** Undergraduate Summer Research  
-**Repository:** `github.com/JiayiLi25/speech-benchmark`
+**Repository:** `github.com/jiayi0428/speech-benchmark`
 
 ---
 
