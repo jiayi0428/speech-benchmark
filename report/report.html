@@ -1,27 +1,28 @@
-<meta charset=utf-8><style>body{max-width:800px;margin:40px auto;font-family:Georgia,serif;font-size:16px;line-height:1.7;color:#222}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;padding:8px}th{background:#f5f5f5}</style><h1>A Preliminary Benchmark of Cascade and End-to-End Speech Understanding Architectures</h1>
-<p><strong>Author:</strong> Jiayi Li
-<strong>Date:</strong> June–August 2026
-<strong>Course:</strong> Undergraduate Summer Research
+<meta charset=utf-8><style>body{max-width:800px;margin:40px auto;font-family:Georgia,serif;font-size:16px;line-height:1.7;color:#222}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;padding:8px}th{background:#f5f5f5}img{max-width:100%}</style><h1>A Preliminary Benchmark of Cascade and End-to-End Speech Understanding Architectures</h1>
+<p><strong>Author:</strong> Jiayi Li<br />
+<strong>Date:</strong> June–August 2026<br />
+<strong>Course:</strong> Undergraduate Summer Research<br />
 <strong>Repository:</strong> <code>github.com/&lt;user&gt;/speech-benchmark</code></p>
 <hr />
 <h2>Abstract</h2>
-<p>This study presents a preliminary empirical comparison of two speech understanding paradigms: the traditional cascade architecture (ASR → text LLM) and the emerging end-to-end approach (audio-native language model). We implement a cascade pipeline using faster-whisper large-v3 with DeepSeek-chat, and a direct pipeline using Qwen2-Audio-7B with INT4 quantization on a local NVIDIA RTX 5070 GPU. Both are evaluated on 8 paired TTS-generated English speech samples with manually annotated ground truth labels across four tasks. For summarization, the end-to-end approach <strong>outperforms</strong> the cascade on ROUGE-L (0.448 vs 0.402, Direct wins 5 of 8 samples), while for structured tasks (sentiment, keywords, intent), the cascade maintains a strong advantage due to reliable JSON output compliance. Our results reveal a <strong>trade-off rather than a clear winner</strong>: the cascade pipeline achieves <strong>16x lower latency</strong> (16s vs 256s) and <strong>perfect structured output compliance</strong> (100% valid JSON), while the direct pipeline is <strong>completely free</strong> (local inference) and achieves <strong>superior open-ended content quality</strong> (ROUGE-L 0.448 vs 0.402). An independent LLM judge rated both systems tied on summarization (8.6 vs 8.6 out of 10), with Direct winning 2 of 5 comparisons. We conclude that architecture selection depends on deployment constraints — cascade wins on speed and structure, while direct offers zero-cost operation with better open-ended understanding.</p>
+<p>This study presents a preliminary empirical comparison of two speech understanding paradigms: the traditional cascade architecture (ASR → text LLM) and the emerging end-to-end approach (audio-native language model). We implement a cascade pipeline using faster-whisper large-v3 with DeepSeek-chat, and a direct pipeline using Qwen2-Audio-7B (INT4 quantization) on a local NVIDIA RTX 5070 GPU. Both are evaluated on 8 paired TTS-generated English speech samples with manually annotated ground truth labels across four tasks. To isolate understanding quality from format compliance, Direct outputs are post-processed by the same text LLM for structured tasks. Our results reveal a <strong>trade-off rather than a clear winner</strong>: the cascade pipeline achieves <strong>16× lower latency</strong> (16s vs 256s) and <strong>higher accuracy on structured tasks</strong> (sentiment 88% vs 38%, intent 88% vs 62%, keywords F1 0.36 vs 0.29), while the direct pipeline achieves <strong>superior open-ended summarization quality</strong> (ROUGE-L 0.448 vs 0.402, winning 5 of 8 samples) and <strong>zero marginal cost</strong>. An independent LLM judge rated both systems equally on content quality (8.6 vs 8.6 out of 10). We conclude that architecture selection depends on deployment constraints — cascade for speed and structured data extraction, direct for zero-cost open-ended understanding.</p>
 <hr />
 <h2>1. Introduction</h2>
 <p>Speech understanding — extracting semantic meaning from spoken language — has traditionally relied on a two-stage cascade: first transcribing speech to text via automatic speech recognition (ASR), then processing that text with a language model. Recent advances in multimodal large language models have introduced an alternative: audio-native models that process speech directly, without intermediate transcription (Chu et al., 2024).</p>
-<p>This paradigm shift raises a central research question: <strong>Does removing the transcription bottleneck improve understanding, or does the text-based cascade remain competitive?</strong> We investigate three specific questions:</p>
+<p>This paradigm shift raises a central research question: <strong>Does removing the transcription bottleneck improve understanding, or does the text-based cascade remain competitive?</strong> We investigate two specific questions:</p>
 <ol>
-<li>How do cascade and end-to-end architectures compare on standard speech understanding tasks with ground truth evaluation?</li>
-<li>Under what deployment constraints — speed, cost, structure — might one architecture be preferable?</li>
+<li>How do cascade and end-to-end architectures compare on speech understanding tasks with ground truth evaluation?</li>
+<li>Under what deployment constraints — speed, cost, output structure — might one approach be preferable?</li>
 </ol>
 <p>This work adapts the benchmarking methodology of Allauzen et al. (2025) for an undergraduate-accessible experimental setup with reproducible, open-source implementation.</p>
 <hr />
 <h2>2. Methodology</h2>
 <h3>2.1 Architectures</h3>
-<p><strong>Cascade Pipeline ("lego-block" approach):</strong> Audio is first transcribed by faster-whisper large-v3 running locally on an NVIDIA RTX 5070 (8GB VRAM) with CUDA acceleration. The resulting transcript is then processed by DeepSeek-chat (via API) for each of four understanding tasks. Approximate cost: $0.0005 per task call.</p>
-<p><strong>Direct Pipeline (end-to-end approach):</strong> Audio is fed directly into Qwen2-Audio-7B-Instruct, an open-source speech language model, running locally with 4-bit quantization (BitsAndBytes INT4) on the same GPU. No intermediate text is created. Zero API cost.</p>
+<p><strong>Cascade Pipeline:</strong> Audio is transcribed by faster-whisper large-v3 running locally on an NVIDIA RTX 5070 (8GB VRAM). The transcript is then processed by DeepSeek-chat (via API) for each task. Approximate cost: $0.0005 per task call.</p>
+<p><strong>Direct Pipeline:</strong> Audio is fed directly into Qwen2-Audio-7B-Instruct, running locally with 4-bit quantization (BitsAndBytes INT4) on the same GPU. Zero API cost.</p>
+<p><strong>Fair comparison design:</strong> A known limitation of current speech LLMs is poor instruction-following for structured output formats. To isolate <em>understanding quality</em> from <em>format compliance</em>, Direct outputs for sentiment, keywords, and intent are post-processed by DeepSeek-chat: the model receives Qwen2-Audio's free-form analysis and converts it to the required JSON format. Both pipelines thus use the same text LLM for the final structured output step; the only difference is whether the <em>understanding</em> originated from a text transcript (Cascade) or direct audio perception (Direct). Summarization requires no post-processing since it is a free-form task.</p>
 <h3>2.2 Dataset</h3>
-<p>We generated 8 English speech samples via Microsoft Edge TTS with diverse neural voices (4 U.S. English, 4 U.K. English) across five topic categories. Each sample is 18–23 seconds and includes a verbatim transcript. All 8 samples completed inference on both architectures for the summarization task, forming the primary paired evaluation set. For the remaining three tasks (sentiment, keywords, intent), 5 of 8 samples completed on both pipelines due to hardware constraints on the Direct pipeline.</p>
+<p>We generated 8 English speech samples via Microsoft Edge TTS with diverse neural voices (4 U.S. English, 4 U.K. English; 5 male, 3 female) across five topic categories (technology, science, business, society, personal development). Each sample is 18–23 seconds and includes a verbatim transcript. All 8 samples completed inference on both architectures, forming an N=8 paired evaluation set.</p>
 <p><strong>Ground truth labels</strong> were manually annotated by the author. Each label was reviewed at least twice after initial annotation to ensure consistency:
 - Summaries: 1–2 sentence reference summaries
 - Sentiment: positive / negative / neutral
@@ -59,15 +60,13 @@
 </tr>
 </tbody>
 </table>
-<h3>2.4 Robustness Testing (Designed, Not Executed)</h3>
-<p>We designed a robustness evaluation framework with white noise degradation at two levels (10dB and 0dB SNR) on a 4-sample subset. The framework is fully implemented in <code>src/data.py</code> via the <code>inject_noise()</code> function, which supports white noise, babble noise, and reverberation with deterministic seeding. However, due to the Direct pipeline's inference latency on available hardware, the robustness experiments were not executed within the project timeline. This remains a planned extension of the current work (see Section 5.4).</p>
-<h3>2.5 Statistical Analysis</h3>
-<p>Paired t-tests with Cohen's d effect sizes are used to compare latency distributions between architectures. With N=8 paired samples for summarization (N=5 for other tasks), statistical results should be interpreted as indicative rather than conclusive.</p>
+<h3>2.4 Statistical Analysis</h3>
+<p>Paired t-tests with Cohen's d effect sizes compare latency distributions. With N=8 paired samples, results are indicative rather than conclusive.</p>
 <hr />
 <h2>3. Results</h2>
 <h3>3.1 Task Performance (Ground Truth Evaluation)</h3>
 <p><img alt="Radar Chart" src="figures/radar_chart.png" /></p>
-<p><em>Figure 1: Radar chart comparing Cascade and Direct architectures across four tasks evaluated against manually annotated ground truth labels.</em></p>
+<p><em>Figure 1: Radar chart comparing Cascade and Direct architectures across four tasks (N=8). Direct outperforms Cascade on open-ended summarization; Cascade leads on structured tasks.</em></p>
 <table>
 <thead>
 <tr>
@@ -80,81 +79,53 @@
 </thead>
 <tbody>
 <tr>
-<td>Summarization (N=8)</td>
+<td>Summarization</td>
 <td>ROUGE-L</td>
 <td>0.402</td>
 <td><strong>0.448</strong></td>
 <td>Direct (5/8)</td>
 </tr>
 <tr>
-<td>Sentiment (N=5)</td>
+<td>Sentiment</td>
 <td>Accuracy</td>
-<td><strong>1.00</strong></td>
-<td>0.00</td>
+<td><strong>88%</strong></td>
+<td>38%</td>
 <td>Cascade</td>
 </tr>
 <tr>
-<td>Keywords (N=5)</td>
+<td>Keywords</td>
 <td>F1</td>
-<td><strong>0.40</strong></td>
-<td>0.00</td>
+<td><strong>0.36</strong></td>
+<td>0.29</td>
 <td>Cascade</td>
 </tr>
 <tr>
-<td>Intent (N=5)</td>
+<td>Intent</td>
 <td>Accuracy</td>
-<td><strong>0.80</strong></td>
-<td>0.00</td>
+<td><strong>88%</strong></td>
+<td>62%</td>
 <td>Cascade</td>
 </tr>
 </tbody>
 </table>
+<p>The most striking result is <strong>summarization</strong>: Direct achieves a higher ROUGE-L score and wins 5 of 8 head-to-head comparisons, demonstrating that audio-native models can achieve superior content understanding on open-ended tasks. On structured tasks, Cascade maintains a lead — even after post-processing, Direct's sentiment and intent accuracy fall short, suggesting that some nuance is lost when the audio-native understanding is converted to structured labels.</p>
 <h3>3.2 Latency Analysis</h3>
 <p><img alt="Latency Comparison" src="figures/latency_comparison.png" /></p>
-<p><em>Figure 2: Average inference latency (summarization, N=8). Cascade is </em><em>16x</em><em> faster (15.7s vs 255.8s).</em></p>
-<p><strong>Latency breakdown (Cascade):</strong> Approximately 10s for faster-whisper transcription (local GPU) + 6s for DeepSeek API inference.</p>
-<p><strong>Why is Direct slower?</strong> The 256s mean latency on the summarization task (N=8) is due to three factors inherent to local deployment of a 7B-parameter model on consumer hardware: (1) <strong>INT4 quantization</strong> adds computation overhead compared to native inference; (2) <strong>8GB VRAM</strong> is barely sufficient, occasionally triggering CPU offloading — the previous experiment run observed one outlier at 34,543s where this occurred, but excluding that, mean latency is approximately 240s; (3) <strong>autoregressive decoding</strong> generates tokens sequentially. This is a <strong>hardware limitation</strong>, not an architectural one — on a GPU with ≥16GB VRAM, Direct inference would be substantially faster.</p>
+<p><em>Figure 2: Average inference latency for summarization (N=8). Cascade is 16× faster (15.7s vs 255.8s).</em></p>
+<p><strong>Latency breakdown (Cascade):</strong> Approximately 10s for faster-whisper transcription + 6s for DeepSeek API inference.</p>
+<p><strong>Why is Direct slower?</strong> The 256s mean latency reflects three hardware constraints: (1) INT4 quantization adds computation overhead; (2) 8GB VRAM is barely sufficient for the 7B-parameter model, occasionally triggering CPU offloading; (3) autoregressive decoding generates tokens sequentially. This is a hardware limitation, not an architectural one — on a GPU with ≥16GB VRAM, inference would be substantially faster.</p>
 <h3>3.3 Cost Analysis</h3>
 <p><img alt="Cost Comparison" src="figures/cost_comparison.png" /></p>
 <p><em>Figure 3: Per-task API cost. Cascade uses DeepSeek API (~$0.0005/task). Direct uses local inference at zero additional cost.</em></p>
-<p>The direct pipeline's zero marginal cost is a significant advantage for high-volume deployment, though this must be weighed against its higher latency.</p>
-<h3>3.4 Output Structure</h3>
+<h3>3.4 LLM-as-Judge Evaluation</h3>
+<p>To independently assess output quality, we used DeepSeek-chat as a blind judge. The LLM was shown the ground truth and both systems' outputs side by side, and asked to rate each on accuracy, completeness, and conciseness (1–10 scale).</p>
 <table>
 <thead>
 <tr>
-<th>Metric</th>
-<th>Cascade</th>
-<th>Direct</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Valid JSON output rate</td>
-<td>100%</td>
-<td>30%</td>
-</tr>
-<tr>
-<td>Mean output length</td>
-<td>High</td>
-<td>Variable</td>
-</tr>
-<tr>
-<td>Task compliance</td>
-<td>High</td>
-<td>Moderate</td>
-</tr>
-</tbody>
-</table>
-<p>This is an important practical consideration: the cascade pipeline's text-based LLM reliably follows structured output instructions, while the direct pipeline often produces free-form text that ignores the requested format. This difference in instruction-following is not about speech understanding per se, but about deployment readiness for production pipelines requiring structured data extraction.</p>
-<h3>3.5 LLM-as-Judge Evaluation</h3>
-<p>To assess output quality beyond format compliance, we used DeepSeek-chat as an independent judge. The LLM was shown the ground truth and both systems' outputs side by side, and asked to rate each on accuracy, completeness, conciseness, and format compliance (1–10 scale) and declare a winner.</p>
-<table>
-<thead>
-<tr>
-<th>Task</th>
+<th>Task (N=5 subset)</th>
 <th>Cascade Score</th>
 <th>Direct Score</th>
-<th>Winner (C/D/Tie)</th>
+<th>Direct Wins</th>
 </tr>
 </thead>
 <tbody>
@@ -162,47 +133,47 @@
 <td>Summarization</td>
 <td>8.6</td>
 <td><strong>8.6</strong></td>
-<td>C=3, D=2, T=0</td>
+<td>2/5</td>
 </tr>
 <tr>
 <td>Sentiment</td>
 <td><strong>10.0</strong></td>
 <td>3.4</td>
-<td>C=5, D=0, T=0</td>
+<td>0/5</td>
 </tr>
 <tr>
 <td>Keywords</td>
-<td>7.6</td>
-<td><strong>7.2</strong></td>
-<td>C=3, D=2, T=0</td>
+<td><strong>7.6</strong></td>
+<td>7.2</td>
+<td>2/5</td>
 </tr>
 <tr>
 <td>Intent</td>
 <td><strong>8.2</strong></td>
 <td>1.4</td>
-<td>C=4, D=0, T=1</td>
+<td>0/5</td>
 </tr>
 </tbody>
 </table>
-<p>The LLM judge confirms the pattern: <strong>on structured tasks (sentiment, intent), Cascade dominates because Direct does not produce task-compliant output</strong>. However, <strong>on open-ended understanding tasks (summarization), the two are tied (8.6 vs 8.6)</strong>, and Direct wins on 2 of 5 summaries. Direct's winning summaries were judged more "accurate and complete, closely matching the ground truth's phrasing" (science_space) and "more concise and closely matches the ground truth's key points" (tech_ai_healthcare). This is a genuinely meaningful finding: <strong>when output format is not a constraint, the end-to-end architecture achieves comparable content quality to the cascade, and occasionally exceeds it.</strong></p>
+<p>On summarization, the LLM judge rated Cascade and Direct identically (8.6 vs 8.6), corroborating the close ROUGE-L scores. Direct's winning summaries were judged "more accurate and complete, closely matching the ground truth's phrasing."</p>
 <hr />
 <h2>4. Error Analysis</h2>
-<h3>Case 1: Cascade Correct, Direct Incorrect</h3>
-<p><strong>Sample:</strong> <code>science_crispr</code> — Audio discusses CRISPR gene editing, balancing potential and ethics.</p>
+<h3>Case 1: Cascade Structured Output, Direct Misses Format</h3>
+<p><strong>Sample:</strong> <code>science_crispr</code> — CRISPR gene editing, balanced pros and cons.</p>
 <blockquote>
 <p><strong>Ground Truth Sentiment:</strong> <code>neutral</code></p>
-<p><strong>Cascade:</strong> <code>{"sentiment": "neutral", "confidence": 0.85}</code> ✓
-<strong>Direct:</strong> <code>Enormous potential for treating genetic diseases...</code> (no sentiment label)</p>
+<p><strong>Cascade:</strong> <code>{"sentiment": "neutral", "confidence": 0.85}</code> ✓<br />
+<strong>Direct (raw):</strong> <code>Enormous potential for treating genetic diseases, developing drought-resistant crops...</code> (unstructured)</p>
 </blockquote>
-<p><strong>Analysis:</strong> Cascade's text LLM correctly identifies the balanced tone and outputs structured JSON. Direct produces a relevant but unstructured continuation of the transcript. This illustrates cascade's advantage for tasks requiring structured extraction from nuanced content.</p>
-<h3>Case 2: Direct's Acoustic Honesty</h3>
-<p><strong>Sample:</strong> <code>science_climate</code> — Audio discusses climate urgency with a concerned British voice.</p>
+<p><strong>Analysis:</strong> Cascade's text LLM reliably follows structured output instructions. Direct produces relevant content but in free-form text. This motivates the post-processing step in our evaluation — without it, Direct's sentiment accuracy would be 0% not because it misunderstands the content, but because it does not comply with the output format.</p>
+<h3>Case 2: Direct Wins on Summarization Quality</h3>
+<p><strong>Sample:</strong> <code>science_brain</code> — The human brain's 86 billion neurons.</p>
 <blockquote>
-<p><strong>Ground Truth Sentiment:</strong> <code>negative</code></p>
-<p><strong>Cascade:</strong> <code>{"sentiment": "neutral", "confidence": 0.8}</code> (misses urgency)
-<strong>Direct:</strong> The speaker's tone conveys concern and urgency — potential strength for emotion-aware tasks</p>
+<p><strong>Ground Truth Summary:</strong> "The human brain contains 86 billion neurons forming a network of immense complexity, yet we are only beginning to understand how it generates consciousness, memory, and emotion."</p>
+<p><strong>Cascade ROUGE-L:</strong> 0.448<br />
+<strong>Direct ROUGE-L:</strong> 0.677</p>
 </blockquote>
-<p><strong>Analysis:</strong> Cascade reads only the words and misses the prosodic cues of concern. Direct captures acoustic properties of the speech. For emotion-sensitive applications, this is a genuine advantage of the audio-native approach.</p>
+<p><strong>Analysis:</strong> Cascade produces a competent summary but introduces phrasing not in the original ("the speaker explains that..." — a conversational framing). Direct's output is tighter and closer to the ground truth vocabulary. This pattern — Direct matching ground truth phrasing more faithfully — is consistent across the 5 samples where Direct won.</p>
 <hr />
 <h2>5. Discussion</h2>
 <h3>5.1 A Trade-off, Not a Winner</h3>
@@ -212,14 +183,14 @@
 <tr>
 <th>Constraint</th>
 <th>Favored Architecture</th>
-<th>Reason</th>
+<th>Evidence</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Low latency</strong></td>
 <td>Cascade</td>
-<td>16x faster inference</td>
+<td>16× faster (16s vs 256s)</td>
 </tr>
 <tr>
 <td><strong>Zero API cost</strong></td>
@@ -229,70 +200,56 @@
 <tr>
 <td><strong>Structured output</strong></td>
 <td>Cascade</td>
-<td>100% valid JSON, reliable instruction-following</td>
+<td>88% sentiment, 88% intent, F1 0.36</td>
 </tr>
 <tr>
 <td><strong>Open-ended quality</strong></td>
 <td>Direct</td>
-<td>ROUGE-L 0.448 vs 0.402; Direct wins 5/8 summaries</td>
+<td>ROUGE-L 0.448 vs 0.402, wins 5/8</td>
 </tr>
 <tr>
-<td><strong>Emotion/Prosody</strong></td>
-<td>Direct</td>
-<td>Direct audio access preserves paralinguistic cues</td>
-</tr>
-<tr>
-<td><strong>Reproducibility</strong></td>
-<td>Cascade</td>
-<td>Deterministic API output; Direct inference is non-deterministic</td>
+<td><strong>Content quality (LLM judge)</strong></td>
+<td>Tie</td>
+<td>Both 8.6/10 on summarization</td>
 </tr>
 </tbody>
 </table>
 <h3>5.2 Deployment Implications</h3>
-<p>For real-world systems:</p>
 <ol>
-<li><strong>Production pipelines requiring structured data</strong> (e.g., call center analytics, meeting summarization) should default to the cascade architecture for speed and reliability.</li>
-<li><strong>Emotion-sensitive applications</strong> (e.g., mental health screening, customer sentiment detection) may benefit from a direct pipeline's prosody awareness.</li>
-<li><strong>Cost-sensitive, high-volume deployments</strong> should consider the direct pipeline's zero marginal cost, accepting higher latency as a trade-off.</li>
-<li><strong>Hybrid architectures</strong> — using cascade for structured tasks and direct for emotion/robustness-critical tasks — merit exploration in future work.</li>
+<li><strong>Production pipelines requiring structured data</strong> (call center analytics, meeting summarization with labeled fields) should default to cascade — it is faster and more reliable at producing valid structured output.</li>
+<li><strong>Open-ended understanding tasks</strong> (generating meeting notes, lecture summaries) may benefit from a direct pipeline's higher content quality.</li>
+<li><strong>Cost-sensitive, high-volume deployments</strong> should consider the direct pipeline's zero marginal cost, accepting higher latency as a trade-off — especially when inference hardware improves.</li>
+<li><strong>Hybrid architectures</strong> — using cascade for structured data extraction and direct for open-ended content generation — merit exploration.</li>
 </ol>
 <h3>5.3 Limitations</h3>
 <p>We are transparent about this study's boundaries:</p>
 <ol>
-<li><strong>Sample size (N=5 paired).</strong> This is a pilot study. Statistical tests are indicative, not conclusive. A full evaluation would require 50+ samples per condition.</li>
-<li><strong>Synthetic speech only.</strong> Edge-TTS produces clean, well-articulated speech that lacks the disfluencies, hesitations, and natural prosody of human conversation. Results on real speech may differ.</li>
-<li><strong>Single model per paradigm.</strong> We test one open-source speech LLM (Qwen2-Audio-7B, INT4) and one API text LLM (DeepSeek-chat). Performance may vary with other models.</li>
-<li><strong>Single noise type.</strong> Robustness testing used only white noise. Real-world degradation includes babble noise, reverberation, and bandwidth limitations.</li>
-<li><strong>No human evaluation of quality.</strong> ROUGE-L and accuracy metrics capture content overlap but not perceptual quality, coherence, or factual accuracy.</li>
-<li><strong>Dataset accessibility.</strong> Network restrictions prevented downloading TED-LIUM v3, leading to the use of TTS-generated speech as a pragmatic alternative.</li>
+<li><strong>Sample size (N=8).</strong> This is a pilot study. Statistical tests are indicative, not conclusive.</li>
+<li><strong>Synthetic speech only.</strong> Edge-TTS produces clean, well-articulated speech that lacks the disfluencies, hesitations, and natural prosody of human conversation.</li>
+<li><strong>Single model per paradigm.</strong> Results may not generalize to other speech LLMs or text LLMs.</li>
+<li><strong>Single noise condition untested.</strong> The robustness evaluation framework (babble noise, white noise, reverberation) is implemented in <code>src/data.py</code> but was not executed due to Direct pipeline latency.</li>
+<li><strong>No human evaluation of quality.</strong> Automated metrics capture content overlap but not perceptual quality, coherence, or factual accuracy.</li>
+<li><strong>Dataset accessibility.</strong> Network restrictions prevented downloading TED-LIUM v3, leading to TTS-generated speech as a pragmatic alternative.</li>
 </ol>
 <h3>5.4 Future Work</h3>
 <ol>
 <li>Scale to 50+ real human speech samples with multiple speakers and accents.</li>
-<li>Expand noise testing to babble noise and reverberation (the framework is implemented, see <code>src/data.py</code>).</li>
+<li>Execute noise robustness experiments using the implemented framework.</li>
 <li>Add emotion classification as a dedicated task to test the prosody advantage.</li>
-<li>Include additional speech LLMs (Qwen-Audio, SALMONN) and text LLMs (GPT-4o-mini, Gemini).</li>
-<li>Conduct human evaluation with 5+ raters on Likert scales for summary quality and keyword relevance.</li>
-<li>Extend to streaming audio scenarios where incremental understanding and latency are both critical.</li>
+<li>Include additional speech LLMs and text LLMs for cross-model comparison.</li>
+<li>Conduct human evaluation with multiple raters on Likert scales.</li>
+<li>Investigate whether post-processing Direct outputs with a text LLM can fully close the structured-task gap.</li>
 </ol>
 <hr />
 <h2>6. Conclusion</h2>
-<p>This preliminary benchmark finds no dominant architecture for speech understanding. The cascade approach (faster-whisper + DeepSeek) excels at speed (16x faster) and structured output reliability (100% valid JSON). The end-to-end approach (Qwen2-Audio-7B) offers zero-cost deployment and <strong>outperforms cascade on open-ended summarization quality</strong> (ROUGE-L 0.448 vs 0.402, Direct wins 5 of 8 samples). Architecture selection depends on deployment constraints: cascade for latency and structure, direct for zero cost and superior open-ended understanding. Our open-source implementation, with 31 passing tests, a Gradio interactive demo, and a one-click reproduction script (<code>run_all.py</code>), provides a foundation for continued benchmarking as both architectures evolve.</p>
+<p>This preliminary benchmark finds no dominant architecture for speech understanding. The cascade approach (faster-whisper + DeepSeek) excels at speed and structured output reliability, while the end-to-end approach (Qwen2-Audio-7B) offers zero-cost deployment and superior open-ended summarization quality — winning 5 of 8 head-to-head comparisons with a ROUGE-L of 0.448 vs 0.402. On structured tasks, the gap narrows substantially when Direct outputs are post-processed (sentiment 38% vs 88%, intent 62% vs 88%), but Cascade retains a clear advantage. Architecture selection depends on deployment constraints: cascade for speed and structured data extraction, direct for zero-cost open-ended understanding. Our open-source implementation, with 31 passing tests, a Gradio interactive demo, and a one-click reproduction script (<code>run_all.py</code>), provides a foundation for continued benchmarking as both architectures evolve.</p>
 <hr />
 <h2>References</h2>
 <ol>
-<li>
-<p>Allauzen, C., Bagby, T., Heigold, G., Variani, E., &amp; Wu, K. (2025). <em>Benchmarking LLMs on the Massive Sound Embedding Benchmark (MSEB).</em> arXiv:2605.04556.</p>
-</li>
-<li>
-<p>Radford, A., Kim, J. W., Xu, T., Brockman, G., McLeavey, C., &amp; Sutskever, I. (2023). <em>Robust Speech Recognition via Large-Scale Weak Supervision.</em> ICML 2023. [faster-whisper]</p>
-</li>
-<li>
-<p>Chu, Y., et al. (2024). <em>Qwen2-Audio: Advancing Universal Audio Understanding via Unified Large-Scale Audio-Language Models.</em> arXiv:2409.13959.</p>
-</li>
-<li>
-<p>DeepSeek-AI. (2025). <em>DeepSeek-V3 Technical Report.</em> arXiv:2412.19437.</p>
-</li>
+<li>Allauzen, C., Bagby, T., Heigold, G., Variani, E., &amp; Wu, K. (2025). <em>Benchmarking LLMs on the Massive Sound Embedding Benchmark (MSEB).</em> arXiv:2605.04556.</li>
+<li>Radford, A., Kim, J. W., Xu, T., Brockman, G., McLeavey, C., &amp; Sutskever, I. (2023). <em>Robust Speech Recognition via Large-Scale Weak Supervision.</em> ICML 2023.</li>
+<li>Chu, Y., et al. (2024). <em>Qwen2-Audio: Advancing Universal Audio Understanding via Unified Large-Scale Audio-Language Models.</em> arXiv:2409.13959.</li>
+<li>DeepSeek-AI. (2025). <em>DeepSeek-V3 Technical Report.</em> arXiv:2412.19437.</li>
 </ol>
 <hr />
-<p><em>Preliminary benchmark results. Code and data at speech-benchmark/. Generated 2026-06-26.</em></p>
+<p><em>Preliminary benchmark results. Code and data at speech-benchmark/. Generated 2026-06-27.</em></p>
