@@ -1,6 +1,6 @@
 # 🎤 Speech Understanding Benchmark
 
-**Cascade (ASR → Text LLM) vs End-to-End (Speech LLM) — A Preliminary Comparison**
+**Cascade (ASR �?Text LLM) vs End-to-End (Speech LLM) �?A Preliminary Comparison**
 
 [![Tests](https://img.shields.io/badge/tests-31%20passed-brightgreen)](tests/)
 [![Python](https://img.shields.io/badge/python-3.14-blue)](https://python.org)
@@ -16,14 +16,12 @@ An undergraduate summer research project (Jiayi Li, 2026) comparing two speech u
 
 ```
 🎤 Audio
-  │
-  ├─ Cascade ("lego-block"):
-  │  [faster-whisper large-v3] → transcript → [DeepSeek-chat API] → output
-  │  🖥️ Local GPU + ☁️ API   💰 ~$0.0005/task   ⚡ ~16s
-  │
-  └─ Direct ("end-to-end"):
-     [Qwen2-Audio-7B INT4] → output
-     🖥️ Local GPU only      💰 FREE               ⚡ ~726s
+  �?  ├─ Cascade ("lego-block"):
+  �? [faster-whisper large-v3] �?transcript �?[DeepSeek-chat API] �?output
+  �? 🖥�?Local GPU + ☁️ API   💰 ~$0.0005/task   �?~16s
+  �?  └─ Direct ("end-to-end"):
+     [Qwen2-Audio-7B INT4] �?output
+     🖥�?Local GPU only      💰 FREE               �?~726s
 ```
 
 ---
@@ -49,7 +47,7 @@ git clone <your-repo-url> speech-benchmark
 cd speech-benchmark
 pip install -r requirements.txt
 cp .env.example .env  # Add your DEEPSEEK_API_KEY
-python run_all.py     # Full pipeline: data → cascade → direct → noise → eval → charts
+python run_all.py     # Full pipeline: data �?cascade �?direct �?noise �?eval �?charts
 ```
 
 Output: Experiment results in `data/results/`, 6 charts in `report/figures/`, report in `report/report.md`.
@@ -60,22 +58,22 @@ Output: Experiment results in `data/results/`, 6 charts in `report/figures/`, re
 
 ```
 speech-benchmark/
-├── run_all.py                   ← One-click reproduction
-├── src/                         ← Core pipeline (6 modules)
-│   ├── cascade.py               # faster-whisper + DeepSeek-chat
-│   ├── direct_qwen.py           # Qwen2-Audio-7B (local, INT4)
-│   ├── data.py                  # Audio I/O, noise injection, dataset prep
-│   ├── evaluation.py            # WER, ROUGE-L, F1, accuracy, t-test, bootstrap
-│   ├── visualization.py         # Radar, degradation, error propagation plots
-│   └── config.py                # Auto-detects DeepSeek/OpenAI/Gemini/Qwen
-├── notebooks/                   ← Interactive exploration (5 notebooks)
-├── app/gradio_app.py            ← Live side-by-side comparison demo
-├── report/                      ← Paper + figures
-│   ├── report.md                # Full research report (6 sections)
-│   └── figures/                 # Radar, latency, cost, degradation charts
+├── run_all.py                   �?One-click reproduction
+├── src/                         �?Core pipeline (6 modules)
+�?  ├── cascade.py               # faster-whisper + DeepSeek-chat
+�?  ├── direct_qwen.py           # Qwen2-Audio-7B (local, INT4)
+�?  ├── data.py                  # Audio I/O, noise injection, dataset prep
+�?  ├── evaluation.py            # WER, ROUGE-L, F1, accuracy, t-test, bootstrap
+�?  ├── visualization.py         # Radar, degradation, error propagation plots
+�?  └── config.py                # Auto-detects DeepSeek/OpenAI/Gemini/Qwen
+├── notebooks/                   �?Interactive exploration (5 notebooks)
+├── app/gradio_app.py            �?Live side-by-side comparison demo
+├── report/                      �?Paper + figures
+�?  ├── report.md                # Full research report (6 sections)
+�?  └── figures/                 # Radar, latency, cost, degradation charts
 ├── data/
-│   ├── ground_truth.json        # Manually annotated reference labels
-│   └── results/                 # Experiment outputs
+�?  ├── ground_truth.json        # Manually annotated reference labels
+�?  └── results/                 # Experiment outputs
 └── tests/                       # 31 tests passing
 ```
 
@@ -119,25 +117,25 @@ speech-benchmark/
 
 ```bash
 cd app && python gradio_app.py
-# Opens http://127.0.0.1:7860 — upload audio, compare both pipelines live
+# Opens http://127.0.0.1:7860 �?upload audio, compare both pipelines live
 ```
 
 ---
 
 ## Limitations (Honest Scope)
 
-1. **N=8 samples** — Pilot study, not large-scale evaluation
-2. **TTS speech only** — Edge-TTS lacks natural disfluencies and prosody
-3. **Single model per paradigm** — Qwen2-Audio-7B (INT4) and DeepSeek-chat only
-4. **No human evaluation** — Automated metrics against manually annotated ground truth
-5. **Single noise type tested** — Framework supports more (babble, reverb), not yet executed
+1. **N=8 samples** �?Pilot study, not large-scale evaluation
+2. **TTS speech only** �?Edge-TTS lacks natural disfluencies and prosody
+3. **Single model per paradigm** �?Qwen2-Audio-7B (INT4) and DeepSeek-chat only
+4. **No human evaluation** �?Automated metrics against manually annotated ground truth
+5. **Single noise type tested** �?Framework supports more (babble, reverb), not yet executed
 
-Full limitations and future work in [report/report.md §5.3–5.4](report/report.md#53-limitations).
+Full limitations and future work in [report/report.md §5.3�?.4](report/report.md#53-limitations).
 
 ---
 
 ## Author
 
-**Jiayi Li** — Undergraduate Summer Research, 2026
+**Jiayi Li** �?Undergraduate Summer Research, 2026
 
 Built with Python 3.14, faster-whisper, DeepSeek API, Qwen2-Audio-7B, PyTorch, Gradio, and Matplotlib.
