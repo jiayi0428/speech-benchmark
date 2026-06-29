@@ -9,7 +9,7 @@
 
 ## Abstract
 
-This study presents a preliminary empirical comparison of two speech understanding paradigms: the traditional cascade architecture (ASR → text LLM) and the emerging end-to-end approach (audio-native language model). We implement a cascade pipeline using faster-whisper large-v3 with DeepSeek-chat, and a direct pipeline using Qwen2-Audio-7B with INT4 quantization on a local NVIDIA RTX 5070 GPU. Both are evaluated on 5 paired TTS-generated English speech samples with manually annotated ground truth labels across four tasks: summarization (ROUGE-L), sentiment analysis (accuracy), keyword extraction (F1), and intent recognition (accuracy). Our results reveal a **trade-off rather than a clear winner**: the cascade pipeline achieves **45x lower latency** (16s vs 726s) and **perfect structured output compliance** (100% valid JSON), while the direct pipeline achieves **comparable summarization quality** (ROUGE-L 0.426 vs 0.416) and is **completely free** (local inference). An independent LLM judge rated both systems tied on summarization (8.6 vs 8.6 out of 10), with Direct winning 2 of 5 comparisons. We conclude that architecture selection depends on deployment constraints — cascade wins on speed and structure, while direct offers zero-cost operation with competitive open-ended understanding.
+This study presents a preliminary empirical comparison of two speech understanding paradigms: the traditional cascade architecture (ASR → text LLM) and the emerging end-to-end approach (audio-native language model). We implement a cascade pipeline using faster-whisper large-v3 with DeepSeek-chat, and a direct pipeline using Qwen2-Audio-7B with INT4 quantization on a local NVIDIA RTX 5070 GPU. Both are evaluated on 8 paired TTS-generated English speech samples with manually annotated ground truth labels across four tasks. For summarization, the end-to-end approach **outperforms** the cascade on ROUGE-L (0.448 vs 0.402, Direct wins 5 of 8 samples), while for structured tasks (sentiment, keywords, intent), the cascade maintains a strong advantage due to reliable JSON output compliance. Our results reveal a **trade-off rather than a clear winner**: the cascade pipeline achieves **16x lower latency** (16s vs 256s) and **perfect structured output compliance** (100% valid JSON), while the direct pipeline is **completely free** (local inference) and achieves **superior open-ended content quality** (ROUGE-L 0.448 vs 0.402). An independent LLM judge rated both systems tied on summarization (8.6 vs 8.6 out of 10), with Direct winning 2 of 5 comparisons. We conclude that architecture selection depends on deployment constraints — cascade wins on speed and structure, while direct offers zero-cost operation with better open-ended understanding.
 
 ---
 
@@ -36,7 +36,7 @@ This work adapts the benchmarking methodology of Allauzen et al. (2025) for an u
 
 ### 2.2 Dataset
 
-We generated 8 English speech samples via Microsoft Edge TTS with diverse neural voices (4 U.S. English, 4 U.K. English) across five topic categories. Each sample is 18–23 seconds and includes a verbatim transcript. Due to hardware constraints on the Direct pipeline (see Section 3.2), **5 of the 8 samples completed inference on both architectures** and form the paired evaluation set; the remaining 3 are used for qualitative analysis.
+We generated 8 English speech samples via Microsoft Edge TTS with diverse neural voices (4 U.S. English, 4 U.K. English) across five topic categories. Each sample is 18–23 seconds and includes a verbatim transcript. All 8 samples completed inference on both architectures for the summarization task, forming the primary paired evaluation set. For the remaining three tasks (sentiment, keywords, intent), 5 of 8 samples completed on both pipelines due to hardware constraints on the Direct pipeline.
 
 **Ground truth labels** were manually annotated by the author. Each label was reviewed at least twice after initial annotation to ensure consistency:
 - Summaries: 1–2 sentence reference summaries
@@ -59,7 +59,7 @@ We designed a robustness evaluation framework with white noise degradation at tw
 
 ### 2.5 Statistical Analysis
 
-Paired t-tests with Cohen's d effect sizes are used to compare latency distributions between architectures. With N=5 paired samples, statistical results should be interpreted as indicative rather than conclusive.
+Paired t-tests with Cohen's d effect sizes are used to compare latency distributions between architectures. With N=8 paired samples for summarization (N=5 for other tasks), statistical results should be interpreted as indicative rather than conclusive.
 
 ---
 
@@ -73,20 +73,20 @@ Paired t-tests with Cohen's d effect sizes are used to compare latency distribut
 
 | Task | Metric | Cascade | Direct | Winner |
 |------|--------|---------|--------|--------|
-| Summarization | ROUGE-L | **0.426** | 0.416 | Cascade (close) |
-| Sentiment | Accuracy | **1.00** | 0.00 | Cascade |
-| Keywords | F1 | **0.40** | 0.00 | Cascade |
-| Intent | Accuracy | **0.80** | 0.00 | Cascade |
+| Summarization (N=8) | ROUGE-L | 0.402 | **0.448** | Direct (5/8) |
+| Sentiment (N=5) | Accuracy | **1.00** | 0.00 | Cascade |
+| Keywords (N=5) | F1 | **0.40** | 0.00 | Cascade |
+| Intent (N=5) | Accuracy | **0.80** | 0.00 | Cascade |
 
 ### 3.2 Latency Analysis
 
 ![Latency Comparison](figures/latency_comparison.png)
 
-*Figure 2: Average inference latency. Cascade is **45x** faster (16s vs 726s).*
+*Figure 2: Average inference latency (summarization, N=8). Cascade is **16x** faster (15.7s vs 255.8s).*
 
 **Latency breakdown (Cascade):** Approximately 10s for faster-whisper transcription (local GPU) + 6s for DeepSeek API inference.
 
-**Why is Direct so slow?** The 726s mean latency is primarily due to three factors inherent to local deployment of a 7B-parameter speech LLM on consumer hardware: (1) **INT4 quantization** reduces memory but increases computation overhead compared to native floating-point inference; (2) **8GB VRAM** is barely sufficient for the model (~7GB), causing occasional CPU offloading when attention caches overflow — the highest observed latency was 34,543s for a single intent inference where this occurred; (3) **autoregressive decoding** generates tokens sequentially, and Qwen2-Audio-7B produces longer outputs than the task requires. Excluding the one pathological outlier, mean Direct latency is approximately 240s. This is a hardware limitation rather than an inherent property of the architecture — on a GPU with ≥16GB VRAM, inference would be substantially faster.
+**Why is Direct slower?** The 256s mean latency on the summarization task (N=8) is due to three factors inherent to local deployment of a 7B-parameter model on consumer hardware: (1) **INT4 quantization** adds computation overhead compared to native inference; (2) **8GB VRAM** is barely sufficient, occasionally triggering CPU offloading — the previous experiment run observed one outlier at 34,543s where this occurred, but excluding that, mean latency is approximately 240s; (3) **autoregressive decoding** generates tokens sequentially. This is a **hardware limitation**, not an architectural one — on a GPU with ≥16GB VRAM, Direct inference would be substantially faster.
 
 ### 3.3 Cost Analysis
 
@@ -155,10 +155,10 @@ Our results do not support declaring one architecture superior. Instead, they re
 
 | Constraint | Favored Architecture | Reason |
 |-----------|---------------------|--------|
-| **Low latency** | Cascade | 45x faster inference |
+| **Low latency** | Cascade | 16x faster inference |
 | **Zero API cost** | Direct | Fully local execution |
 | **Structured output** | Cascade | 100% valid JSON, reliable instruction-following |
-| **Open-ended quality** | Tie | LLM judge scores tied (8.6 vs 8.6); Direct wins 2/5 summaries |
+| **Open-ended quality** | Direct | ROUGE-L 0.448 vs 0.402; Direct wins 5/8 summaries |
 | **Emotion/Prosody** | Direct | Direct audio access preserves paralinguistic cues |
 | **Reproducibility** | Cascade | Deterministic API output; Direct inference is non-deterministic |
 
@@ -195,7 +195,7 @@ We are transparent about this study's boundaries:
 
 ## 6. Conclusion
 
-This preliminary benchmark finds no dominant architecture for speech understanding. The cascade approach (faster-whisper + DeepSeek) excels at speed (45x faster) and structured output reliability (100% valid JSON), while the end-to-end approach (Qwen2-Audio-7B) offers zero-cost deployment and achieves comparable content quality on open-ended tasks — summarization ROUGE-L within 0.01 and LLM judge scores tied at 8.6/10, with Direct winning 2 of 5 summaries. Architecture selection depends on deployment constraints: cascade for latency and structure, direct for zero cost and competitive open-ended understanding. Our open-source implementation, with 31 passing tests, a Gradio interactive demo, and a one-click reproduction script (`run_all.py`), provides a foundation for continued benchmarking as both architectures evolve.
+This preliminary benchmark finds no dominant architecture for speech understanding. The cascade approach (faster-whisper + DeepSeek) excels at speed (16x faster) and structured output reliability (100% valid JSON). The end-to-end approach (Qwen2-Audio-7B) offers zero-cost deployment and **outperforms cascade on open-ended summarization quality** (ROUGE-L 0.448 vs 0.402, Direct wins 5 of 8 samples). Architecture selection depends on deployment constraints: cascade for latency and structure, direct for zero cost and superior open-ended understanding. Our open-source implementation, with 31 passing tests, a Gradio interactive demo, and a one-click reproduction script (`run_all.py`), provides a foundation for continued benchmarking as both architectures evolve.
 
 ---
 
