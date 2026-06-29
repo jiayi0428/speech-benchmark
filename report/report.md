@@ -135,15 +135,10 @@ We generated 8 English speech samples via Microsoft Edge TTS with diverse neural
 
 
 | Task | Metric | Description |
-
 |------|--------|-------------|
-
 | **Summarization** | ROUGE-L | Quality of generated summary vs ground truth |
-
 | **Sentiment Analysis** | Accuracy | Correct classification (positive/negative/neutral) |
-
 | **Keyword Extraction** | Precision, Recall, F1 | Overlap with ground truth keywords |
-
 | **Intent Recognition** | Accuracy | Correct intent classification |
 
 
@@ -177,15 +172,10 @@ Paired t-tests with Cohen's d effect sizes compare latency distributions. With N
 
 
 | Task | Metric | Cascade | Direct | Winner |
-
 |------|--------|---------|--------|--------|
-
 | Summarization | ROUGE-L | 0.402 | **0.448** | Direct (5/8) |
-
 | Sentiment | Accuracy | **88%** | 38% | Cascade |
-
 | Keywords | F1 | **0.36** | 0.29 | Cascade |
-
 | Intent | Accuracy | **88%** | 62% | Cascade |
 
 
@@ -235,15 +225,10 @@ To independently assess output quality, we used DeepSeek-chat as a blind judge. 
 
 
 | Task (N=5 subset) | Cascade Score | Direct Score | Direct Wins |
-
 |-------------------|---------------|--------------|-------------|
-
 | Summarization | 8.6 | **8.6** | 2/5 |
-
 | Sentiment | **10.0** | 3.4 | 0/5 |
-
 | Keywords | **7.6** | 7.2 | 2/5 |
-
 | Intent | **8.2** | 1.4 | 0/5 |
 
 
@@ -313,15 +298,10 @@ Beyond individual cases, we categorize all observed errors across the 8 samples 
 
 
 | Error Type | Cascade | Direct | Description |
-
 |-----------|---------|--------|-------------|
-
 | Sentiment mismatch | 1 | 5 | System assigned wrong sentiment label |
-
 | Intent misclassification | 1 | 3 | System misidentified speaker intent |
-
 | Keyword omission | 4 | 6 | Key phrases missing from output |
-
 | Paraphrase distortion | 5 | 1 | System over-rewrote, drifting from ground truth |
 
 
@@ -371,17 +351,11 @@ Our results do not support declaring one architecture superior. Instead, they re
 
 
 | Constraint | Favored Architecture | Evidence |
-
 |-----------|---------------------|----------|
-
 | **Low latency** | Cascade | 16x faster (16s vs 256s) |
-
 | **Zero API cost** | Direct | Fully local execution |
-
 | **Structured output** | Cascade | 88% sentiment, 88% intent, F1 0.36 |
-
 | **Open-ended quality** | Direct | ROUGE-L 0.448 vs 0.402, wins 5/8 |
-
 | **Content quality (LLM judge)** | Tie | Both 8.6/10 on summarization |
 
 
