@@ -113,7 +113,7 @@
 <p><img alt="Latency Comparison" src="figures/latency_comparison.png" /></p>
 <p><em>Figure 2: Average inference latency for summarization (N=8). Cascade is 16× faster (15.7s vs 255.8s).</em></p>
 <p><strong>Latency breakdown (Cascade):</strong> Approximately 10s for faster-whisper transcription + 6s for DeepSeek API inference.</p>
-<p><strong>Why is Direct slower?</strong> The 256s mean latency reflects three hardware constraints: (1) INT4 quantization adds computation overhead; (2) 8GB VRAM is barely sufficient for the 7B-parameter model, occasionally triggering CPU offloading; (3) autoregressive decoding generates tokens sequentially. This is a hardware limitation, not an architectural one — on a GPU with ≥16GB VRAM, inference would be substantially faster.</p>
+<p><strong>Why is Direct slower?</strong> The 256s mean latency reflects three hardware constraints: (1) INT4 quantization adds computation overhead; (2) 8GB VRAM is barely sufficient for the 7B-parameter model, occasionally triggering CPU offloading; (3) autoregressive decoding generates tokens sequentially. This is a hardware limitation, not an architectural one — on a GPU with ≥16GB VRAM, inference would be substantially faster. <strong>Therefore, these latency results should not be interpreted as intrinsic architectural limits of the direct approach.</strong></p>
 <h3>3.3 Cost Analysis</h3>
 <p><img alt="Cost Comparison" src="figures/cost_comparison.png" /></p>
 <p><em>Figure 3: Per-task API cost. Cascade uses DeepSeek API (~$0.0005/task). Direct uses local inference at zero additional cost.</em></p>
@@ -175,7 +175,7 @@
 </blockquote>
 <p><strong>Analysis:</strong> Cascade produces a competent summary but introduces phrasing not in the original ("the speaker explains that..." — a conversational framing). Direct's output is tighter and closer to the ground truth vocabulary. This pattern — Direct matching ground truth phrasing more faithfully — is consistent across the 5 samples where Direct won.</p>
 <h3>4.3 Error Taxonomy</h3>
-<p>Beyond individual cases, we categorize all observed errors across the 8 samples to identify systematic failure patterns:</p>
+<p>Beyond individual cases, we categorize all observed errors across the 8 samples to identify systematic failure patterns. Error categories were manually assigned by the author after reviewing all predictions against ground truth labels:</p>
 <table>
 <thead>
 <tr>
@@ -217,10 +217,10 @@
 <p>The patterns above reveal a deeper structural insight: <strong>ASR transcription acts as an information bottleneck in the cascade pipeline</strong>. We identify three specific mechanisms:</p>
 <ol>
 <li>
-<p><strong>Prosodic information loss:</strong> In <code>science_climate</code>, the speaker's concerned British intonation conveys urgency. Cascade reads only the words and classifies the text as <em>persuade</em>; Direct perceives the vocal affect and captures the urgency more accurately. <strong>ASR strips the acoustic channel of paralinguistic information.</strong></p>
+<p><strong>Prosodic information loss:</strong> In <code>science_climate</code>, the speaker's concerned British intonation conveys urgency. Cascade reads only the words and classifies the text as <em>persuade</em>; Direct classifies it as <em>negative</em>, which more closely matches the urgency conveyed by the speaker's tone. This observation <strong>suggests</strong> that the direct pipeline may better preserve prosodic cues — a hypothesis that requires dedicated emotion benchmarking to confirm. <strong>ASR strips the acoustic channel of paralinguistic information.</strong></p>
 </li>
 <li>
-<p><strong>Lexical ambiguity without acoustic disambiguation:</strong> In <code>tech_blockchain</code>, the phrase "trust without authority" triggers a <em>positive</em> sentiment classification by Cascade (the word "trust" dominates the text signal). Direct's acoustic perception correctly identifies the neutral, explanatory tone. <strong>Text-only models are susceptible to surface-level lexical bias that acoustic models can override.</strong></p>
+<p><strong>Lexical ambiguity without acoustic disambiguation:</strong> In <code>tech_blockchain</code>, the phrase "trust without authority" triggers a <em>positive</em> sentiment classification by Cascade (the word "trust" dominates the text signal), while Direct assigns <em>neutral</em>, matching the explanatory tone. This may indicate that <strong>text-only models are susceptible to surface-level lexical bias that acoustic models can partially offset</strong> — though confirming this would require controlled acoustic manipulation experiments.</p>
 </li>
 <li>
 <p><strong>Paraphrase drift in summarization:</strong> Cascade introduces conversational framing ("The speaker explains that...") and synonym substitutions not present in the original. Direct stays closer to the source vocabulary. For applications requiring high fidelity to source material (meeting minutes, legal transcription), <strong>transcription-to-summary pipelines introduce a compounding distortion: ASR errors → LLM paraphrasing errors → final output drift</strong>.</p>
@@ -292,7 +292,7 @@
 </ol>
 <hr />
 <h2>6. Conclusion</h2>
-<p>This preliminary benchmark finds no dominant architecture for speech understanding. The cascade approach (faster-whisper + DeepSeek) excels at speed and structured output reliability, while the end-to-end approach (Qwen2-Audio-7B) offers zero-cost deployment and superior open-ended summarization quality — winning 5 of 8 head-to-head comparisons with a ROUGE-L of 0.448 vs 0.402. On structured tasks, the gap narrows substantially when Direct outputs are post-processed (sentiment 38% vs 88%, intent 62% vs 88%), but Cascade retains a clear advantage. Architecture selection depends on deployment constraints: cascade for speed and structured data extraction, direct for zero-cost open-ended understanding. Our open-source implementation, with 31 passing tests, a Gradio interactive demo, and a one-click reproduction script (<code>run_all.py</code>), provides a foundation for continued benchmarking as both architectures evolve.</p>
+<p>This preliminary benchmark finds no dominant architecture for speech understanding. The cascade approach (faster-whisper + DeepSeek) excels at speed and structured output reliability, while the end-to-end approach (Qwen2-Audio-7B) offers zero-cost deployment and superior open-ended summarization quality — winning 5 of 8 head-to-head comparisons with a ROUGE-L of 0.448 vs 0.402. On structured tasks, the gap narrows substantially when Direct outputs are post-processed (sentiment 38% vs 88%, intent 62% vs 88%), but Cascade retains a clear advantage. Architecture selection depends on deployment constraints: cascade for speed and structured data extraction, direct for zero-cost open-ended understanding. <strong>Rather than replacing cascade architectures, current end-to-end speech LLMs complement them under different deployment constraints — and the most promising direction may lie not in choosing one over the other, but in understanding when to use each.</strong> Our open-source implementation, with 31 passing tests, a Gradio interactive demo, and a one-click reproduction script (<code>run_all.py</code>), provides a foundation for continued benchmarking as both architectures evolve.</p>
 <hr />
 <h2>References</h2>
 <ol>

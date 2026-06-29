@@ -86,7 +86,7 @@ The most striking result is **summarization**: Direct achieves a higher ROUGE-L 
 
 **Latency breakdown (Cascade):** Approximately 10s for faster-whisper transcription + 6s for DeepSeek API inference.
 
-**Why is Direct slower?** The 256s mean latency reflects three hardware constraints: (1) INT4 quantization adds computation overhead; (2) 8GB VRAM is barely sufficient for the 7B-parameter model, occasionally triggering CPU offloading; (3) autoregressive decoding generates tokens sequentially. This is a hardware limitation, not an architectural one — on a GPU with ≥16GB VRAM, inference would be substantially faster.
+**Why is Direct slower?** The 256s mean latency reflects three hardware constraints: (1) INT4 quantization adds computation overhead; (2) 8GB VRAM is barely sufficient for the 7B-parameter model, occasionally triggering CPU offloading; (3) autoregressive decoding generates tokens sequentially. This is a hardware limitation, not an architectural one — on a GPU with ≥16GB VRAM, inference would be substantially faster. **Therefore, these latency results should not be interpreted as intrinsic architectural limits of the direct approach.**
 
 ### 3.3 Cost Analysis
 
@@ -135,7 +135,7 @@ On summarization, the LLM judge rated Cascade and Direct identically (8.6 vs 8.6
 
 ### 4.3 Error Taxonomy
 
-Beyond individual cases, we categorize all observed errors across the 8 samples to identify systematic failure patterns:
+Beyond individual cases, we categorize all observed errors across the 8 samples to identify systematic failure patterns. Error categories were manually assigned by the author after reviewing all predictions against ground truth labels:
 
 | Error Type | Cascade | Direct | Description |
 |-----------|---------|--------|-------------|
@@ -150,9 +150,9 @@ The most revealing asymmetry is **paraphrase distortion**: Cascade distorts 5 sa
 
 The patterns above reveal a deeper structural insight: **ASR transcription acts as an information bottleneck in the cascade pipeline**. We identify three specific mechanisms:
 
-1. **Prosodic information loss:** In `science_climate`, the speaker's concerned British intonation conveys urgency. Cascade reads only the words and classifies the text as *persuade*; Direct perceives the vocal affect and captures the urgency more accurately. **ASR strips the acoustic channel of paralinguistic information.**
+1. **Prosodic information loss:** In `science_climate`, the speaker's concerned British intonation conveys urgency. Cascade reads only the words and classifies the text as *persuade*; Direct classifies it as *negative*, which more closely matches the urgency conveyed by the speaker's tone. This observation **suggests** that the direct pipeline may better preserve prosodic cues — a hypothesis that requires dedicated emotion benchmarking to confirm. **ASR strips the acoustic channel of paralinguistic information.**
 
-2. **Lexical ambiguity without acoustic disambiguation:** In `tech_blockchain`, the phrase "trust without authority" triggers a *positive* sentiment classification by Cascade (the word "trust" dominates the text signal). Direct's acoustic perception correctly identifies the neutral, explanatory tone. **Text-only models are susceptible to surface-level lexical bias that acoustic models can override.**
+2. **Lexical ambiguity without acoustic disambiguation:** In `tech_blockchain`, the phrase "trust without authority" triggers a *positive* sentiment classification by Cascade (the word "trust" dominates the text signal), while Direct assigns *neutral*, matching the explanatory tone. This may indicate that **text-only models are susceptible to surface-level lexical bias that acoustic models can partially offset** — though confirming this would require controlled acoustic manipulation experiments.
 
 3. **Paraphrase drift in summarization:** Cascade introduces conversational framing ("The speaker explains that...") and synonym substitutions not present in the original. Direct stays closer to the source vocabulary. For applications requiring high fidelity to source material (meeting minutes, legal transcription), **transcription-to-summary pipelines introduce a compounding distortion: ASR errors → LLM paraphrasing errors → final output drift**.
 
@@ -202,7 +202,7 @@ We are transparent about this study's boundaries:
 
 ## 6. Conclusion
 
-This preliminary benchmark finds no dominant architecture for speech understanding. The cascade approach (faster-whisper + DeepSeek) excels at speed and structured output reliability, while the end-to-end approach (Qwen2-Audio-7B) offers zero-cost deployment and superior open-ended summarization quality — winning 5 of 8 head-to-head comparisons with a ROUGE-L of 0.448 vs 0.402. On structured tasks, the gap narrows substantially when Direct outputs are post-processed (sentiment 38% vs 88%, intent 62% vs 88%), but Cascade retains a clear advantage. Architecture selection depends on deployment constraints: cascade for speed and structured data extraction, direct for zero-cost open-ended understanding. Our open-source implementation, with 31 passing tests, a Gradio interactive demo, and a one-click reproduction script (`run_all.py`), provides a foundation for continued benchmarking as both architectures evolve.
+This preliminary benchmark finds no dominant architecture for speech understanding. The cascade approach (faster-whisper + DeepSeek) excels at speed and structured output reliability, while the end-to-end approach (Qwen2-Audio-7B) offers zero-cost deployment and superior open-ended summarization quality — winning 5 of 8 head-to-head comparisons with a ROUGE-L of 0.448 vs 0.402. On structured tasks, the gap narrows substantially when Direct outputs are post-processed (sentiment 38% vs 88%, intent 62% vs 88%), but Cascade retains a clear advantage. Architecture selection depends on deployment constraints: cascade for speed and structured data extraction, direct for zero-cost open-ended understanding. **Rather than replacing cascade architectures, current end-to-end speech LLMs complement them under different deployment constraints — and the most promising direction may lie not in choosing one over the other, but in understanding when to use each.** Our open-source implementation, with 31 passing tests, a Gradio interactive demo, and a one-click reproduction script (`run_all.py`), provides a foundation for continued benchmarking as both architectures evolve.
 
 ---
 
