@@ -1,0 +1,54 @@
+{
+  "experiment_id": "white_noise_v1",
+  "description": "Eight-sample white-noise robustness benchmark",
+  "sample_rate": 16000,
+  "seed": 42,
+  "samples": [
+    "science_brain",
+    "science_climate",
+    "science_crispr",
+    "science_space",
+    "tech_ai_healthcare",
+    "tech_blockchain",
+    "tech_education",
+    "tech_quantum"
+  ],
+  "tasks": [
+    "summarization",
+    "sentiment",
+    "keywords",
+    "intent"
+  ],
+  "conditions": [
+    {
+      "name": "clean",
+      "snr_db": null
+    },
+    {
+      "name": "white_20db",
+      "snr_db": 20
+    },
+    {
+      "name": "white_10db",
+      "snr_db": 10
+    },
+    {
+      "name": "white_0db",
+      "snr_db": 0
+    }
+  ],
+  "smoke": {
+    "samples": [
+      "science_brain",
+      "tech_ai_healthcare"
+    ],
+    "conditions": [
+      "clean",
+      "white_10db",
+      "white_0db"
+    ],
+    "tasks": [
+      "summarization"
+    ]
+  }
+}

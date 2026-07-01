@@ -31,10 +31,28 @@ Thumbs.db
 data/raw/*
 data/processed/*
 !data/processed/tts_samples/
+!data/processed/white_noise_v1/
+data/processed/white_noise_v1/*
+!data/processed/white_noise_v1/audio_manifest.json
 data/results/*
+!data/results/white_noise_v1/
+data/results/white_noise_v1/*
+!data/results/white_noise_v1/direct_raw.jsonl
+!data/results/white_noise_v1/direct_postprocessed.jsonl
+!data/results/white_noise_v1/cascade_summary_raw.json
+!data/results/white_noise_v1/scores.csv
+!data/results/white_noise_v1/summary.json
+!data/results/white_noise_v1/path_comparison_scores.csv
+!data/results/white_noise_v1/path_comparison_summary.json
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/results/.gitkeep
+
+# Local model downloads, caches, and run logs
+data/models/
+.cache/
+*.log
+*.pid
 
 # Jupyter
 .ipynb_checkpoints/

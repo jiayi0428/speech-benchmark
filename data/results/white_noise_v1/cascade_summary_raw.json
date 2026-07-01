@@ -1,0 +1,202 @@
+{
+  "clean": [
+    {
+      "sample": "science_brain",
+      "condition": "clean",
+      "output": "The human brain, with its 86 billion highly interconnected neurons, remains largely mysterious despite extensive research. Scientists are only beginning to grasp how this complex organ produces consciousness, memory, and emotion.",
+      "latency": 15.155537366867065
+    },
+    {
+      "sample": "science_climate",
+      "condition": "clean",
+      "output": "The transcript identifies climate change as the defining challenge of our generation, noting a 1.2\u00b0C temperature rise since pre-industrial times. It highlights observable effects like extreme weather, sea-level rise, and ecosystem disruption. The key message is that immediate action is necessary based on clear scientific consensus.",
+      "latency": 16.264155864715576
+    },
+    {
+      "sample": "science_crispr",
+      "condition": "clean",
+      "output": "CRISPR enables precise DNA modification, offering transformative potential for treating genetic diseases, creating resilient crops, and combating cancer. However, this breakthrough also sparks serious ethical concerns regarding designer babies and the risk of widening genetic inequality.",
+      "latency": 16.25528621673584
+    },
+    {
+      "sample": "science_space",
+      "condition": "clean",
+      "output": "Space exploration is experiencing a renaissance, driven by private companies creating cost-effective reusable rockets and NASA's ambitious plans for lunar and Martian missions. The James Webb Space Telescope is providing unprecedented insights into the early universe.",
+      "latency": 17.997012853622437
+    },
+    {
+      "sample": "tech_ai_healthcare",
+      "condition": "clean",
+      "output": "AI is revolutionizing healthcare by enabling faster, more accurate disease detection from medical images and creating personalized treatment plans, with potential to save millions of lives annually. Machine learning models now match human diagnostic accuracy. However, it is crucial to train these systems on diverse data to prevent bias and ensure equitable outcomes.",
+      "latency": 16.671368837356567
+    },
+    {
+      "sample": "tech_blockchain",
+      "condition": "clean",
+      "output": "Blockchain technology offers tamper-proof, decentralized record-keeping that extends beyond cryptocurrency. Its key innovation enables trust without a central authority, with applications in supply chain management, digital identity verification, and voting systems.",
+      "latency": 14.925666093826294
+    },
+    {
+      "sample": "tech_education",
+      "condition": "clean",
+      "output": "AI-powered personalized learning tailors education to individual student needs, adapting to different learning styles like visual, reading, or hands-on. This approach uses AI tutors that adjust in real time, making education more effective and customized. The future of education thus shifts from one-size-fits-all to adaptive, student-centered learning.",
+      "latency": 17.269439458847046
+    },
+    {
+      "sample": "tech_quantum",
+      "condition": "clean",
+      "output": "Quantum computing marks a fundamental shift from classical computing by using quantum bits (qubits) that can exist in multiple states simultaneously due to superposition. This allows quantum computers to solve certain problems exponentially faster than classical computers.",
+      "latency": 17.542953491210938
+    }
+  ],
+  "white_10dB": [
+    {
+      "sample": "science_brain",
+      "condition": "white_10dB",
+      "output": "The human brain, with its 86 billion highly interconnected neurons, remains largely mysterious despite extensive research. Scientists are only beginning to grasp how this complex organ produces consciousness, memory, and emotion.",
+      "latency": 16.061408042907715
+    },
+    {
+      "sample": "science_climate",
+      "condition": "white_10dB",
+      "output": "The transcript identifies climate change as the defining challenge of our generation, noting a 1.2\u00b0C temperature rise since pre-industrial times. It highlights observable effects like extreme weather, sea-level rise, and ecosystem disruption. The key message is that immediate action is required based on clear scientific consensus.",
+      "latency": 18.329149961471558
+    },
+    {
+      "sample": "science_crispr",
+      "condition": "white_10dB",
+      "output": "CRISPR enables precise DNA modification, offering potential treatments for genetic diseases, drought-resistant crops, and cancer therapies. However, it also raises ethical concerns regarding designer babies and the risk of genetic inequality.",
+      "latency": 24.23828935623169
+    },
+    {
+      "sample": "science_space",
+      "condition": "white_10dB",
+      "output": "Space exploration is experiencing a renaissance, driven by private companies creating cost-effective reusable rockets and NASA's ambitious plans for lunar and Martian missions. The James Webb Space Telescope is providing unprecedented insights into the early universe.",
+      "latency": 17.812232732772827
+    },
+    {
+      "sample": "tech_ai_healthcare",
+      "condition": "white_10dB",
+      "output": "AI is revolutionizing healthcare by enabling faster, more accurate disease detection from medical images and creating personalized treatment plans, with machine learning models matching human diagnostic accuracy. This technology has the potential to save millions of lives annually. However, it is crucial to train these systems on diverse datasets to prevent algorithmic bias.",
+      "latency": 19.13730764389038
+    },
+    {
+      "sample": "tech_blockchain",
+      "condition": "white_10dB",
+      "output": "Blockchain technology offers tamper-proof, decentralized record-keeping that extends beyond cryptocurrency. Its key innovation enables trust without a central authority, with applications in supply chain management, digital identity verification, and voting systems.",
+      "latency": 14.734159469604492
+    },
+    {
+      "sample": "tech_education",
+      "condition": "white_10dB",
+      "output": "AI-powered personalized learning tailors education to individual student needs, adapting to different learning styles like visual, reading, or hands-on. This approach uses AI tutors that adjust in real time, making education more effective and customized. The future of education thus shifts from one-size-fits-all to adaptive, student-centered learning.",
+      "latency": 19.61460566520691
+    },
+    {
+      "sample": "tech_quantum",
+      "condition": "white_10dB",
+      "output": "Quantum computing fundamentally differs from classical computing by using quantum bits (qubits) that can exist in multiple states at once due to superposition. This allows quantum computers to process information in ways that classical computers cannot. As a result, they can solve certain problems exponentially faster than any classical computer.",
+      "latency": 16.007362127304077
+    }
+  ],
+  "white_0dB": [
+    {
+      "sample": "science_brain",
+      "condition": "white_0dB",
+      "output": "The human brain, with its 86 billion highly interconnected neurons, remains largely mysterious despite extensive research. Scientists are only beginning to grasp how this complex organ produces consciousness, memory, and emotion.",
+      "latency": 16.155167818069458
+    },
+    {
+      "sample": "science_climate",
+      "condition": "white_0dB",
+      "output": "Global temperatures have risen about 1.2\u00b0C since pre-industrial times, causing more extreme weather, rising seas, and ecosystem disruption. Climate change is described as the defining challenge of our generation, with a clear scientific consensus that immediate action is required.",
+      "latency": 15.46771240234375
+    },
+    {
+      "sample": "science_crispr",
+      "condition": "white_0dB",
+      "output": "CRISPR enables precise DNA modification, offering transformative potential for treating genetic diseases, improving crops, and fighting cancer. However, this breakthrough also raises serious ethical concerns regarding designer babies and the risk of genetic inequality.",
+      "latency": 15.229710102081299
+    },
+    {
+      "sample": "science_space",
+      "condition": "white_0dB",
+      "output": "Space exploration is experiencing a renaissance, driven by private companies creating cost-effective reusable rockets and NASA's ambitious plans for lunar and Martian missions. The James Webb Space Telescope is providing unprecedented insights into the early universe. These advancements mark a new era of discovery and accessibility in space.",
+      "latency": 15.932264566421509
+    },
+    {
+      "sample": "tech_ai_healthcare",
+      "condition": "white_0dB",
+      "output": "AI is revolutionizing healthcare by enabling faster, more accurate disease detection from medical images and creating personalized treatment plans, potentially saving millions of lives annually. Machine learning models now match human diagnostic accuracy, but it is crucial to train them on diverse data to prevent bias.",
+      "latency": 16.805927753448486
+    },
+    {
+      "sample": "tech_blockchain",
+      "condition": "white_0dB",
+      "output": "Blockchain technology offers tamper-proof, decentralized record-keeping that extends beyond cryptocurrency. Its key innovation enables trust without a central authority, with applications in supply chain management, digital identity verification, and voting systems.",
+      "latency": 14.937525272369385
+    },
+    {
+      "sample": "tech_education",
+      "condition": "white_0dB",
+      "output": "AI-powered personalized learning tailors education to individual student needs, adapting to different learning styles like visual, reading, or hands-on. This approach uses AI tutors that adjust in real time, making education more effective and customized. The future of education thus shifts from a one-size-fits-all model to a dynamic, student-centered experience.",
+      "latency": 16.009172439575195
+    },
+    {
+      "sample": "tech_quantum",
+      "condition": "white_0dB",
+      "output": "Quantum computing fundamentally differs from classical computing by using quantum bits (qubits) that can exist in multiple states at once due to superposition. This allows quantum computers to process information in parallel, solving specific problems exponentially faster than classical computers.",
+      "latency": 18.009641885757446
+    }
+  ],
+  "white_20dB": [
+    {
+      "sample": "science_brain",
+      "condition": "white_20dB",
+      "output": "The human brain, with its 86 billion highly interconnected neurons, remains largely mysterious despite extensive research. Scientists are only beginning to grasp how this complex organ produces consciousness, memory, and emotion.",
+      "latency": 17.95091462135315
+    },
+    {
+      "sample": "science_climate",
+      "condition": "white_20dB",
+      "output": "The transcript identifies climate change as the defining challenge of our generation, noting a 1.2\u00b0C temperature rise since pre-industrial times. It highlights current impacts like extreme weather, sea-level rise, and ecosystem disruption. The key message is that immediate action is required based on clear scientific consensus.",
+      "latency": 15.436415195465088
+    },
+    {
+      "sample": "science_crispr",
+      "condition": "white_20dB",
+      "output": "CRISPR gene editing enables precise DNA modification, offering major potential for treating genetic diseases, improving crops, and fighting cancer. However, it also raises serious ethical concerns regarding designer babies and the risk of genetic inequality.",
+      "latency": 23.75368094444275
+    },
+    {
+      "sample": "science_space",
+      "condition": "white_20dB",
+      "output": "Space exploration is experiencing a renaissance, driven by private companies creating cost-effective reusable rockets and NASA's ambitious plans for lunar and Martian missions. The James Webb Space Telescope is providing unprecedented insights into the early universe.",
+      "latency": 15.270069360733032
+    },
+    {
+      "sample": "tech_ai_healthcare",
+      "condition": "white_20dB",
+      "output": "AI is revolutionizing healthcare by enabling faster, more accurate disease detection from medical images and creating personalized treatment plans, with potential to save millions of lives annually. Machine learning models now match human diagnostic accuracy. However, it is crucial to train these systems on diverse data to prevent bias and ensure equitable outcomes.",
+      "latency": 15.682807445526123
+    },
+    {
+      "sample": "tech_blockchain",
+      "condition": "white_20dB",
+      "output": "Blockchain technology offers tamper-proof, decentralized record-keeping that extends beyond cryptocurrency. Its key innovation enables trust without a central authority, with applications in supply chain management, digital identity verification, and voting systems.",
+      "latency": 14.589951753616333
+    },
+    {
+      "sample": "tech_education",
+      "condition": "white_20dB",
+      "output": "AI-powered personalized learning tailors education to individual student needs, adapting to different learning styles like visual, reading, or hands-on. This approach uses AI tutors that adjust in real time, making education more effective and customized. The future of education thus shifts from one-size-fits-all to adaptive, student-centered learning.",
+      "latency": 16.19253969192505
+    },
+    {
+      "sample": "tech_quantum",
+      "condition": "white_20dB",
+      "output": "Quantum computing marks a major shift from classical computing by using quantum bits (qubits) that can exist in multiple states at once, unlike classical bits limited to 0 or 1. This property, known as superposition, enables quantum computers to solve specific problems exponentially faster than classical computers.",
+      "latency": 15.336917638778687
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "experiment_id": "white_noise_v1_path_comparison",
+  "scope": "summarization_only",
+  "sample_count": 8,
+  "result_count": 64,
+  "conditions": [
+    "clean",
+    "white_20db",
+    "white_10db",
+    "white_0db"
+  ],
+  "means": {
+    "cascade": {
+      "rouge_l": {
+        "clean": 0.3970786233790325,
+        "white_20db": 0.39470736855751976,
+        "white_10db": 0.39233446280860074,
+        "white_0db": 0.4032095445869994
+      },
+      "latency_seconds": {
+        "clean": 16.51017752289772,
+        "white_20db": 16.776662081480026,
+        "white_10db": 18.241814374923706,
+        "white_0db": 16.068390280008316
+      }
+    },
+    "direct": {
+      "rouge_l": {
+        "clean": 0.4600094358837309,
+        "white_20db": 0.44220951214107046,
+        "white_10db": 0.43799832246109793,
+        "white_0db": 0.453553095410877
+      },
+      "latency_seconds": {
+        "clean": 3.5745,
+        "white_20db": 3.08175,
+        "white_10db": 2.952,
+        "white_0db": 2.941875
+      }
+    }
+  },
+  "rouge_l_change_from_clean": {
+    "cascade": {
+      "white_20db": -0.002371254821512736,
+      "white_10db": -0.004744160570431755,
+      "white_0db": 0.006130921207966933
+    },
+    "direct": {
+      "white_20db": -0.01779992374266043,
+      "white_10db": -0.022011113422632955,
+      "white_0db": -0.006456340472853872
+    }
+  },
+  "direct_minus_cascade_rouge_l": {
+    "clean": 0.06293081250469841,
+    "white_20db": 0.04750214358355073,
+    "white_10db": 0.04566385965249717,
+    "white_0db": 0.050343550823877606
+  },
+  "paired_bootstrap_95_ci": {
+    "clean": [
+      -0.010339095695816255,
+      0.13653415140999536
+    ],
+    "white_20db": [
+      -0.0234533234284185,
+      0.11879550218957505
+    ],
+    "white_10db": [
+      -0.014647784973165913,
+      0.11272482235444374
+    ],
+    "white_0db": [
+      -0.03230364913087175,
+      0.13510838987075824
+    ]
+  },
+  "sample_wins": {
+    "clean": {
+      "direct": 5,
+      "cascade": 3,
+      "ties": 0
+    },
+    "white_20db": {
+      "direct": 5,
+      "cascade": 3,
+      "ties": 0
+    },
+    "white_10db": {
+      "direct": 5,
+      "cascade": 3,
+      "ties": 0
+    },
+    "white_0db": {
+      "direct": 5,
+      "cascade": 3,
+      "ties": 0
+    }
+  },
+  "recorded_latency_ratio_cascade_over_direct": {
+    "clean": 4.618877471785626,
+    "white_20db": 5.443875097421928,
+    "white_10db": 6.179476414269549,
+    "white_0db": 5.461955480776143
+  },
+  "caveats": [
+    "The Cascade file contains summarization outputs only.",
+    "Latency values came from separate runs and may include different hardware, warm-up, and model-loading effects.",
+    "With N=8, descriptive trends are not statistically conclusive."
+  ]
+}

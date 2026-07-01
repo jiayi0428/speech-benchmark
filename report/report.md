@@ -12,7 +12,7 @@
 
 ## Abstract
 
-Recent audio-language models (Chu et al., 2024) enable end-to-end spoken language understanding, challenging the long-standing cascade paradigm that separates automatic speech recognition from language understanding. This study presents a preliminary empirical comparison of these two paradigms. We implement a cascade pipeline using faster-whisper large-v3 with DeepSeek-chat, and a direct pipeline using Qwen2-Audio-7B (INT4 quantization) on a local NVIDIA RTX 5070 GPU. Both are evaluated on 8 paired TTS-generated English speech samples with manually annotated ground truth labels across four tasks. To isolate understanding quality from format compliance, Direct outputs are post-processed by the same text LLM for structured tasks. Our results reveal a **trade-off rather than a clear winner**: the cascade pipeline achieves **16x lower latency** (16s vs 256s) and **higher accuracy on structured tasks** (sentiment 88% vs 38%, intent 88% vs 62%, keywords F1 0.36 vs 0.29), while the direct pipeline achieves **superior open-ended summarization quality** (ROUGE-L 0.448 vs 0.402, winning 5 of 8 samples) and **zero marginal cost**. An independent LLM judge rated both systems equally on content quality (8.6 vs 8.6 out of 10). We conclude that architecture selection depends on deployment constraints --cascade for speed and structured data extraction, direct for zero-cost open-ended understanding.
+Recent audio-language models (Chu et al., 2024) enable end-to-end spoken language understanding, challenging the long-standing cascade paradigm that separates automatic speech recognition from language understanding. This study presents a preliminary empirical comparison of these two paradigms. We implement a cascade pipeline using faster-whisper large-v3 with DeepSeek-chat, and a direct pipeline using Qwen2-Audio-7B (INT4 quantization) on a local NVIDIA RTX 5070 GPU. Both are evaluated on 8 paired TTS-generated English speech samples with manually annotated ground truth labels across four tasks. To isolate understanding quality from format compliance, Direct outputs are post-processed by the same text LLM for structured tasks. Our results reveal a **trade-off rather than a clear winner**: the cascade pipeline achieves **16x lower latency** (16s vs 256s) and **higher accuracy on structured tasks** (sentiment 88% vs 38%, intent 88% vs 62%, keywords F1 0.36 vs 0.29), while the direct pipeline achieves **superior open-ended summarization quality** (ROUGE-L 0.448 vs 0.402, winning 5 of 8 samples) and **zero marginal cost**. An independent LLM judge rated both systems equally on content quality (8.6 vs 8.6 out of 10). A deterministic white-noise extension (20, 10, and 0 dB SNR) found no monotonic degradation across Qwen's four tasks. In the matched summarization comparison, Direct retained higher mean ROUGE-L and won 5 of 8 samples at every noise level, while Cascade showed smaller deviations from its clean baseline. The paired bootstrap intervals nevertheless crossed zero because N=8. We conclude that architecture selection depends on deployment constraints --cascade for speed and structured data extraction, direct for zero-cost open-ended understanding.
 
 ---
 
@@ -90,6 +90,14 @@ We generated 8 English speech samples via Microsoft Edge TTS with diverse neural
 
 Paired t-tests with Cohen's d effect sizes compare latency distributions. With N=8 paired samples, results are indicative rather than conclusive.
 
+### 3.5 White-Noise Robustness Extension
+
+We additionally evaluated the Direct Qwen2-Audio pipeline under deterministic white noise at 20 dB, 10 dB, and 0 dB signal-to-noise ratio (SNR), using the clean audio as the no-noise baseline. The same 8 samples and four tasks produced 128 evaluated outputs in total (8 samples x 4 conditions x 4 tasks). Noise generation used a fixed random seed of 42, verified the achieved SNR, and prevented waveform clipping.
+
+This extension was run locally on an NVIDIA GeForce RTX 5060 Laptop GPU. To match the original Direct evaluation, Qwen's free-form outputs for sentiment, keywords, and intent were post-processed by DeepSeek-chat using the same prompts, 500-character input limit, and temperature of 0.0 as `postprocess_direct.py`. All four conditions received identical treatment, and strict JSON compliance after post-processing was 100%. Summarization was evaluated directly without post-processing. This makes clean-versus-noise comparisons internally consistent across all four tasks.
+
+A separately supplied Cascade result file contains 32 summarization outputs for the same 8 samples and four conditions. These were compared with the 32 Direct summaries using the same ground-truth references and ROUGE-L implementation. The Cascade file does not include sentiment, keywords, intent, transcripts, hardware metadata, or model-loading details. Therefore, the cross-path noise comparison is limited to summarization quality. Recorded latency is shown descriptively but is not treated as a controlled architecture-level comparison.
+
 ---
 
 ## 4. Results
@@ -147,6 +155,55 @@ To independently assess output quality, we used DeepSeek-chat as a blind judge. 
 | Intent | **8.2** | 1.4 | 0/5 |
 
 On summarization, the LLM judge rated Cascade and Direct identically (8.6 vs 8.6), corroborating the close ROUGE-L scores. Direct's winning summaries were judged "more accurate and complete, closely matching the ground truth's phrasing."
+
+### 4.5 Qwen2-Audio Robustness to White Noise
+
+![Qwen White-Noise Robustness](figures/qwen_white_noise_robustness.png)
+
+*Figure 4: Qwen2-Audio task performance under deterministic white noise (N=8). Structured tasks use the same DeepSeek post-processing at every noise level.*
+
+| Task / Metric | Clean | White 20 dB | Change | White 10 dB | Change | White 0 dB | Change |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Summarization / ROUGE-L | 0.4600 | 0.4422 | -0.0178 | 0.4380 | -0.0220 | 0.4536 | -0.0065 |
+| Sentiment / Accuracy | 62.5% | 50.0% | -12.5 pp | 62.5% | 0.0 pp | 87.5% | +25.0 pp |
+| Keywords / Exact-Phrase F1 | 0.3378 | 0.3650 | +0.0272 | 0.3757 | +0.0379 | 0.3223 | -0.0154 |
+| Intent / Accuracy | 87.5% | 87.5% | 0.0 pp | 100.0% | +12.5 pp | 100.0% | +12.5 pp |
+
+Summarization was robust in this small test: at 0 dB, where signal and noise have equal power, ROUGE-L decreased by only 0.0065. Keyword F1 also changed little at 0 dB (-0.0154). Sentiment and intent were non-monotonic and sometimes scored higher under stronger noise. This must **not** be interpreted as evidence that noise improves understanding: each classification error changes accuracy by 12.5 percentage points at N=8, and DeepSeek converts Qwen's free-form analysis into the final label. The defensible conclusion is that this experiment did not detect a consistent white-noise degradation pattern.
+
+![Original Direct Baseline vs White Noise](figures/qwen_original_vs_white_noise.png)
+
+*Figure 5: Horizontal comparison of the original report's Direct clean result with the new same-method clean baseline and three white-noise conditions.*
+
+The following table relates the extension to the report's original Direct results:
+
+| Metric | Original Direct Clean | New Same-Method Clean | White 20 dB | White 10 dB | White 0 dB |
+|---|---:|---:|---:|---:|---:|
+| Summary ROUGE-L | 0.448 | 0.460 | 0.442 | 0.438 | 0.454 |
+| Sentiment Accuracy | 38% | 62.5% | 50.0% | 62.5% | 87.5% |
+| Keyword F1 | 0.29 | 0.338 | 0.365 | 0.376 | 0.322 |
+| Intent Accuracy | 62% | 87.5% | 87.5% | 100.0% | 100.0% |
+
+All columns now use the same Qwen-to-DeepSeek evaluation architecture, so the metrics can be displayed on one scale. However, the original clean column came from an earlier run, whereas the remaining four columns were produced together in the controlled white-noise experiment. For estimating the effect of noise, **New Same-Method Clean** is therefore the primary baseline; differences between the two clean columns reflect run-to-run and implementation variation, not noise.
+
+### 4.6 Cascade vs Direct White-Noise Summarization
+
+![Cascade vs Direct White Noise](figures/cascade_vs_direct_white_noise.png)
+
+*Figure 6: Mean summarization ROUGE-L and recorded latency for Cascade and Direct across four white-noise conditions (N=8 paired samples). Latency values come from separate runs and are not a controlled hardware comparison.*
+
+| Condition | Cascade ROUGE-L | Direct ROUGE-L | Direct - Cascade | Direct Wins | Cascade Change vs Clean | Direct Change vs Clean |
+|---|---:|---:|---:|---:|---:|---:|
+| Clean | 0.3971 | 0.4600 | +0.0629 | 5/8 | -- | -- |
+| White 20 dB | 0.3947 | 0.4422 | +0.0475 | 5/8 | -0.0024 | -0.0178 |
+| White 10 dB | 0.3923 | 0.4380 | +0.0457 | 5/8 | -0.0047 | -0.0220 |
+| White 0 dB | 0.4032 | 0.4536 | +0.0503 | 5/8 | +0.0061 | -0.0065 |
+
+Direct achieved the higher mean ROUGE-L at every noise level and won 5 of 8 paired samples in every condition. Its mean advantage ranged from 0.0457 to 0.0629. Cascade was more stable relative to its own clean baseline: its largest absolute change was 0.0061, compared with 0.0220 for Direct. Thus, this pilot suggests a trade-off between **higher Direct quality** and **flatter Cascade degradation**, rather than a single robustness winner.
+
+The 95% paired bootstrap intervals for Direct minus Cascade were [-0.0103, 0.1365] on clean audio, [-0.0235, 0.1188] at 20 dB, [-0.0146, 0.1127] at 10 dB, and [-0.0323, 0.1351] at 0 dB. Every interval crosses zero, so the observed Direct advantage is not statistically conclusive with eight samples.
+
+Recorded mean latency ranged from 16.1 to 18.2 seconds for Cascade and 2.9 to 3.6 seconds for Direct in these files. This reverses the main benchmark's latency ordering, but the runs lack matched hardware and timing-boundary metadata. It should be interpreted as a reproducibility warning, not evidence that Direct is intrinsically faster.
 
 ---
 
@@ -254,7 +311,7 @@ We are transparent about this study's boundaries:
 
 3. **Single model per paradigm.** Results may not generalize to other speech LLMs or text LLMs.
 
-4. **Single noise condition untested.** The robustness evaluation framework (babble noise, white noise, reverberation) is implemented in `src/data.py` but was not executed due to Direct pipeline latency.
+4. **White noise only; Cascade summary only.** The robustness extension evaluates both paths for summarization at 20, 10, and 0 dB SNR, but only Direct has results for sentiment, keywords, and intent. Babble noise, reverberation, and real environmental noise remain untested.
 
 5. **No human evaluation of quality.** Automated metrics capture content overlap but not perceptual quality, coherence, or factual accuracy.
 
@@ -272,7 +329,7 @@ We are transparent about this study's boundaries:
 
 ## 7. Conclusion
 
-This preliminary benchmark finds no dominant architecture for speech understanding. The cascade approach (faster-whisper + DeepSeek) excels at speed and structured output reliability, while the end-to-end approach (Qwen2-Audio-7B) offers zero-cost deployment and superior open-ended summarization quality --winning 5 of 8 head-to-head comparisons with a ROUGE-L of 0.448 vs 0.402. On structured tasks, the gap narrows substantially when Direct outputs are post-processed (sentiment 38% vs 88%, intent 62% vs 88%), but Cascade retains a clear advantage. Architecture selection depends on deployment constraints: cascade for speed and structured data extraction, direct for zero-cost open-ended understanding. **Rather than replacing cascade architectures, current end-to-end speech LLMs complement them under different deployment constraints --and the most promising direction may lie not in choosing one over the other, but in understanding when to use each.** Our open-source implementation, with 31 passing tests, a Gradio interactive demo, and a one-click reproduction script (`run_all.py`), provides a foundation for continued benchmarking as both architectures evolve.
+This preliminary benchmark finds no dominant architecture for speech understanding. The cascade approach (faster-whisper + DeepSeek) excels at speed and structured output reliability, while the end-to-end approach (Qwen2-Audio-7B) offers zero-cost deployment and superior open-ended summarization quality --winning 5 of 8 head-to-head comparisons with a ROUGE-L of 0.448 vs 0.402. On structured tasks, the gap narrows substantially when Direct outputs are post-processed (sentiment 38% vs 88%, intent 62% vs 88%), but Cascade retains a clear advantage. In the white-noise extension, Direct maintained higher mean summarization ROUGE-L and won 5 of 8 samples at every level, while Cascade stayed closer to its own clean baseline. Because all paired bootstrap intervals crossed zero, these are descriptive trends rather than statistically conclusive architecture differences. Architecture selection depends on deployment constraints: cascade for speed and structured data extraction, direct for zero-cost open-ended understanding. **Rather than replacing cascade architectures, current end-to-end speech LLMs complement them under different deployment constraints --and the most promising direction may lie not in choosing one over the other, but in understanding when to use each.** Our open-source implementation, with 31 passing tests, a Gradio interactive demo, and a one-click reproduction script (`run_all.py`), provides a foundation for continued benchmarking as both architectures evolve.
 
 ---
 
@@ -288,5 +345,4 @@ This preliminary benchmark finds no dominant architecture for speech understandi
 
 ---
 
-*Preliminary benchmark results. Code and data at speech-benchmark/. Generated 2026-06-27.*
-
+*Preliminary benchmark results. Code and data at speech-benchmark/. Updated 2026-07-01.*

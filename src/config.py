@@ -17,7 +17,9 @@ for d in [RAW_DIR, PROCESSED_DIR, RESULTS_DIR]:
     d.mkdir(parents=True, exist_ok=True)
 
 # --- ASR Model ---
-WHISPER_MODEL = "large-v3"
+# Keep large-v3 as the formal benchmark default while allowing a lightweight
+# model for smoke tests through the WHISPER_MODEL environment variable.
+WHISPER_MODEL = os.getenv("WHISPER_MODEL", "large-v3")
 _WHISPER_DEVICE_RAW = os.getenv("WHISPER_DEVICE", "auto")
 if _WHISPER_DEVICE_RAW == "auto":
     try:

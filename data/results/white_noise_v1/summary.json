@@ -1,0 +1,94 @@
+{
+  "experiment_id": "white_noise_v1",
+  "scope": "full",
+  "expected_results": 128,
+  "available_results": 128,
+  "missing_results": [],
+  "means": {
+    "qwen": {
+      "summarization": {
+        "clean": 0.4600094358837309,
+        "white_20db": 0.44220951214107046,
+        "white_10db": 0.43799832246109793,
+        "white_0db": 0.453553095410877
+      },
+      "sentiment": {
+        "clean": 0.625,
+        "white_20db": 0.5,
+        "white_10db": 0.625,
+        "white_0db": 0.875
+      },
+      "keywords": {
+        "clean": 0.3377594627594627,
+        "white_20db": 0.3650030525030525,
+        "white_10db": 0.3756868131868132,
+        "white_0db": 0.3223443223443223
+      },
+      "intent": {
+        "clean": 0.875,
+        "white_20db": 0.875,
+        "white_10db": 1.0,
+        "white_0db": 1.0
+      }
+    }
+  },
+  "valid_json_rates": {
+    "qwen": {
+      "sentiment": {
+        "clean": 1.0,
+        "white_20db": 1.0,
+        "white_10db": 1.0,
+        "white_0db": 1.0
+      },
+      "keywords": {
+        "clean": 1.0,
+        "white_20db": 1.0,
+        "white_10db": 1.0,
+        "white_0db": 1.0
+      },
+      "intent": {
+        "clean": 1.0,
+        "white_20db": 1.0,
+        "white_10db": 1.0,
+        "white_0db": 1.0
+      }
+    }
+  },
+  "wer": {},
+  "original_report_direct_clean": {
+    "summarization": 0.448,
+    "sentiment": 0.38,
+    "keywords": 0.29,
+    "intent": 0.62
+  },
+  "new_clean_minus_original": {
+    "summarization": 0.012009435883730879,
+    "sentiment": 0.245,
+    "keywords": 0.047759462759462745,
+    "intent": 0.255
+  },
+  "changes_from_clean": {
+    "qwen": {
+      "summarization": {
+        "white_20db": -0.01779992374266043,
+        "white_10db": -0.022011113422632955,
+        "white_0db": -0.006456340472853872
+      },
+      "sentiment": {
+        "white_20db": -0.125,
+        "white_10db": 0.0,
+        "white_0db": 0.25
+      },
+      "keywords": {
+        "white_20db": 0.027243589743589758,
+        "white_10db": 0.03792735042735046,
+        "white_0db": -0.015415140415140416
+      },
+      "intent": {
+        "white_20db": 0.0,
+        "white_10db": 0.125,
+        "white_0db": 0.125
+      }
+    }
+  }
+}

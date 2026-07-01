@@ -5,6 +5,7 @@ First run downloads ~14GB model from HuggingFace.
 """
 import time
 import warnings
+import os
 from typing import Any, Dict
 
 import librosa
@@ -15,10 +16,14 @@ from transformers import (
     Qwen2AudioForConditionalGeneration,
 )
 
-from src.config import SAMPLE_RATE
+from src.config import PROJECT_ROOT, SAMPLE_RATE
 
 
-MODEL_ID = "Qwen/Qwen2-Audio-7B-Instruct"
+MODEL_ID = os.getenv(
+    "QWEN_MODEL_PATH",
+    "Qwen/Qwen2-Audio-7B-Instruct",
+)
+PROMPT_VERSION = "qwen_user_task_v2"
 
 SYSTEM_PROMPTS: dict[str, str] = {
     "summarization": (
@@ -30,18 +35,21 @@ SYSTEM_PROMPTS: dict[str, str] = {
         "Listen to the audio and classify the speaker's sentiment "
         "as exactly one of: positive, negative, or neutral. "
         "Consider tone of voice, pace, and word choice. "
-        'Return JSON: {"sentiment": "<label>", "confidence": <float>}'
+        'Return strict valid JSON with double quotes: '
+        '{"sentiment": "<label>", "confidence": <float>}'
     ),
     "keywords": (
         "Listen to the audio and extract 5-10 most important "
         "keywords or key phrases. Consider emphasis and repetition. "
-        'Return JSON list: ["keyword1", "keyword2", ...]'
+        'Return a strict valid JSON list using double quotes: '
+        '["keyword1", "keyword2", ...]'
     ),
     "intent": (
         "Listen to the audio and identify the speaker's primary "
         "communicative intent. Choose exactly one of: inform, persuade, "
         "entertain, question, describe. Consider tone and structure. "
-        'Return JSON: {"intent": "<label>", "confidence": <float>}'
+        'Return strict valid JSON with double quotes: '
+        '{"intent": "<label>", "confidence": <float>}'
     ),
 }
 
@@ -57,7 +65,10 @@ class QwenAudioPipeline:
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_compute_dtype=torch.float16,
+            llm_int8_enable_fp32_cpu_offload=True,
         )
+        offload_dir = PROJECT_ROOT / ".cache" / "qwen_offload"
+        offload_dir.mkdir(parents=True, exist_ok=True)
 
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
@@ -65,6 +76,10 @@ class QwenAudioPipeline:
                 MODEL_ID,
                 quantization_config=quantization_config,
                 device_map="auto",
+                max_memory={0: "7GiB", "cpu": "20GiB"},
+                offload_folder=str(offload_dir),
+                offload_state_dict=True,
+                low_cpu_mem_usage=True,
                 trust_remote_code=True,
             )
 
@@ -88,12 +103,18 @@ class QwenAudioPipeline:
 
         system_prompt = SYSTEM_PROMPTS.get(task, SYSTEM_PROMPTS["summarization"])
 
+        # Qwen2-Audio follows task instructions reliably when they are included
+        # in the user turn alongside the audio. A task-specific system message
+        # was ignored by the model and caused every structured task to degrade
+        # into a generic audio description.
         conversation = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": [
-                {"type": "audio", "audio_url": None},
-                {"type": "text", "text": "Please respond with ONLY the answer, no extra text."},
-            ]},
+            {
+                "role": "user",
+                "content": [
+                    {"type": "audio", "audio_url": None},
+                    {"type": "text", "text": system_prompt},
+                ],
+            },
         ]
 
         text = self.processor.apply_chat_template(
