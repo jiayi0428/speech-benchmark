@@ -30,6 +30,7 @@ Thumbs.db
 # Data directories (keep structure, ignore contents)
 data/raw/*
 data/processed/*
+!data/processed/tts_samples/
 data/results/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
