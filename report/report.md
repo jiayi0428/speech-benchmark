@@ -1,5 +1,7 @@
 # A Preliminary Benchmark of Cascade and End-to-End Speech Understanding Architectures
 
+[简体中文](report.zh-CN.md)
+
 **Author:** Jiayi Li  
 
 **Date:** June-August 2026 2026  
@@ -12,7 +14,7 @@
 
 ## Abstract
 
-Recent audio-language models (Chu et al., 2024) enable end-to-end spoken language understanding, challenging the long-standing cascade paradigm that separates automatic speech recognition from language understanding. This study presents a preliminary empirical comparison of these two paradigms. We implement a cascade pipeline using faster-whisper large-v3 with DeepSeek-chat, and a direct pipeline using Qwen2-Audio-7B (INT4 quantization) on a local NVIDIA RTX 5070 GPU. Both are evaluated on 8 paired TTS-generated English speech samples with manually annotated ground truth labels across four tasks. To isolate understanding quality from format compliance, Direct outputs are post-processed by the same text LLM for structured tasks. Our results reveal a **trade-off rather than a clear winner**: the cascade pipeline achieves **16x lower latency** (16s vs 256s) and **higher accuracy on structured tasks** (sentiment 88% vs 38%, intent 88% vs 62%, keywords F1 0.36 vs 0.29), while the direct pipeline achieves **superior open-ended summarization quality** (ROUGE-L 0.448 vs 0.402, winning 5 of 8 samples) and **zero marginal cost**. An independent LLM judge rated both systems equally on content quality (8.6 vs 8.6 out of 10). A deterministic white-noise extension (20, 10, and 0 dB SNR) found no monotonic degradation across Qwen's four tasks. In the matched summarization comparison, Direct retained higher mean ROUGE-L and won 5 of 8 samples at every noise level, while Cascade showed smaller deviations from its clean baseline. The paired bootstrap intervals nevertheless crossed zero because N=8. We conclude that architecture selection depends on deployment constraints --cascade for speed and structured data extraction, direct for zero-cost open-ended understanding.
+Recent audio-language models (Chu et al., 2024) enable end-to-end spoken language understanding, challenging the long-standing cascade paradigm that separates automatic speech recognition from language understanding. This study presents a preliminary empirical comparison of these two paradigms. We implement a cascade pipeline using faster-whisper large-v3 with DeepSeek-chat, and a direct pipeline using Qwen2-Audio-7B (INT4 quantization) on a local NVIDIA RTX 5070 GPU. Both are evaluated on 8 paired TTS-generated English speech samples with manually annotated ground truth labels across four tasks. To isolate understanding quality from format compliance, Direct outputs are post-processed by the same text LLM for structured tasks. Our results reveal a **trade-off rather than a clear winner**: the cascade pipeline achieves **16x lower latency in the original matched run** (16s vs 256s) and **higher accuracy on structured tasks** (sentiment 88% vs 38%, intent 88% vs 62%, keywords F1 0.36 vs 0.29), while the direct pipeline achieves **superior open-ended summarization quality** (ROUGE-L 0.448 vs 0.402, winning 5 of 8 samples). Local Direct inference has no speech-model API charge, although structured post-processing uses a paid text API. A DeepSeek judge rated both systems equally on content quality (8.6 vs 8.6 out of 10). A deterministic white-noise extension (20, 10, and 0 dB SNR) found no monotonic degradation across Qwen's four tasks. In the matched summarization comparison, Direct retained higher mean ROUGE-L and won 5 of 8 samples at every noise level, while Cascade showed smaller deviations from its clean baseline. A supplemental paired human-speech pilot found higher Cascade means on all four tasks, but every paired bootstrap interval crossed zero. Because every experiment remains N=8, the results are descriptive rather than statistically conclusive.
 
 ---
 
@@ -205,6 +207,29 @@ The 95% paired bootstrap intervals for Direct minus Cascade were [-0.0103, 0.136
 
 Recorded mean latency ranged from 16.1 to 18.2 seconds for Cascade and 2.9 to 3.6 seconds for Direct in these files. This reverses the main benchmark's latency ordering, but the runs lack matched hardware and timing-boundary metadata. It should be interpreted as a reproducibility warning, not evidence that Direct is intrinsically faster.
 
+### 4.7 Paired Cascade vs Direct Pilot on As-Recorded Human Speech
+
+We additionally evaluated both paths on eight 17-23 second human-speech recordings. The Direct inputs were converted from stereo 44.1 kHz to mono 16 kHz without denoising or peak normalization. Environmental noise and audience sounds were retained. Human-supplied annotations provide a transcript, summary, sentiment, keywords, and intent for each sample. The supplied Cascade result file matches the same eight sample names and content but does not contain audio hashes, so exact byte identity with the Direct inputs cannot be independently verified.
+
+![Human Speech Path Comparison](figures/human_speech_path_comparison.png)
+
+*Figure 7: Ground-truth task scores and per-sample summarization ROUGE-L on eight as-recorded human-speech samples.*
+
+| Task | Metric | Cascade | Direct | Direct - Cascade |
+|---|---|---:|---:|---:|
+| Summarization | ROUGE-L | 0.2807 | 0.2388 | -0.0419 |
+| Sentiment | Accuracy | 75.0% | 62.5% | -12.5 pp |
+| Keywords | Exact-phrase F1 | 0.4428 | 0.4167 | -0.0261 |
+| Intent | Accuracy | 62.5% | 25.0% | -37.5 pp |
+
+Cascade achieved the higher mean on all four metrics and won 6 of 8 summarization pairs, compared with 2 Direct wins. For sentiment, keywords, and intent, Cascade/Direct/tie counts were 2/1/5, 4/2/2, and 4/1/3. However, the paired bootstrap 95% intervals for Direct minus Cascade were [-0.0882, 0.0211] for summarization, [-0.5000, 0.2500] for sentiment, [-0.1565, 0.1038] for keywords, and [-0.8750, 0.1250] for intent. Every interval crosses zero, so the observed Cascade advantage is descriptive rather than statistically conclusive at N=8.
+
+Cascade's mean ASR WER was 0.0813 using the project's whitespace-token implementation. Both paths achieved 100% strict JSON after Direct's uniform DeepSeek post-processing; raw Qwen strict-JSON compliance was 0/24. The 24 successful post-processing calls used 2,310 tokens in total.
+
+Recorded mean latency by task ranged from 16.239 to 18.290 seconds for Cascade and 1.462 to 4.481 seconds for Direct. These timings come from different machines and timing boundaries, and Direct excludes model loading. They are reported only as provenance and must not be interpreted as an architecture-level speed comparison.
+
+This paired pilot does not isolate noise effects because there are no matched clean recordings. Exact-phrase keyword F1 also understates semantically related phrases; for example, Cascade's altitude keywords are conceptually relevant but receive zero overlap under exact matching. The results therefore suggest an initial Cascade advantage on these eight recordings, especially for intent classification, while remaining too small and confounded for a general architecture claim.
+
 ---
 
 ## 5. Error Analysis
@@ -307,7 +332,7 @@ We are transparent about this study's boundaries:
 
 1. **Sample size (N=8).** This is a pilot study. Statistical tests are indicative, not conclusive.
 
-2. **Synthetic speech only.** Edge-TTS produces clean, well-articulated speech that lacks the disfluencies, hesitations, and natural prosody of human conversation.
+2. **Main benchmark uses synthetic speech.** The primary comparison uses Edge-TTS speech. A supplemental paired pilot includes eight as-recorded human clips, but it has no matched clean recordings and the supplied Cascade file lacks audio hashes.
 
 3. **Single model per paradigm.** Results may not generalize to other speech LLMs or text LLMs.
 
@@ -321,7 +346,7 @@ We are transparent about this study's boundaries:
 
 1. **Benchmarking failure cases.** The ASR bottleneck hypothesis (Section 5.4) predicts specific scenarios where cascade pipelines should systematically underperform: emotion detection (sarcasm, speaker confidence, hesitation), prosody-dependent intent recognition, and acoustic ambiguity. A targeted benchmark of these failure modes --with controlled acoustic manipulation --would directly test whether the patterns observed in this pilot study generalize.
 
-2. **Real human speech.** TTS-generated speech lacks natural disfluencies, hesitations, and prosodic variability. Scaling to 50+ real speech samples would substantially strengthen generalizability.
+2. **Larger real-human benchmark.** The new paired human-speech pilot contains only eight clips with uncontrolled recording conditions. Scaling to 50+ samples with verified identical audio files and matched clean/noisy recordings would substantially strengthen generalizability.
 
 3. **Streaming and conversational speech.** Both paradigms need evaluation under incremental understanding constraints, where latency and partial-input comprehension matter as much as final output quality.
 
@@ -329,7 +354,7 @@ We are transparent about this study's boundaries:
 
 ## 7. Conclusion
 
-This preliminary benchmark finds no dominant architecture for speech understanding. The cascade approach (faster-whisper + DeepSeek) excels at speed and structured output reliability, while the end-to-end approach (Qwen2-Audio-7B) offers zero-cost deployment and superior open-ended summarization quality --winning 5 of 8 head-to-head comparisons with a ROUGE-L of 0.448 vs 0.402. On structured tasks, the gap narrows substantially when Direct outputs are post-processed (sentiment 38% vs 88%, intent 62% vs 88%), but Cascade retains a clear advantage. In the white-noise extension, Direct maintained higher mean summarization ROUGE-L and won 5 of 8 samples at every level, while Cascade stayed closer to its own clean baseline. Because all paired bootstrap intervals crossed zero, these are descriptive trends rather than statistically conclusive architecture differences. Architecture selection depends on deployment constraints: cascade for speed and structured data extraction, direct for zero-cost open-ended understanding. **Rather than replacing cascade architectures, current end-to-end speech LLMs complement them under different deployment constraints --and the most promising direction may lie not in choosing one over the other, but in understanding when to use each.** Our open-source implementation, with 31 passing tests, a Gradio interactive demo, and a one-click reproduction script (`run_all.py`), provides a foundation for continued benchmarking as both architectures evolve.
+This preliminary benchmark finds no universally dominant architecture for speech understanding. In the original TTS experiment, Direct achieved higher open-ended summarization ROUGE-L (0.448 vs 0.402), while Cascade led the structured tasks. In the white-noise summarization extension, Direct retained the higher mean and won 5 of 8 samples at every level, while Cascade stayed closer to its clean baseline. In the separate as-recorded human-speech pilot, Cascade produced higher means on all four tasks: summary ROUGE-L 0.2807 vs 0.2388, sentiment accuracy 75.0% vs 62.5%, keyword F1 0.4428 vs 0.4167, and intent accuracy 62.5% vs 25.0%. However, every paired bootstrap interval in both extensions crossed zero. These are descriptive, dataset-specific trends rather than statistically conclusive architecture differences. Local Direct inference avoids a speech-model API charge, but its structured evaluation still uses paid DeepSeek post-processing. **Rather than replacing cascade architectures, current end-to-end speech LLMs complement them under different deployment constraints --and the most promising direction may lie not in choosing one over the other, but in understanding when to use each.** The implementation, experiment manifests, raw outputs, paired score files, and automated checks provide a foundation for larger controlled benchmarks.
 
 ---
 
@@ -345,4 +370,4 @@ This preliminary benchmark finds no dominant architecture for speech understandi
 
 ---
 
-*Preliminary benchmark results. Code and data at speech-benchmark/. Updated 2026-07-01.*
+*Preliminary benchmark results. Code and data at speech-benchmark/. Updated 2026-07-02.*

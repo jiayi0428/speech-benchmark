@@ -1,5 +1,7 @@
 #  Speech Understanding Benchmark
 
+[简体中文](README.zh-CN.md)
+
 **Cascade (ASR Text LLM) vs End-to-End (Speech LLM) A Preliminary Comparison**
 
 [![Tests](https://img.shields.io/badge/tests-31%20passed-brightgreen)](tests/)
@@ -22,7 +24,8 @@ An undergraduate summer research project (Jiayi Li, 2026) comparing two speech u
    Local GPU +  API    ~$0.0005/task   ~16s
      Direct ("end-to-end"):
      [Qwen2-Audio-7B INT4] output
-     Local GPU only       FREE               ~726s
+     Local GPU inference; structured tasks use text-API post-processing
+     Original matched run: ~256s
 ```
 
 ---
@@ -31,11 +34,11 @@ An undergraduate summer research project (Jiayi Li, 2026) comparing two speech u
 
 | Dimension | Cascade | Direct | Winner |
 |-----------|---------|--------|--------|
-| **Speed** | ~16s | ~726s | Cascade (45x) |
-| **Cost** | ~$0.0005/task | **FREE** | Direct |
-| **Structured Output** | **100% valid JSON** | 30% | Cascade |
-| **Noise Robustness (0dB)** | Lower | **Higher** | Direct |
-| **Emotion/Prosody** | Lost in transcription | **Preserved** | Direct |
+| **Speed (original matched run)** | ~16s | ~256s | Cascade (16x) |
+| **Speech-model API cost** | ~$0.0005/task | Local inference | Direct |
+| **Raw Structured Output** | **100% valid JSON** | 30% | Cascade |
+| **Noise Robustness (0dB)** | Flatter change | Higher mean summary | No conclusive winner |
+| **Emotion/Prosody** | Lost in transcription | Potentially available | Not directly tested |
 
 >  **Pilot study with N=8 TTS samples.** See [Limitations](report/report.md#53-limitations) for transparency about scope.
 
@@ -101,14 +104,34 @@ speech-benchmark/
 
 ---
 
+## As-Recorded Human Speech Pilot
+
+Cascade and Direct were additionally evaluated on 8 human-speech recordings
+containing uncontrolled environmental and audience sounds.
+
+| Task | Cascade | Direct |
+|---|---:|---:|
+| Summarization ROUGE-L | 0.2807 | 0.2388 |
+| Sentiment accuracy | 75.0% | 62.5% |
+| Keyword exact-phrase F1 | 0.4428 | 0.4167 |
+| Intent accuracy | 62.5% | 25.0% |
+
+Cascade had the higher mean on all four metrics, but every paired bootstrap
+interval crossed zero at N=8. This is not a controlled noise experiment, and
+latency came from different execution environments. See
+[`experiments/HUMAN_SPEECH_V1.md`](experiments/HUMAN_SPEECH_V1.md) for the
+workflow, paired results, API usage, and limitations.
+
+---
+
 ## Evaluation Summary
 
 | Metric | Cascade | Direct |
 |--------|---------|--------|
-| Sentiment Accuracy | [FILL from run] | [FILL] |
-| Intent Accuracy | [FILL] | [FILL] |
-| Keyword F1 | [FILL] | [FILL] |
-| Summary ROUGE-L | [FILL] | [FILL] |
+| Sentiment Accuracy | 88% | 38% |
+| Intent Accuracy | 88% | 62% |
+| Keyword F1 | 0.36 | 0.29 |
+| Summary ROUGE-L | 0.402 | 0.448 |
 
 *See `data/results/final_summary.json` for complete metrics.*
 
@@ -126,12 +149,15 @@ cd app && python gradio_app.py
 ## Limitations (Honest Scope)
 
 1. **N=8 samples** Pilot study, not large-scale evaluation
-2. **TTS speech only** Edge-TTS lacks natural disfluencies and prosody
+2. **Main benchmark uses TTS** The supplemental human-speech pilot remains N=8 and has uncontrolled recording conditions
 3. **Single model per paradigm** Qwen2-Audio-7B (INT4) and DeepSeek-chat only
 4. **No human evaluation** Automated metrics against manually annotated ground truth
 5. **Single noise type tested** Framework supports more (babble, reverb), not yet executed
 
 Full limitations and future work in [report/report.md 5.3.4](report/report.md#53-limitations).
+
+The paired human-speech results are reported separately in
+[`report/human_speech_v1_report.md`](report/human_speech_v1_report.md).
 
 ---
 

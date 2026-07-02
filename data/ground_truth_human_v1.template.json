@@ -1,0 +1,58 @@
+{
+  "altitude": {
+    "transcript": "",
+    "summary": "",
+    "sentiment": "",
+    "keywords": [],
+    "intent": ""
+  },
+  "calm": {
+    "transcript": "",
+    "summary": "",
+    "sentiment": "",
+    "keywords": [],
+    "intent": ""
+  },
+  "depression": {
+    "transcript": "",
+    "summary": "",
+    "sentiment": "",
+    "keywords": [],
+    "intent": ""
+  },
+  "happiness": {
+    "transcript": "",
+    "summary": "",
+    "sentiment": "",
+    "keywords": [],
+    "intent": ""
+  },
+  "healthy": {
+    "transcript": "",
+    "summary": "",
+    "sentiment": "",
+    "keywords": [],
+    "intent": ""
+  },
+  "menopause": {
+    "transcript": "",
+    "summary": "",
+    "sentiment": "",
+    "keywords": [],
+    "intent": ""
+  },
+  "speak": {
+    "transcript": "",
+    "summary": "",
+    "sentiment": "",
+    "keywords": [],
+    "intent": ""
+  },
+  "thanks": {
+    "transcript": "",
+    "summary": "",
+    "sentiment": "",
+    "keywords": [],
+    "intent": ""
+  }
+}

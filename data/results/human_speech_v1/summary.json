@@ -1,0 +1,97 @@
+{
+  "experiment_id": "human_speech_v1",
+  "pipeline": "direct",
+  "condition": "as_recorded",
+  "sample_count": 8,
+  "result_count": 32,
+  "ground_truth": "human supplied",
+  "means": {
+    "summarization": 0.23881599729369266,
+    "sentiment": 0.625,
+    "keywords": 0.41670829170829166,
+    "intent": 0.25
+  },
+  "postprocessed_valid_json_rates": {
+    "sentiment": 1.0,
+    "keywords": 1.0,
+    "intent": 1.0
+  },
+  "raw_structured_valid_json": {
+    "valid": 0,
+    "total": 24,
+    "rate": 0.0
+  },
+  "latency_seconds": {
+    "qwen_mean": 3.04815625,
+    "qwen_min": 0.951,
+    "qwen_max": 8.161,
+    "postprocess_mean": 0.93625
+  },
+  "postprocess_api": {
+    "call_count": 24,
+    "provider": "deepseek",
+    "model": "deepseek-chat",
+    "usage": {
+      "prompt_tokens": 1832,
+      "completion_tokens": 478,
+      "total_tokens": 2310
+    },
+    "estimated_cost_usd_using_project_0.0005_per_call_assumption": 0.012
+  },
+  "sample_scores": {
+    "altitude": {
+      "summarization": 0.18749999999999997,
+      "sentiment": 0.0,
+      "keywords": 0.0,
+      "intent": 0.0
+    },
+    "calm": {
+      "summarization": 0.4615384615384615,
+      "sentiment": 1.0,
+      "keywords": 0.8571428571428571,
+      "intent": 0.0
+    },
+    "depression": {
+      "summarization": 0.3333333333333333,
+      "sentiment": 0.0,
+      "keywords": 0.7142857142857143,
+      "intent": 1.0
+    },
+    "happiness": {
+      "summarization": 0.15789473684210525,
+      "sentiment": 1.0,
+      "keywords": 0.30769230769230765,
+      "intent": 0.0
+    },
+    "healthy": {
+      "summarization": 0.16393442622950818,
+      "sentiment": 1.0,
+      "keywords": 0.1818181818181818,
+      "intent": 0.0
+    },
+    "menopause": {
+      "summarization": 0.1276595744680851,
+      "sentiment": 1.0,
+      "keywords": 0.5454545454545454,
+      "intent": 1.0
+    },
+    "speak": {
+      "summarization": 0.23728813559322032,
+      "sentiment": 1.0,
+      "keywords": 0.0,
+      "intent": 0.0
+    },
+    "thanks": {
+      "summarization": 0.24137931034482757,
+      "sentiment": 0.0,
+      "keywords": 0.7272727272727272,
+      "intent": 0.0
+    }
+  },
+  "caveats": [
+    "N=8 supports descriptive trends only, not statistical significance.",
+    "Recordings contain uncontrolled environmental and audience noise.",
+    "There is no matched clean recording, so effects cannot be attributed to noise.",
+    "Structured tasks include DeepSeek post-processing; summarization does not."
+  ]
+}

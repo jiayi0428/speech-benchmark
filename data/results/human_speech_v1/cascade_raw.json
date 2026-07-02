@@ -1,0 +1,226 @@
+[
+  {
+    "sample": "altitude",
+    "audio_path": "C:\\Users\\18553\\Desktop\\altitude.wav",
+    "summarization": {
+      "task": "summarization",
+      "transcript": "Within the first few days, above 1,500 meters,  the volume of plasma in your blood decreases,  which increases the concentration of hemoglobin.  Over the next two weeks, your hemoglobin levels will continue to rise,  allowing your blood to carry even more oxygen per milliliter.",
+      "output": "At high altitudes above 1,500 meters, blood plasma volume decreases within days, raising hemoglobin concentration. Over the following two weeks, hemoglobin levels continue to increase, enhancing the blood's oxygen-carrying capacity per milliliter.",
+      "latency_seconds": 15.946
+    },
+    "sentiment": {
+      "task": "sentiment",
+      "transcript": "Within the first few days, above 1,500 meters,  the volume of plasma in your blood decreases,  which increases the concentration of hemoglobin.  Over the next two weeks, your hemoglobin levels will continue to rise,  allowing your blood to carry even more oxygen per milliliter.",
+      "output": "{\"sentiment\": \"neutral\", \"confidence\": 0.95}",
+      "latency_seconds": 17.665
+    },
+    "keywords": {
+      "task": "keywords",
+      "transcript": "Within the first few days, above 1,500 meters,  the volume of plasma in your blood decreases,  which increases the concentration of hemoglobin.  Over the next two weeks, your hemoglobin levels will continue to rise,  allowing your blood to carry even more oxygen per milliliter.",
+      "output": "[\"altitude adaptation\", \"plasma volume decrease\", \"hemoglobin concentration increase\", \"oxygen carrying capacity\", \"blood adaptation\", \"high altitude physiology\", \"hemoglobin levels\", \"oxygen per milliliter\"]",
+      "latency_seconds": 18.012
+    },
+    "intent": {
+      "task": "intent",
+      "transcript": "Within the first few days, above 1,500 meters,  the volume of plasma in your blood decreases,  which increases the concentration of hemoglobin.  Over the next two weeks, your hemoglobin levels will continue to rise,  allowing your blood to carry even more oxygen per milliliter.",
+      "output": "{\"intent\": \"inform\", \"confidence\": 0.95}",
+      "latency_seconds": 14.8
+    }
+  },
+  {
+    "sample": "calm",
+    "audio_path": "C:\\Users\\18553\\Desktop\\calm.wav",
+    "summarization": {
+      "task": "summarization",
+      "transcript": "But why does being nervous undermine expert performance?  There are two sets of theories, which both say that primarily choking under pressure boils down to focus.  First, there are the distraction theories.  These suggest that performance suffers when the mind is preoccupied with worries, doubts, and worries.",
+      "output": "Nervousness undermines expert performance primarily due to focus-related issues, explained by two main theories. Distraction theories suggest that performance declines when the mind is preoccupied with worries and doubts.",
+      "latency_seconds": 14.75
+    },
+    "sentiment": {
+      "task": "sentiment",
+      "transcript": "But why does being nervous undermine expert performance?  There are two sets of theories, which both say that primarily choking under pressure boils down to focus.  First, there are the distraction theories.  These suggest that performance suffers when the mind is preoccupied with worries, doubts, and worries.",
+      "output": "{\"sentiment\": \"neutral\", \"confidence\": 0.95}",
+      "latency_seconds": 25.759
+    },
+    "keywords": {
+      "task": "keywords",
+      "transcript": "But why does being nervous undermine expert performance?  There are two sets of theories, which both say that primarily choking under pressure boils down to focus.  First, there are the distraction theories.  These suggest that performance suffers when the mind is preoccupied with worries, doubts, and worries.",
+      "output": "[\"choking under pressure\", \"distraction theories\", \"focus\", \"expert performance\", \"nervousness\", \"worries\", \"doubts\"]",
+      "latency_seconds": 14.515
+    },
+    "intent": {
+      "task": "intent",
+      "transcript": "But why does being nervous undermine expert performance?  There are two sets of theories, which both say that primarily choking under pressure boils down to focus.  First, there are the distraction theories.  These suggest that performance suffers when the mind is preoccupied with worries, doubts, and worries.",
+      "output": "{\"intent\": \"inform\", \"confidence\": 0.9}",
+      "latency_seconds": 15.416
+    }
+  },
+  {
+    "sample": "depression",
+    "audio_path": "C:\\Users\\18553\\Desktop\\depression.wav",
+    "summarization": {
+      "task": "summarization",
+      "transcript": "As a black woman,  I've had to develop extraordinary resilience to succeed.  And like most people in my community,  I had the misconception that depression was a sign of weakness,  a character flaw.  But I wasn't weak.  I was a high achiever.  I'd earned a master's degree in media studies  and had a string of high-profile jobs in the film and television industries.",
+      "output": "A Black woman who achieved high-level success in media initially believed depression was a weakness, but later realized it was not a character flaw. Despite her accomplishments, including a master's degree and prestigious jobs, she had to develop extraordinary resilience to overcome this misconception.",
+      "latency_seconds": 17.637
+    },
+    "sentiment": {
+      "task": "sentiment",
+      "transcript": "As a black woman,  I've had to develop extraordinary resilience to succeed.  And like most people in my community,  I had the misconception that depression was a sign of weakness,  a character flaw.  But I wasn't weak.  I was a high achiever.  I'd earned a master's degree in media studies  and had a string of high-profile jobs in the film and television industries.",
+      "output": "{\"sentiment\": \"positive\", \"confidence\": 0.85}",
+      "latency_seconds": 17.492
+    },
+    "keywords": {
+      "task": "keywords",
+      "transcript": "As a black woman,  I've had to develop extraordinary resilience to succeed.  And like most people in my community,  I had the misconception that depression was a sign of weakness,  a character flaw.  But I wasn't weak.  I was a high achiever.  I'd earned a master's degree in media studies  and had a string of high-profile jobs in the film and television industries.",
+      "output": "[\"black woman\", \"extraordinary resilience\", \"depression\", \"sign of weakness\", \"character flaw\", \"high achiever\", \"master's degree in media studies\", \"high-profile jobs\", \"film and television industries\"]",
+      "latency_seconds": 17.739
+    },
+    "intent": {
+      "task": "intent",
+      "transcript": "As a black woman,  I've had to develop extraordinary resilience to succeed.  And like most people in my community,  I had the misconception that depression was a sign of weakness,  a character flaw.  But I wasn't weak.  I was a high achiever.  I'd earned a master's degree in media studies  and had a string of high-profile jobs in the film and television industries.",
+      "output": "{\"intent\": \"inform\", \"confidence\": 0.85}",
+      "latency_seconds": 16.801
+    }
+  },
+  {
+    "sample": "happiness",
+    "audio_path": "C:\\Users\\18553\\Desktop\\happiness.wav",
+    "summarization": {
+      "task": "summarization",
+      "transcript": "in this area.  First up, crowdsourcing my 420 square foot apartment  in Manhattan with partners Mutopo and Jovoto.com.  I wanted it all.  Home office, sit down dinner for 10,  room for guests, and all my kite surfing gear.  With over 300 entries from around the world,  I got it, my own little jewel box.",
+      "output": "A Manhattan apartment owner crowdsourced the design of their 420-square-foot space through partners Mutopo and Jovoto.com. They wanted a home office, dining for 10, guest space, and storage for kite surfing gear. Over 300 global entries resulted in a compact, multifunctional \"jewel box\" that met all their needs.",
+      "latency_seconds": 20.174
+    },
+    "sentiment": {
+      "task": "sentiment",
+      "transcript": "in this area.  First up, crowdsourcing my 420 square foot apartment  in Manhattan with partners Mutopo and Jovoto.com.  I wanted it all.  Home office, sit down dinner for 10,  room for guests, and all my kite surfing gear.  With over 300 entries from around the world,  I got it, my own little jewel box.",
+      "output": "{\"sentiment\": \"positive\", \"confidence\": 0.9}",
+      "latency_seconds": 17.811
+    },
+    "keywords": {
+      "task": "keywords",
+      "transcript": "in this area.  First up, crowdsourcing my 420 square foot apartment  in Manhattan with partners Mutopo and Jovoto.com.  I wanted it all.  Home office, sit down dinner for 10,  room for guests, and all my kite surfing gear.  With over 300 entries from around the world,  I got it, my own little jewel box.",
+      "output": "[\"crowdsourcing\", \"420 square foot apartment\", \"Manhattan\", \"Mutopo\", \"Jovoto.com\", \"home office\", \"sit down dinner for 10\", \"guests\", \"kite surfing gear\", \"jewel box\"]",
+      "latency_seconds": 17.659
+    },
+    "intent": {
+      "task": "intent",
+      "transcript": "in this area.  First up, crowdsourcing my 420 square foot apartment  in Manhattan with partners Mutopo and Jovoto.com.  I wanted it all.  Home office, sit down dinner for 10,  room for guests, and all my kite surfing gear.  With over 300 entries from around the world,  I got it, my own little jewel box.",
+      "output": "{\"intent\": \"inform\", \"confidence\": 0.85}",
+      "latency_seconds": 16.16
+    }
+  },
+  {
+    "sample": "healthy",
+    "audio_path": "C:\\Users\\18553\\Desktop\\healthy.wav",
+    "summarization": {
+      "task": "summarization",
+      "transcript": "The majority, 60%, yielded to sexual temptations within one year.  And most of them did so without using birth control.  So much for promises.  Now let's tempt four-year-olds, giving them a treat.  They can have one marshmallow now,  but if they wait until the experimenter comes back, they can have two.  Of course, it pays, if you like marshmallows, to wait.",
+      "output": "A study found that 60% of people gave in to sexual temptations within a year, often without using birth control. In a separate experiment, four-year-olds were offered a choice between one marshmallow immediately or two if they waited. The results highlight the difficulty of delaying gratification, even when waiting is more rewarding.",
+      "latency_seconds": 18.016
+    },
+    "sentiment": {
+      "task": "sentiment",
+      "transcript": "The majority, 60%, yielded to sexual temptations within one year.  And most of them did so without using birth control.  So much for promises.  Now let's tempt four-year-olds, giving them a treat.  They can have one marshmallow now,  but if they wait until the experimenter comes back, they can have two.  Of course, it pays, if you like marshmallows, to wait.",
+      "output": "{\"sentiment\": \"negative\", \"confidence\": 0.8}",
+      "latency_seconds": 18.239
+    },
+    "keywords": {
+      "task": "keywords",
+      "transcript": "The majority, 60%, yielded to sexual temptations within one year.  And most of them did so without using birth control.  So much for promises.  Now let's tempt four-year-olds, giving them a treat.  They can have one marshmallow now,  but if they wait until the experimenter comes back, they can have two.  Of course, it pays, if you like marshmallows, to wait.",
+      "output": "[\"sexual temptations\", \"60%\", \"one year\", \"birth control\", \"promises\", \"four-year-olds\", \"marshmallow experiment\", \"delayed gratification\", \"waiting for reward\", \"self-control\"]",
+      "latency_seconds": 17.199
+    },
+    "intent": {
+      "task": "intent",
+      "transcript": "The majority, 60%, yielded to sexual temptations within one year.  And most of them did so without using birth control.  So much for promises.  Now let's tempt four-year-olds, giving them a treat.  They can have one marshmallow now,  but if they wait until the experimenter comes back, they can have two.  Of course, it pays, if you like marshmallows, to wait.",
+      "output": "{\"intent\": \"inform\", \"confidence\": 0.85}",
+      "latency_seconds": 17.216
+    }
+  },
+  {
+    "sample": "menopause",
+    "audio_path": "C:\\Users\\18553\\Desktop\\menopause.wav",
+    "summarization": {
+      "task": "summarization",
+      "transcript": "So in terms of a timeline, most women go through menopause in the early 50s, but  they can be earlier, often because of medical interventions. And the common  example is a hysterectomy and or an oophorectomy, which is the surgical  removal of the uterus and or the ovaries.",
+      "output": "Menopause typically occurs in the early 50s for most women, but it can happen earlier due to medical interventions. Common causes include hysterectomy (removal of the uterus) and oophorectomy (removal of the ovaries).",
+      "latency_seconds": 15.654
+    },
+    "sentiment": {
+      "task": "sentiment",
+      "transcript": "So in terms of a timeline, most women go through menopause in the early 50s, but  they can be earlier, often because of medical interventions. And the common  example is a hysterectomy and or an oophorectomy, which is the surgical  removal of the uterus and or the ovaries.",
+      "output": "{\"sentiment\": \"neutral\", \"confidence\": 0.95}",
+      "latency_seconds": 15.918
+    },
+    "keywords": {
+      "task": "keywords",
+      "transcript": "So in terms of a timeline, most women go through menopause in the early 50s, but  they can be earlier, often because of medical interventions. And the common  example is a hysterectomy and or an oophorectomy, which is the surgical  removal of the uterus and or the ovaries.",
+      "output": "[\"menopause\", \"early 50s\", \"medical interventions\", \"hysterectomy\", \"oophorectomy\", \"surgical removal\", \"uterus\", \"ovaries\"]",
+      "latency_seconds": 16.97
+    },
+    "intent": {
+      "task": "intent",
+      "transcript": "So in terms of a timeline, most women go through menopause in the early 50s, but  they can be earlier, often because of medical interventions. And the common  example is a hysterectomy and or an oophorectomy, which is the surgical  removal of the uterus and or the ovaries.",
+      "output": "{\"intent\": \"inform\", \"confidence\": 0.95}",
+      "latency_seconds": 15.257
+    }
+  },
+  {
+    "sample": "speak",
+    "audio_path": "C:\\Users\\18553\\Desktop\\speak.wav",
+    "summarization": {
+      "task": "summarization",
+      "transcript": "seven deadly sins of speaking.  I'm not pretending this is an exhaustive list,  but these seven, I think, are pretty large.  Habits that we can all fall into.  First, gossip.  Speaking ill of somebody who's not present.  Not a nice habit, and we know perfectly well  the person gossiping five minutes later will be gossiping.",
+      "output": "The speaker identifies seven common speaking habits to avoid, starting with gossip, which involves speaking ill of an absent person and undermines trust.",
+      "latency_seconds": 16.232
+    },
+    "sentiment": {
+      "task": "sentiment",
+      "transcript": "seven deadly sins of speaking.  I'm not pretending this is an exhaustive list,  but these seven, I think, are pretty large.  Habits that we can all fall into.  First, gossip.  Speaking ill of somebody who's not present.  Not a nice habit, and we know perfectly well  the person gossiping five minutes later will be gossiping.",
+      "output": "{\"sentiment\": \"negative\", \"confidence\": 0.9}",
+      "latency_seconds": 16.113
+    },
+    "keywords": {
+      "task": "keywords",
+      "transcript": "seven deadly sins of speaking.  I'm not pretending this is an exhaustive list,  but these seven, I think, are pretty large.  Habits that we can all fall into.  First, gossip.  Speaking ill of somebody who's not present.  Not a nice habit, and we know perfectly well  the person gossiping five minutes later will be gossiping.",
+      "output": "[\"gossip\", \"speaking ill\", \"seven deadly sins of speaking\", \"habits\", \"not present\"]",
+      "latency_seconds": 17.135
+    },
+    "intent": {
+      "task": "intent",
+      "transcript": "seven deadly sins of speaking.  I'm not pretending this is an exhaustive list,  but these seven, I think, are pretty large.  Habits that we can all fall into.  First, gossip.  Speaking ill of somebody who's not present.  Not a nice habit, and we know perfectly well  the person gossiping five minutes later will be gossiping.",
+      "output": "{\"intent\": \"inform\", \"confidence\": 0.9}",
+      "latency_seconds": 16.033
+    }
+  },
+  {
+    "sample": "thanks",
+    "audio_path": "C:\\Users\\18553\\Desktop\\thanks.wav",
+    "summarization": {
+      "task": "summarization",
+      "transcript": "I would want to say thank you to someone, I would want to praise them,  I'd want to take in their praise of me, and I'd just stop it.  And I asked myself, why?  I felt shy, I felt embarrassed.  And then my question became, am I the only one who does this?  So I decided to investigate.",
+      "output": "The speaker reflects on their discomfort with giving and receiving praise, feeling shy and embarrassed in such moments. They questioned whether this reaction was unique to them, prompting them to investigate further.",
+      "latency_seconds": 18.009
+    },
+    "sentiment": {
+      "task": "sentiment",
+      "transcript": "I would want to say thank you to someone, I would want to praise them,  I'd want to take in their praise of me, and I'd just stop it.  And I asked myself, why?  I felt shy, I felt embarrassed.  And then my question became, am I the only one who does this?  So I decided to investigate.",
+      "output": "{\"sentiment\": \"neutral\", \"confidence\": 0.85}",
+      "latency_seconds": 17.32
+    },
+    "keywords": {
+      "task": "keywords",
+      "transcript": "I would want to say thank you to someone, I would want to praise them,  I'd want to take in their praise of me, and I'd just stop it.  And I asked myself, why?  I felt shy, I felt embarrassed.  And then my question became, am I the only one who does this?  So I decided to investigate.",
+      "output": "[\"thank you\", \"praise\", \"shy\", \"embarrassed\", \"investigate\", \"stop praise\", \"receiving praise\", \"self-reflection\", \"social discomfort\", \"gratitude\"]",
+      "latency_seconds": 18.059
+    },
+    "intent": {
+      "task": "intent",
+      "transcript": "I would want to say thank you to someone, I would want to praise them,  I'd want to take in their praise of me, and I'd just stop it.  And I asked myself, why?  I felt shy, I felt embarrassed.  And then my question became, am I the only one who does this?  So I decided to investigate.",
+      "output": "{\"intent\": \"question\", \"confidence\": 0.85}",
+      "latency_seconds": 18.232
+    }
+  }
+]

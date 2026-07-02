@@ -34,6 +34,11 @@ data/processed/*
 !data/processed/white_noise_v1/
 data/processed/white_noise_v1/*
 !data/processed/white_noise_v1/audio_manifest.json
+!data/processed/human_speech_v1/
+data/processed/human_speech_v1/*
+!data/processed/human_speech_v1/audio_manifest.json
+!data/processed/human_speech_v1/as_recorded/
+!data/processed/human_speech_v1/as_recorded/*.wav
 data/results/*
 !data/results/white_noise_v1/
 data/results/white_noise_v1/*
@@ -44,6 +49,15 @@ data/results/white_noise_v1/*
 !data/results/white_noise_v1/summary.json
 !data/results/white_noise_v1/path_comparison_scores.csv
 !data/results/white_noise_v1/path_comparison_summary.json
+!data/results/human_speech_v1/
+data/results/human_speech_v1/*
+!data/results/human_speech_v1/direct_raw.jsonl
+!data/results/human_speech_v1/direct_postprocessed.jsonl
+!data/results/human_speech_v1/cascade_raw.json
+!data/results/human_speech_v1/scores.csv
+!data/results/human_speech_v1/summary.json
+!data/results/human_speech_v1/path_comparison_scores.csv
+!data/results/human_speech_v1/path_comparison_summary.json
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/results/.gitkeep

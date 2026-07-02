@@ -1,0 +1,22 @@
+{
+  "experiment_id": "human_speech_v1",
+  "description": "Eight-sample as-recorded human-speech Direct benchmark",
+  "sample_rate": 16000,
+  "samples": [
+    "altitude",
+    "calm",
+    "depression",
+    "happiness",
+    "healthy",
+    "menopause",
+    "speak",
+    "thanks"
+  ],
+  "tasks": [
+    "summarization",
+    "sentiment",
+    "keywords",
+    "intent"
+  ],
+  "condition": "as_recorded"
+}
