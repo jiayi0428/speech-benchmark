@@ -38,7 +38,7 @@ The Massive Sound Embedding Benchmark (MSEB; Allauzen et al., 2025) evaluates LL
 
 ### 2.2 Cascade Speech Understanding
 
-Cascade pipelines (ASR --text LLM) are the de facto production approach. faster-whisper (Radford et al., 2023) provides efficient local transcription, while API-based text LLMs (DeepSeek-AI, 2025) offer reliable instruction-following for downstream tasks. The robustness of this paradigm comes from modular optimization --ASR and text comprehension are developed independently.
+Cascade pipelines (ASR -> text LLM) are the de facto production approach. faster-whisper (Radford et al., 2023) provides efficient local transcription, while API-based text LLMs (DeepSeek-AI, 2025) offer reliable instruction-following for downstream tasks. The robustness of this paradigm comes from modular optimization  -- ASR and text comprehension are developed independently.
 
 ### 2.3 Audio-Native Language Models
 
@@ -198,7 +198,7 @@ Beyond individual cases, we categorize all observed errors across the 8 samples 
 
 The most revealing asymmetry is **paraphrase distortion**: Cascade distorts 5 samples through excessive rewording, while Direct distorts only 1. This explains Direct's summarization advantage --it stays closer to the original content. However, **Cascade compensates with better instruction-following**: it produces valid JSON 100% of the time, while Direct requires post-processing.
 
-### 5.4 When Does Cascade Fail- --ASR as an Information Bottleneck
+### 5.4 When Does Cascade Fail-  -- ASR as an Information Bottleneck
 
 The patterns above reveal a deeper structural insight: **ASR transcription acts as an information bottleneck in the cascade pipeline**. We identify three specific mechanisms:
 

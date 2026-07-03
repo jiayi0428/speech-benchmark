@@ -1,0 +1,108 @@
+{
+  "altitude": {
+    "summary": "The body adapts to high altitudes by decreasing blood plasma volume and increasing hemoglobin levels, which ultimately enhances the bloods ability to transport oxygen.",
+    "sentiment": "neutral",
+    "keywords": [
+      "high altitude",
+      "blood plasma",
+      "hemoglobin concentration",
+      "oxygen transport",
+      "physiological adaptation",
+      "acclimatization"
+    ],
+    "intent": "inform"
+  },
+  "calm": {
+    "summary": "Expert performance often declines under pressure due to a loss of focus. Distraction theories explain this by suggesting that performance suffers when the mind becomes preoccupied with worries and doubts.",
+    "sentiment": "neutral",
+    "keywords": [
+      "nervousness",
+      "expert performance",
+      "choking under pressure",
+      "focus",
+      "distraction theories",
+      "worries",
+      "doubt"
+    ],
+    "intent": "inform"
+  },
+  "depression": {
+    "summary": "A highly successful woman reflects on her journey and challenges the misconception within her community that depression is a sign of weakness. She highlights her resilience and professional achievements to prove that mental health struggles do not equate to a character flaw.",
+    "sentiment": "neutral",
+    "keywords": [
+      "Black woman",
+      "resilience",
+      "depression",
+      "misconception",
+      "weakness",
+      "high achiever",
+      "mental health"
+    ],
+    "intent": "describe"
+  },
+  "happiness": {
+    "summary": "The speaker successfully crowdsourced the design of a small Manhattan apartment to accommodate multiple functions, resulting in a highly customized and efficient living space.",
+    "sentiment": "positive",
+    "keywords": [
+      "crowdsourcing",
+      "apartment",
+      "Manhattan",
+      "small space",
+      "design",
+      "multi-functional"
+    ],
+    "intent": "describe"
+  },
+  "healthy": {
+    "summary": "The speaker contrasts two examples of yielding to temptation: teenagers breaking sexual abstinence pledges and four-year-olds participating in the marshmallow test, illustrating different aspects of self-control.",
+    "sentiment": "neutral",
+    "keywords": [
+      "temptation",
+      "self-control",
+      "promises",
+      "marshmallow test",
+      "delayed gratification",
+      "yield"
+    ],
+    "intent": "inform"
+  },
+  "menopause": {
+    "summary": "While menopause typically occurs in a womans early 50s, medical procedures like hysterectomies or oophorectomies can induce it earlier.",
+    "sentiment": "neutral",
+    "keywords": [
+      "menopause",
+      "timeline",
+      "medical interventions",
+      "hysterectomy",
+      "oophorectomy",
+      "surgery"
+    ],
+    "intent": "inform"
+  },
+  "speak": {
+    "summary": "The speaker introduces the seven deadly sins of speaking, starting with gossip, which is defined as speaking negatively about someone who is not present, and notes its pervasive nature.",
+    "sentiment": "negative",
+    "keywords": [
+      "speaking",
+      "deadly sins",
+      "habits",
+      "gossip",
+      "negative talk",
+      "communication"
+    ],
+    "intent": "inform"
+  },
+  "thanks": {
+    "summary": "The speaker reflects on their personal habit of withholding praise and deflecting compliments due to shyness and embarrassment, leading them to investigate if others share this behavior.",
+    "sentiment": "neutral",
+    "keywords": [
+      "thank you",
+      "praise",
+      "shy",
+      "embarrassed",
+      "investigate",
+      "self-reflection"
+    ],
+    "intent": "describe"
+  }
+}

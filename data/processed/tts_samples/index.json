@@ -54,5 +54,54 @@
     "speaker": "en-US-GuyNeural",
     "duration": 21.048,
     "topic": "tech_quantum"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\memory_formation.wav",
+    "transcript": "Memories are not stored like files in a computer. Each time we recall a memory, we reconstruct it from scattered neural traces, and in the process, the memory itself can be subtly altered. This phenomenon, known as reconsolidation, explains why eyewitness testimony can be unreliable and why traumatic memories can either fade or intensify over time.",
+    "speaker": "en-US-AriaNeural",
+    "duration": 23.712,
+    "topic": "memory_formation"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\urban_biodiversity.wav",
+    "transcript": "Cities are not biological deserts. Urban environments can support surprising biodiversity when designed intentionally. Green roofs, pocket parks, and wildlife corridors transform concrete landscapes into habitats for birds, insects, and native plants. The challenge is integrating ecological thinking into the earliest stages of urban planning.",
+    "speaker": "en-US-GuyNeural",
+    "duration": 22.128,
+    "topic": "urban_biodiversity"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\nuclear_fusion.wav",
+    "transcript": "Nuclear fusion promises virtually unlimited clean energy by replicating the process that powers the sun. Recent breakthroughs have achieved net energy gain for the first time, meaning more energy was produced than was used to initiate the reaction. However, the engineering challenge of building commercially viable fusion power plants remains enormous.",
+    "speaker": "en-US-JennyNeural",
+    "duration": 21.576,
+    "topic": "nuclear_fusion"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\microbiome.wav",
+    "transcript": "The human gut contains trillions of microorganisms that influence not just digestion, but also immune function, mental health, and even personality traits. Recent research has identified specific bacterial strains linked to reduced anxiety and improved cognitive performance, opening new avenues for treating mental health conditions through dietary interventions.",
+    "speaker": "en-US-ChristopherNeural",
+    "duration": 22.08,
+    "topic": "microbiome"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\deep_sea.wav",
+    "transcript": "More than eighty percent of the ocean floor remains unexplored and unmapped. The deep sea is Earth's largest habitat, hosting creatures adapted to extreme pressure, complete darkness, and near-freezing temperatures. Every deep-sea expedition discovers new species, reminding us that we know more about the surface of Mars than about our own planet's deepest waters.",
+    "speaker": "en-US-EricNeural",
+    "duration": 23.208,
+    "topic": "deep_sea"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\language_acquisition.wav",
+    "transcript": "Children acquire language not through explicit instruction but through immersion and social interaction. By age three, the average child has a vocabulary of about one thousand words, and by age six, approximately ten thousand. This remarkable feat of implicit learning reveals the brain's specialized capacity for pattern recognition during critical developmental windows.",
+    "speaker": "en-GB-SoniaNeural",
+    "duration": 22.824,
+    "topic": "language_acquisition"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\plastic_pollution.wav",
+    "transcript": "Microplastics have been found everywhere scientists have looked: in the deepest ocean trenches, in Arctic ice, in human blood, and even in placental tissue. These tiny particles carry toxic chemicals and can disrupt hormonal systems. The scale of the problem is staggering -- approximately eight million tons of plastic enter the oceans each year, breaking down into ever smaller particles that persist for centuries.",
+    "speaker": "en-GB-RyanNeural",
+    "duration": 24.96,
+    "topic": "plastic_pollution"
   }
 ]
