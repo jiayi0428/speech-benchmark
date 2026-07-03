@@ -11,7 +11,9 @@
 
 > *Does removing the transcription bottleneck improve speech understanding*
 
-An undergraduate summer research project (Jiayi Li, 2026) comparing two speech understanding architectures across 4 tasks with ground truth evaluation and noise robustness testing.
+An undergraduate summer research project by Jiayi Li, Liu Luofei (刘洛菲),
+and Zhang Yuchen (张予辰), comparing speech-understanding paths across four
+tasks with ground-truth evaluation and noise robustness testing.
 
 ---
 
@@ -122,6 +124,44 @@ latency came from different execution environments. See
 [`experiments/HUMAN_SPEECH_V1.md`](experiments/HUMAN_SPEECH_V1.md) for the
 workflow, paired results, API usage, and limitations.
 
+The B/C/D ablation found that Qwen transcription had higher normalized WER
+than Whisper (0.0696 vs 0.0338), yet both transcript-to-DeepSeek paths achieved
+the same sentiment and intent accuracy. Qwen transcription followed by
+DeepSeek also exceeded Qwen direct understanding on summary and intent in this
+N=8 pilot. See
+[`experiments/HUMAN_SPEECH_ABLATION_C.md`](experiments/HUMAN_SPEECH_ABLATION_C.md).
+
+---
+
+## Original-TTS Qwen Transcription Ablation
+
+The original eight clean TTS clips were also run through Qwen transcription
+followed by DeepSeek. All 8 transcriptions and 32 task calls succeeded; cleaned
+normalized WER was 0.0102. C (Qwen transcript) scored 0.3815 / 75.0% / 0.3694 /
+87.5% on summary, sentiment, keywords, and intent, versus D (Qwen direct) at
+0.4600 / 62.5% / 0.3378 / 87.5%. All paired intervals crossed zero at N=8.
+Only summarization is available for a three-way B/C/D comparison because the
+stored B artifact lacks structured-task outputs and Whisper transcripts. See
+[`experiments/TTS_QWEN_TRANSCRIPT_V1.md`](experiments/TTS_QWEN_TRANSCRIPT_V1.md).
+
+---
+
+## Additional TTS12 Four-Path Experiment
+
+Twelve additional clean TTS clips compare A (Oracle transcript), B (Whisper
+cascade), C (Qwen transcript), and D (Qwen direct) on shared ground truth.
+
+| Path | Summary | Sentiment | Keyword F1 | Intent |
+|---|---:|---:|---:|---:|
+| A: Oracle | 0.3528 | 92% | 0.4500 | 100% |
+| B: Whisper | 0.3448 | 92% | 0.4500 | 100% |
+| C: Qwen transcript | 0.3479 | 83.3% | 0.4298 | 100% |
+| D: Qwen direct | 0.3324 | 41.7% | 0.4286 | 16.7% |
+
+A/B/C were close, while D preserved comparable summary and keyword scores but
+showed a strong intent-classification failure. N=12 remains descriptive. See
+[`experiments/TTS12_CD_V1.md`](experiments/TTS12_CD_V1.md).
+
 ---
 
 ## Evaluation Summary
@@ -148,7 +188,7 @@ cd app && python gradio_app.py
 
 ## Limitations (Honest Scope)
 
-1. **N=8 samples** Pilot study, not large-scale evaluation
+1. **N=8 or N=12 per dataset** Pilot studies, not large-scale evaluation
 2. **Main benchmark uses TTS** The supplemental human-speech pilot remains N=8 and has uncontrolled recording conditions
 3. **Single model per paradigm** Qwen2-Audio-7B (INT4) and DeepSeek-chat only
 4. **No human evaluation** Automated metrics against manually annotated ground truth
@@ -161,8 +201,9 @@ The paired human-speech results are reported separately in
 
 ---
 
-## Author
+## Authors
 
-**Jiayi Li** Undergraduate Summer Research, 2026
+**Jiayi Li · Liu Luofei (刘洛菲) · Zhang Yuchen (张予辰)**
+Undergraduate Summer Research, 2026
 
 Built with Python 3.14, faster-whisper, DeepSeek API, Qwen2-Audio-7B, PyTorch, Gradio, and Matplotlib.

@@ -1,0 +1,50 @@
+{
+  "experiment_id": "human_speech_v1_ablation_c_api_audit",
+  "selection_rule": "first successful response per sample/task key",
+  "recorded_successful_api_calls": 52,
+  "required_canonical_calls": 32,
+  "extra_duplicate_calls": 20,
+  "duplicate_keys": {
+    "calm/intent": 2,
+    "calm/keywords": 2,
+    "calm/sentiment": 2,
+    "calm/summarization": 2,
+    "depression/intent": 2,
+    "depression/keywords": 2,
+    "depression/sentiment": 2,
+    "depression/summarization": 2,
+    "happiness/intent": 2,
+    "happiness/keywords": 2,
+    "happiness/sentiment": 2,
+    "happiness/summarization": 2,
+    "healthy/intent": 2,
+    "healthy/keywords": 2,
+    "healthy/sentiment": 2,
+    "healthy/summarization": 2,
+    "speak/intent": 2,
+    "speak/keywords": 2,
+    "thanks/sentiment": 2,
+    "thanks/summarization": 2
+  },
+  "duplicate_output_stability": {
+    "same_output_keys": 18,
+    "different_output_keys": 2,
+    "different_keys": [
+      "calm/summarization",
+      "thanks/summarization"
+    ]
+  },
+  "all_call_usage": {
+    "prompt_tokens": 6053,
+    "completion_tokens": 1488,
+    "total_tokens": 7541
+  },
+  "canonical_usage": {
+    "prompt_tokens": 3696,
+    "completion_tokens": 919,
+    "total_tokens": 4615
+  },
+  "estimated_all_call_cost_usd_at_0.0005_per_call": 0.026000000000000002,
+  "estimated_canonical_cost_usd_at_0.0005_per_call": 0.016,
+  "cause": "The initial command timed out while its process continued running; manual resumptions overlapped with that process."
+}

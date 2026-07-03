@@ -1,0 +1,98 @@
+[
+  {
+    "audio_path": "data/processed/tts12_cd_v1/deep_sea.wav",
+    "transcript": "More than eighty percent of the ocean floor remains unexplored and unmapped. The deep sea is Earth's largest habitat, hosting creatures adapted to extreme pressure, complete darkness, and near-freezing temperatures. Every deep-sea expedition discovers new species, reminding us that we know more about the surface of Mars than about our own planet's deepest waters.",
+    "speaker": "unknown_tts_voice",
+    "duration": 23.208,
+    "topic": "deep_sea",
+    "audio_sha256": "2b76e5f093f19d1ae3b94d574f2e2763a763a00e1f9e37b1d3b914446db5d9a9"
+  },
+  {
+    "audio_path": "data/processed/tts12_cd_v1/language_acquisition.wav",
+    "transcript": "Children acquire language not through explicit instruction but through immersion and social interaction. By age three, the average child has a vocabulary of about one thousand words, and by age six, approximately ten thousand. This remarkable feat of implicit learning reveals the brain's specialized capacity for pattern recognition during critical developmental windows.",
+    "speaker": "unknown_tts_voice",
+    "duration": 22.824,
+    "topic": "language_acquisition",
+    "audio_sha256": "0952a718b48a6efea758022dfbcdbbb6b7e0fa223e80de2f5cb42ec867e8c3de"
+  },
+  {
+    "audio_path": "data/processed/tts12_cd_v1/memory_formation.wav",
+    "transcript": "Memories are not stored like files in a computer. Each time we recall a memory, we reconstruct it from scattered neural traces, and in the process, the memory itself can be subtly altered. This phenomenon, known as reconsolidation, explains why eyewitness testimony can be unreliable and why traumatic memories can either fade or intensify over time.",
+    "speaker": "unknown_tts_voice",
+    "duration": 23.712,
+    "topic": "memory_formation",
+    "audio_sha256": "66aa728c49edf6d5fde32b0d1d1abd5f58f6f2e1eebf9cde9fa0bcda1d107900"
+  },
+  {
+    "audio_path": "data/processed/tts12_cd_v1/microbiome.wav",
+    "transcript": "The human gut contains trillions of microorganisms that influence not just digestion, but also immune function, mental health, and even personality traits. Recent research has identified specific bacterial strains linked to reduced anxiety and improved cognitive performance, opening new avenues for treating mental health conditions through dietary interventions.",
+    "speaker": "unknown_tts_voice",
+    "duration": 22.08,
+    "topic": "microbiome",
+    "audio_sha256": "0fb2fcb64a52ff1a5f10a0f48bcf267dda7532f0a9e65284a096da31e4166715"
+  },
+  {
+    "audio_path": "data/processed/tts12_cd_v1/nuclear_fusion.wav",
+    "transcript": "Nuclear fusion promises virtually unlimited clean energy by replicating the process that powers the sun. Recent breakthroughs have achieved net energy gain for the first time, meaning more energy was produced than was used to initiate the reaction. However, the engineering challenge of building commercially viable fusion power plants remains enormous.",
+    "speaker": "unknown_tts_voice",
+    "duration": 21.576,
+    "topic": "nuclear_fusion",
+    "audio_sha256": "2d5eb15d1e019824c58c3172a31645d3aa691b8238aa21e20559e4123ea1e54a"
+  },
+  {
+    "audio_path": "data/processed/tts12_cd_v1/ocean_currents.wav",
+    "transcript": "Ocean currents act as a global conveyor belt, transporting warm water from the equator toward the poles and cold water back. This circulation system, known as thermohaline circulation, plays a critical role in regulating Earth's climate by redistributing heat around the planet.",
+    "speaker": "unknown_tts_voice",
+    "duration": 17.952,
+    "topic": "ocean_currents",
+    "audio_sha256": "58cb19d50059d19baea711f3722853de6b174a20a3ce2c766706ef3bb93964e5"
+  },
+  {
+    "audio_path": "data/processed/tts12_cd_v1/plastic_pollution.wav",
+    "transcript": "Microplastics have been found everywhere scientists have looked: in the deepest ocean trenches, in Arctic ice, in human blood, and even in placental tissue. These tiny particles carry toxic chemicals and can disrupt hormonal systems. The scale of the problem is staggering -- approximately eight million tons of plastic enter the oceans each year, breaking down into ever smaller particles that persist for centuries.",
+    "speaker": "unknown_tts_voice",
+    "duration": 24.96,
+    "topic": "plastic_pollution",
+    "audio_sha256": "c6c6c57e75e335219be4796d09d4675902c065336524b0e29d74b04be844c275"
+  },
+  {
+    "audio_path": "data/processed/tts12_cd_v1/remote_work.wav",
+    "transcript": "Remote work has fundamentally altered the geography of employment. For the first time in history, a significant portion of the workforce can choose where they live independently of where their employer is located. This shift has profound implications for urban planning, real estate markets, and the economic vitality of smaller cities and rural areas.",
+    "speaker": "unknown_tts_voice",
+    "duration": 21.168,
+    "topic": "remote_work",
+    "audio_sha256": "6afb1229477596369acdd6b6570b28fa8ddd62870c70b9b15c633406422853b7"
+  },
+  {
+    "audio_path": "data/processed/tts12_cd_v1/renewable_energy.wav",
+    "transcript": "Solar and wind energy have reached a critical tipping point. In many parts of the world, building new renewable energy capacity is now cheaper than continuing to operate existing coal and gas plants. The challenge is no longer economic feasibility but the speed of infrastructure deployment and grid modernization needed to handle intermittent power sources.",
+    "speaker": "unknown_tts_voice",
+    "duration": 22.224,
+    "topic": "renewable_energy",
+    "audio_sha256": "c53fa98685664a7f03d276adb02029feea0fa640fc4e3fc6bf76788514ca172d"
+  },
+  {
+    "audio_path": "data/processed/tts12_cd_v1/sleep_science.wav",
+    "transcript": "During sleep, the brain performs essential maintenance. Cerebrospinal fluid flows through the brain in rhythmic waves, clearing out metabolic waste products including beta-amyloid proteins associated with Alzheimer's disease. This discovery suggests that chronic sleep deprivation may have more serious long-term consequences than previously understood.",
+    "speaker": "unknown_tts_voice",
+    "duration": 22.152,
+    "topic": "sleep_science",
+    "audio_sha256": "d77cdd947f8abf9d41e2d2674e2517b7a2043cfa1fdc56187d4bb2a472fab0fd"
+  },
+  {
+    "audio_path": "data/processed/tts12_cd_v1/urban_biodiversity.wav",
+    "transcript": "Cities are not biological deserts. Urban environments can support surprising biodiversity when designed intentionally. Green roofs, pocket parks, and wildlife corridors transform concrete landscapes into habitats for birds, insects, and native plants. The challenge is integrating ecological thinking into the earliest stages of urban planning.",
+    "speaker": "unknown_tts_voice",
+    "duration": 22.128,
+    "topic": "urban_biodiversity",
+    "audio_sha256": "b7f6e9f5dad6f67400bdea989287a70ccbf67c33e71cd9113088157239865b62"
+  },
+  {
+    "audio_path": "data/processed/tts12_cd_v1/vaccine_development.wav",
+    "transcript": "The development of mRNA vaccines represents one of the most significant medical breakthroughs of the twenty-first century. Unlike traditional vaccines that use weakened or inactivated viruses, mRNA vaccines teach our cells to produce a protein that triggers an immune response, dramatically accelerating the development timeline from years to months.",
+    "speaker": "unknown_tts_voice",
+    "duration": 19.776,
+    "topic": "vaccine_development",
+    "audio_sha256": "016b90c88e3b5e8e2d5aecdd35133f5105854bd1deb899eeaced556fa8497e46"
+  }
+]

@@ -1,0 +1,23 @@
+12 New TTS Samples: Oracle vs Cascade
+=============================================
+
+Sample                   Oracle  Cascade    Gap   Winner
+-------------------------------------------------------
+deep_sea                 0.3947   0.3544 +0.0403   Oracle
+language_acquisition     0.4407   0.3438 +0.0969   Oracle
+memory_formation         0.2985   0.2985 +0.0000      Tie
+microbiome               0.3333   0.3279 +0.0055   Oracle
+nuclear_fusion           0.2813   0.3099 -0.0286  Cascade
+ocean_currents           0.3750   0.3750 +0.0000      Tie
+plastic_pollution        0.3390   0.3051 +0.0339   Oracle
+remote_work              0.4375   0.4375 +0.0000      Tie
+renewable_energy         0.3175   0.2951 +0.0224   Oracle
+sleep_science            0.2400   0.2564 -0.0164  Cascade
+urban_biodiversity       0.2941   0.3158 -0.0217  Cascade
+vaccine_development      0.4815   0.5185 -0.0370  Cascade
+-------------------------------------------------------
+AVG                      0.3528   0.3448 +0.0079
+
+Sentiment:  Oracle=92%  Cascade=92%
+Keywords:   Oracle=0.45  Cascade=0.45
+Intent:     Oracle=100%  Cascade=100%

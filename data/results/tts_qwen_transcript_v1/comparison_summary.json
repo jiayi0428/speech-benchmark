@@ -1,0 +1,109 @@
+{
+  "experiment_id": "tts_qwen_transcript_v1_comparison",
+  "sample_count": 8,
+  "score_row_count": 72,
+  "definitions": {
+    "B_whisper_cascade": "Audio -> Whisper transcript -> DeepSeek summary",
+    "C_qwen_transcript": "Audio -> Qwen transcript -> DeepSeek tasks",
+    "D_qwen_direct": "Audio -> Qwen direct tasks -> DeepSeek formatting for structured tasks"
+  },
+  "means": {
+    "B_whisper_cascade": {
+      "summarization": 0.3970786233790325
+    },
+    "C_qwen_transcript": {
+      "summarization": 0.38148663030633084,
+      "sentiment": 0.75,
+      "keywords": 0.3693795787545788,
+      "intent": 0.875
+    },
+    "D_qwen_direct": {
+      "summarization": 0.4600094358837309,
+      "sentiment": 0.625,
+      "keywords": 0.3377594627594627,
+      "intent": 0.875
+    }
+  },
+  "C_minus_D": {
+    "summarization": {
+      "mean_difference_C_minus_D": -0.07852280557740007,
+      "paired_bootstrap_95_ci": [
+        -0.1784990421859029,
+        0.010542010952891864
+      ],
+      "C_wins": 3,
+      "D_wins": 5,
+      "ties": 0
+    },
+    "sentiment": {
+      "mean_difference_C_minus_D": 0.125,
+      "paired_bootstrap_95_ci": [
+        -0.375,
+        0.625
+      ],
+      "C_wins": 3,
+      "D_wins": 2,
+      "ties": 3
+    },
+    "keywords": {
+      "mean_difference_C_minus_D": 0.031620115995116035,
+      "paired_bootstrap_95_ci": [
+        -0.06016645680708175,
+        0.11018391330891333
+      ],
+      "C_wins": 6,
+      "D_wins": 2,
+      "ties": 0
+    },
+    "intent": {
+      "mean_difference_C_minus_D": 0.0,
+      "paired_bootstrap_95_ci": [
+        -0.375,
+        0.375
+      ],
+      "C_wins": 1,
+      "D_wins": 1,
+      "ties": 6
+    }
+  },
+  "summary_only_pairwise": {
+    "C_minus_B": {
+      "mean_difference": -0.015591993072701656,
+      "paired_bootstrap_95_ci": [
+        -0.06719333939274515,
+        0.029154166139066483
+      ]
+    },
+    "D_minus_B": {
+      "mean_difference": 0.06293081250469841,
+      "paired_bootstrap_95_ci": [
+        -0.010339095695816255,
+        0.13769212387365432
+      ]
+    }
+  },
+  "qwen_transcription": {
+    "project_wer_raw": 0.030679590017825314,
+    "project_wer_cleaned": 0.020777629233511584,
+    "normalized_wer_raw": 0.010193850267379678,
+    "normalized_wer_cleaned": 0.010193850267379678,
+    "latency_seconds": 4.394125
+  },
+  "c_api": {
+    "successful_call_count": 32,
+    "usage": {
+      "prompt_tokens": 3328,
+      "completion_tokens": 972,
+      "total_tokens": 4300
+    },
+    "estimated_cost_usd_at_0.0005_per_call": 0.016
+  },
+  "caveats": [
+    "N=8 supports descriptive trends only, not statistical significance.",
+    "Only summarization can be compared across B/C/D because stored B results lack sample-level structured tasks.",
+    "Stored B results lack Whisper transcripts, so Whisper and Qwen WER cannot be compared on these TTS clips.",
+    "B and D are reused from the earlier white-noise experiment clean condition; C was run later.",
+    "D structured tasks include DeepSeek formatting.",
+    "Latency is not compared because runs and timing boundaries differ."
+  ]
+}

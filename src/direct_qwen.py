@@ -26,6 +26,12 @@ MODEL_ID = os.getenv(
 PROMPT_VERSION = "qwen_user_task_v2"
 
 SYSTEM_PROMPTS: dict[str, str] = {
+    "transcription": (
+        "Transcribe the speech verbatim in English. "
+        "Preserve the exact wording, including repetitions, hesitations, "
+        "and incomplete sentences. Do not summarize, correct, or explain. "
+        "Return ONLY the transcript."
+    ),
     "summarization": (
         "Listen to the audio and summarize it in 3-5 sentences. "
         "Be concise and capture the main points. "
@@ -91,7 +97,8 @@ class QwenAudioPipeline:
 
         Args:
             audio_path: Path to the audio file.
-            task: One of "summarization", "sentiment", "keywords", "intent".
+            task: One of "transcription", "summarization", "sentiment",
+                "keywords", or "intent".
 
         Returns:
             Dict with keys: task, output, latency_seconds.

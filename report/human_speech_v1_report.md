@@ -3,6 +3,7 @@
 [简体中文](human_speech_v1_report.zh-CN.md)
 
 **Date:** 2026-07-02  
+**Authors:** Jiayi Li, Liu Luofei (刘洛菲), Zhang Yuchen (张予辰)
 **Scope:** 8 paired as-recorded English speech samples, 4 tasks  
 **Status:** Preliminary descriptive pilot
 
@@ -113,6 +114,31 @@ No conclusion should attribute the differences to environmental noise, claim
 statistical significance, or generalize the latency ordering to the two
 architectures.
 
+## B/C/D Ablation
+
+An additional path used Qwen2-Audio for verbatim transcription before applying
+the same DeepSeek task prompts as the Whisper cascade.
+
+| Path | Summary ROUGE-L | Sentiment | Keyword F1 | Intent |
+|---|---:|---:|---:|---:|
+| B: Whisper transcript | 0.2807 | 75.0% | 0.4428 | 62.5% |
+| C: Qwen transcript | 0.3064 | 75.0% | 0.3708 | 62.5% |
+| D: Qwen direct | 0.2388 | 62.5% | 0.4167 | 25.0% |
+
+Normalized WER was 0.0338 for Whisper and 0.0696 for Qwen. Despite Qwen's
+higher WER, B and C had identical sentiment and intent correctness. C also
+outperformed D on summary and intent. This suggests that neither WER nor the
+presence of an intermediate transcript alone explains the system differences.
+
+C versus D remains approximate because DeepSeek performs semantic tasks in C,
+whereas Qwen performs semantic tasks in D. The Direct-minus-C summary bootstrap
+interval was [-0.1506, -0.0010], narrowly excluding zero, but N=8 and multiple
+comparisons require replication.
+
+The formal C result uses 32 unique calls and 4,615 tokens. The complete audit
+contains 52 calls and 7,541 tokens because a timed-out process continued while
+manual resumptions overlapped. The historical all-call cost estimate is $0.026.
+
 ## Reproducibility Files
 
 - `experiments/human_speech_v1.json`
@@ -125,4 +151,8 @@ architectures.
 - `data/results/human_speech_v1/direct_postprocessed.jsonl`
 - `data/results/human_speech_v1/path_comparison_scores.csv`
 - `data/results/human_speech_v1/path_comparison_summary.json`
+- `data/results/human_speech_v1/qwen_transcription_raw.jsonl`
+- `data/results/human_speech_v1/qwen_transcript_cascade_raw.jsonl`
+- `data/results/human_speech_v1/bcd_ablation_summary.json`
 - `compare_human_paths.py`
+- `compare_human_bcd_ablation.py`

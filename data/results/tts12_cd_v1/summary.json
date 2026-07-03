@@ -1,0 +1,187 @@
+{
+  "experiment_id": "tts12_cd_v1",
+  "sample_count": 12,
+  "definitions": {
+    "A_oracle": "Ground-truth transcript -> DeepSeek tasks",
+    "B_whisper_cascade": "Audio -> Whisper transcript -> DeepSeek tasks",
+    "C_qwen_transcript": "Audio -> Qwen transcript -> DeepSeek tasks",
+    "D_qwen_direct": "Audio -> Qwen direct understanding -> DeepSeek structured formatting"
+  },
+  "means": {
+    "A_oracle": {
+      "summarization": 0.35275833333333334,
+      "sentiment": 0.92,
+      "keywords": 0.45,
+      "intent": 1.0
+    },
+    "B_whisper_cascade": {
+      "summarization": 0.344825,
+      "sentiment": 0.92,
+      "keywords": 0.45,
+      "intent": 1.0
+    },
+    "C_qwen_transcript": {
+      "summarization": 0.34794206079713164,
+      "sentiment": 0.8333333333333334,
+      "keywords": 0.42975472240178125,
+      "intent": 1.0
+    },
+    "D_qwen_direct": {
+      "summarization": 0.3323512254872047,
+      "sentiment": 0.4166666666666667,
+      "keywords": 0.42857142857142855,
+      "intent": 0.16666666666666666
+    }
+  },
+  "summary_pairwise": {
+    "A_oracle_minus_B_whisper_cascade": {
+      "mean_difference": 0.007933333333333329,
+      "paired_bootstrap_95_ci": [
+        -0.010175000000000009,
+        0.029258541666666645
+      ],
+      "left_wins": 5,
+      "right_wins": 4,
+      "ties": 3
+    },
+    "A_oracle_minus_C_qwen_transcript": {
+      "mean_difference": 0.004816272536201677,
+      "paired_bootstrap_95_ci": [
+        -0.008717308624780032,
+        0.018724986443415217
+      ],
+      "left_wins": 8,
+      "right_wins": 3,
+      "ties": 1
+    },
+    "A_oracle_minus_D_qwen_direct": {
+      "mean_difference": 0.020407107846128657,
+      "paired_bootstrap_95_ci": [
+        -0.038195358160067285,
+        0.08256054361692997
+      ],
+      "left_wins": 7,
+      "right_wins": 5,
+      "ties": 0
+    },
+    "B_whisper_cascade_minus_C_qwen_transcript": {
+      "mean_difference": -0.0031170607971316524,
+      "paired_bootstrap_95_ci": [
+        -0.02785696599572204,
+        0.022584758659642764
+      ],
+      "left_wins": 6,
+      "right_wins": 5,
+      "ties": 1
+    },
+    "B_whisper_cascade_minus_D_qwen_direct": {
+      "mean_difference": 0.012473774512795329,
+      "paired_bootstrap_95_ci": [
+        -0.05156092233491728,
+        0.07904562800625288
+      ],
+      "left_wins": 7,
+      "right_wins": 5,
+      "ties": 0
+    },
+    "C_qwen_transcript_minus_D_qwen_direct": {
+      "mean_difference": 0.015590835309926982,
+      "paired_bootstrap_95_ci": [
+        -0.037695003964062376,
+        0.0709641014488407
+      ],
+      "left_wins": 6,
+      "right_wins": 6,
+      "ties": 0
+    }
+  },
+  "C_minus_D": {
+    "summarization": {
+      "mean_difference_C_minus_D": 0.015590835309926982,
+      "paired_bootstrap_95_ci": [
+        -0.037265522526359285,
+        0.07050001329993723
+      ],
+      "C_wins": 6,
+      "D_wins": 6,
+      "ties": 0
+    },
+    "sentiment": {
+      "mean_difference_C_minus_D": 0.4166666666666667,
+      "paired_bootstrap_95_ci": [
+        0.16666666666666666,
+        0.6666666666666666
+      ],
+      "C_wins": 5,
+      "D_wins": 0,
+      "ties": 7
+    },
+    "keywords": {
+      "mean_difference_C_minus_D": 0.0011832938303526913,
+      "paired_bootstrap_95_ci": [
+        -0.11267099628312861,
+        0.12148295536163185
+      ],
+      "C_wins": 4,
+      "D_wins": 7,
+      "ties": 1
+    },
+    "intent": {
+      "mean_difference_C_minus_D": 0.8333333333333334,
+      "paired_bootstrap_95_ci": [
+        0.5833333333333334,
+        1.0
+      ],
+      "C_wins": 10,
+      "D_wins": 0,
+      "ties": 2
+    }
+  },
+  "qwen_transcription": {
+    "mean_normalized_wer": 0.00871031746031746,
+    "by_sample": {
+      "deep_sea": 0.0,
+      "language_acquisition": 0.0,
+      "memory_formation": 0.017857142857142856,
+      "microbiome": 0.0,
+      "nuclear_fusion": 0.0,
+      "ocean_currents": 0.0,
+      "plastic_pollution": 0.0,
+      "remote_work": 0.0,
+      "renewable_energy": 0.0,
+      "sleep_science": 0.0,
+      "urban_biodiversity": 0.06666666666666667,
+      "vaccine_development": 0.02
+    }
+  },
+  "api": {
+    "C_successful_calls": 48,
+    "D_successful_calls": 36,
+    "successful_calls_total": 84,
+    "C_usage": {
+      "prompt_tokens": 5340,
+      "completion_tokens": 1476,
+      "total_tokens": 6816
+    },
+    "D_usage": {
+      "prompt_tokens": 2876,
+      "completion_tokens": 777,
+      "total_tokens": 3653
+    },
+    "connection_error_audit_rows": 12,
+    "estimated_cost_usd_at_0.0005_per_successful_call": 0.042
+  },
+  "source_precision": {
+    "A_B_summarization": "sample-level scores supplied to 4 decimals",
+    "A_B_structured_tasks": "aggregate-only and rounded in supplied file",
+    "C_D": "recomputed from raw outputs with project scoring code"
+  },
+  "caveats": [
+    "N=12 supports descriptive trends only, not statistical significance.",
+    "A/B structured-task raw outputs and sample-level scores were not supplied, so no paired A/B structured analysis is possible.",
+    "A/B structured aggregate values are rounded in the supplied text file.",
+    "C and D share Qwen2-Audio but allocate semantic understanding differently.",
+    "D structured tasks include DeepSeek formatting.",
+    "Latency is not compared because timing boundaries and execution runs differ."
+  ]
+}

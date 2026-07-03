@@ -1,0 +1,66 @@
+{
+  "experiment_id": "tts_qwen_transcript_v1",
+  "sample_count": 8,
+  "means": {
+    "project_wer_raw": 0.030679590017825314,
+    "project_wer_cleaned": 0.020777629233511584,
+    "normalized_wer_raw": 0.010193850267379678,
+    "normalized_wer_cleaned": 0.010193850267379678,
+    "latency_seconds": 4.394125
+  },
+  "by_sample": {
+    "science_brain": {
+      "project_wer_raw": 0.0,
+      "project_wer_cleaned": 0.0,
+      "normalized_wer_raw": 0.0,
+      "normalized_wer_cleaned": 0.0
+    },
+    "science_climate": {
+      "project_wer_raw": 0.13725490196078433,
+      "project_wer_cleaned": 0.09803921568627451,
+      "normalized_wer_raw": 0.058823529411764705,
+      "normalized_wer_cleaned": 0.058823529411764705
+    },
+    "science_crispr": {
+      "project_wer_raw": 0.0,
+      "project_wer_cleaned": 0.0,
+      "normalized_wer_raw": 0.0,
+      "normalized_wer_cleaned": 0.0
+    },
+    "science_space": {
+      "project_wer_raw": 0.04,
+      "project_wer_cleaned": 0.0,
+      "normalized_wer_raw": 0.0,
+      "normalized_wer_cleaned": 0.0
+    },
+    "tech_ai_healthcare": {
+      "project_wer_raw": 0.0,
+      "project_wer_cleaned": 0.0,
+      "normalized_wer_raw": 0.0,
+      "normalized_wer_cleaned": 0.0
+    },
+    "tech_blockchain": {
+      "project_wer_raw": 0.0,
+      "project_wer_cleaned": 0.0,
+      "normalized_wer_raw": 0.0,
+      "normalized_wer_cleaned": 0.0
+    },
+    "tech_education": {
+      "project_wer_raw": 0.06818181818181818,
+      "project_wer_cleaned": 0.06818181818181818,
+      "normalized_wer_raw": 0.022727272727272728,
+      "normalized_wer_cleaned": 0.022727272727272728
+    },
+    "tech_quantum": {
+      "project_wer_raw": 0.0,
+      "project_wer_cleaned": 0.0,
+      "normalized_wer_raw": 0.0,
+      "normalized_wer_cleaned": 0.0
+    }
+  },
+  "caveats": [
+    "Only Qwen transcription is available; the stored TTS Cascade summary file contains no Whisper transcripts.",
+    "Cleaned transcripts remove only fixed meta prefixes and outer quotes.",
+    "N=8 supports descriptive trends only."
+  ]
+}

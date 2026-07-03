@@ -11,7 +11,9 @@
 
 > *去掉转写瓶颈，能否提升语音理解能力？*
 
-这是 Jiayi Li 于 2026 年开展的本科暑期研究项目。项目在四项语音理解任务上比较两种架构，并使用人工真值评估和噪声鲁棒性测试。
+这是 Jiayi Li、Liu Luofei（刘洛菲）和 Zhang Yuchen（张予辰）于 2026 年
+开展的本科暑期研究项目。项目在四项语音理解任务上比较多条路径，并使用
+人工真值评估和噪声鲁棒性测试。
 
 ---
 
@@ -124,6 +126,42 @@ Cascade 在四项指标上的均值都更高，但 N=8 下所有配对 bootstrap
 - [`experiments/HUMAN_SPEECH_V1.md`](experiments/HUMAN_SPEECH_V1.md)
 - [`report/human_speech_v1_report.zh-CN.md`](report/human_speech_v1_report.zh-CN.md)
 
+B/C/D 消融发现，Qwen 转写的规范化 WER 高于 Whisper（0.0696 对
+0.0338），但两条“转写 → DeepSeek”路径的情感和意图准确率完全相同。
+在这次 N=8 先导实验中，Qwen 转写后交给 DeepSeek 的 C 路径在摘要和
+意图上也高于 Qwen 直接理解的 D 路径。详见
+[`experiments/HUMAN_SPEECH_ABLATION_C.md`](experiments/HUMAN_SPEECH_ABLATION_C.md)。
+
+---
+
+## 原始 TTS 的 Qwen 转写消融
+
+原先 8 条干净 TTS 音频已经通过“Qwen 转写 -> DeepSeek 四项任务”路径运行。
+8 条转写和 32 次任务调用全部成功，清洗后的规范化 WER 为 0.0102。C 路径
+在摘要、情感、关键词和意图上的结果为 0.3815、75.0%、0.3694 和 87.5%；
+D 路径对应为 0.4600、62.5%、0.3378 和 87.5%。N=8 下所有配对区间都跨过
+0，只能说明初步趋势。由于现有 B 文件缺少结构化任务结果和 Whisper 转写，
+B/C/D 只能比较摘要，不能比较完整四任务或 Whisper/Qwen WER。详见
+[`experiments/TTS_QWEN_TRANSCRIPT_V1.md`](experiments/TTS_QWEN_TRANSCRIPT_V1.md)。
+
+---
+
+## 新增 TTS12 四路径实验
+
+新增 12 条干净 TTS 音频使用同一套真值，对比 A（Oracle 真值转写）、
+B（Whisper 级联）、C（Qwen 转写）和 D（Qwen 直接理解）。
+
+| 路径 | 摘要 | 情感 | 关键词 F1 | 意图 |
+|---|---:|---:|---:|---:|
+| A：Oracle | 0.3528 | 92% | 0.4500 | 100% |
+| B：Whisper | 0.3448 | 92% | 0.4500 | 100% |
+| C：Qwen 转写 | 0.3479 | 83.3% | 0.4298 | 100% |
+| D：Qwen 直接理解 | 0.3324 | 41.7% | 0.4286 | 16.7% |
+
+A/B/C 的结果接近；D 的摘要和关键词仍接近前三条路径，但出现明显的意图
+分类失败。N=12 仍只能作描述性分析。详见
+[`experiments/TTS12_CD_V1.md`](experiments/TTS12_CD_V1.md)。
+
 ---
 
 ## 原始 TTS 实验结果摘要
@@ -150,7 +188,7 @@ cd app && python gradio_app.py
 
 ## 局限性
 
-1. **样本量 N=8：** 这是先导研究，不是大规模评估。
+1. **每个数据集 N=8 或 N=12：** 这些是先导研究，不是大规模评估。
 2. **主基准使用 TTS：** 补充真实人声实验仍只有 8 个样本，并带有不可控录音条件。
 3. **每种范式只测试一个模型组合：** Qwen2-Audio-7B INT4 与 Whisper + DeepSeek-chat。
 4. **没有人工质量评分：** 使用人工真值上的自动指标，没有人工评价连贯性、可读性或事实性。
@@ -164,6 +202,7 @@ cd app && python gradio_app.py
 
 ## 作者
 
-**Jiayi Li**，2026 年本科暑期研究
+**Jiayi Li · Liu Luofei（刘洛菲）· Zhang Yuchen（张予辰）**
+2026 年本科暑期研究
 
 项目使用 Python 3.14、faster-whisper、DeepSeek API、Qwen2-Audio-7B、PyTorch、Gradio 和 Matplotlib 构建。

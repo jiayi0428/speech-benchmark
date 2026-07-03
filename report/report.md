@@ -2,7 +2,7 @@
 
 [简体中文](report.zh-CN.md)
 
-**Author:** Jiayi Li  
+**Authors:** Jiayi Li, Liu Luofei (刘洛菲), Zhang Yuchen (张予辰)
 
 **Date:** June-August 2026 2026  
 
@@ -14,7 +14,7 @@
 
 ## Abstract
 
-Recent audio-language models (Chu et al., 2024) enable end-to-end spoken language understanding, challenging the long-standing cascade paradigm that separates automatic speech recognition from language understanding. This study presents a preliminary empirical comparison of these two paradigms. We implement a cascade pipeline using faster-whisper large-v3 with DeepSeek-chat, and a direct pipeline using Qwen2-Audio-7B (INT4 quantization) on a local NVIDIA RTX 5070 GPU. Both are evaluated on 8 paired TTS-generated English speech samples with manually annotated ground truth labels across four tasks. To isolate understanding quality from format compliance, Direct outputs are post-processed by the same text LLM for structured tasks. Our results reveal a **trade-off rather than a clear winner**: the cascade pipeline achieves **16x lower latency in the original matched run** (16s vs 256s) and **higher accuracy on structured tasks** (sentiment 88% vs 38%, intent 88% vs 62%, keywords F1 0.36 vs 0.29), while the direct pipeline achieves **superior open-ended summarization quality** (ROUGE-L 0.448 vs 0.402, winning 5 of 8 samples). Local Direct inference has no speech-model API charge, although structured post-processing uses a paid text API. A DeepSeek judge rated both systems equally on content quality (8.6 vs 8.6 out of 10). A deterministic white-noise extension (20, 10, and 0 dB SNR) found no monotonic degradation across Qwen's four tasks. In the matched summarization comparison, Direct retained higher mean ROUGE-L and won 5 of 8 samples at every noise level, while Cascade showed smaller deviations from its clean baseline. A supplemental paired human-speech pilot found higher Cascade means on all four tasks, but every paired bootstrap interval crossed zero. Because every experiment remains N=8, the results are descriptive rather than statistically conclusive.
+Recent audio-language models (Chu et al., 2024) enable end-to-end spoken language understanding, challenging the long-standing cascade paradigm that separates automatic speech recognition from language understanding. This study presents a preliminary empirical comparison of these two paradigms. We implement a cascade pipeline using faster-whisper large-v3 with DeepSeek-chat, and a direct pipeline using Qwen2-Audio-7B (INT4 quantization) on a local NVIDIA RTX 5070 GPU. Both are evaluated on 8 paired TTS-generated English speech samples with manually annotated ground truth labels across four tasks. To isolate understanding quality from format compliance, Direct outputs are post-processed by the same text LLM for structured tasks. Our results reveal a **trade-off rather than a clear winner**: the cascade pipeline achieves **16x lower latency in the original matched run** (16s vs 256s) and **higher accuracy on structured tasks** (sentiment 88% vs 38%, intent 88% vs 62%, keywords F1 0.36 vs 0.29), while the direct pipeline achieves **superior open-ended summarization quality** (ROUGE-L 0.448 vs 0.402, winning 5 of 8 samples). Local Direct inference has no speech-model API charge, although structured post-processing uses a paid text API. A DeepSeek judge rated both systems equally on content quality (8.6 vs 8.6 out of 10). A deterministic white-noise extension (20, 10, and 0 dB SNR) found no monotonic degradation across Qwen's four tasks. In the matched summarization comparison, Direct retained higher mean ROUGE-L and won 5 of 8 samples at every noise level, while Cascade showed smaller deviations from its clean baseline. A supplemental paired human-speech pilot found higher Cascade means on all four tasks, but every paired bootstrap interval crossed zero. A further N=12 TTS experiment compares Oracle, Whisper-cascade, Qwen-transcript, and Qwen-direct paths, finding similar A/B/C results but a strong Direct intent failure. Because each dataset remains small (N=8 or N=12), the results are descriptive rather than statistically conclusive.
 
 ---
 
@@ -230,6 +230,117 @@ Recorded mean latency by task ranged from 16.239 to 18.290 seconds for Cascade a
 
 This paired pilot does not isolate noise effects because there are no matched clean recordings. Exact-phrase keyword F1 also understates semantically related phrases; for example, Cascade's altitude keywords are conceptually relevant but receive zero overlap under exact matching. The results therefore suggest an initial Cascade advantage on these eight recordings, especially for intent classification, while remaining too small and confounded for a general architecture claim.
 
+### 4.8 B/C/D Ablation: Which Component Produces the Difference?
+
+To reduce the confounding between architecture and audio-model capability, we added a third path using Qwen2-Audio as a transcription model:
+
+- **B:** Audio -> Whisper transcript -> DeepSeek tasks
+- **C:** Audio -> Qwen2-Audio transcript -> DeepSeek tasks
+- **D:** Audio -> Qwen2-Audio direct understanding -> DeepSeek formatting for structured tasks
+
+![Human Speech B/C/D Ablation](figures/human_speech_bcd_ablation.png)
+
+*Figure 8: Task scores for B, C, and D, with normalized Whisper and Qwen transcription WER.*
+
+| Path | Summary ROUGE-L | Sentiment Accuracy | Keyword F1 | Intent Accuracy |
+|---|---:|---:|---:|---:|
+| B: Whisper transcript | 0.2807 | 75.0% | 0.4428 | 62.5% |
+| C: Qwen transcript | **0.3064** | **75.0%** | 0.3708 | **62.5%** |
+| D: Qwen direct | 0.2388 | 62.5% | 0.4167 | 25.0% |
+
+Qwen transcription was less accurate than Whisper: after removing fixed meta prefixes and normalizing punctuation, mean WER was 0.0696 for Qwen and 0.0338 for Whisper. Nevertheless, B and C had identical sentiment and intent correctness on all eight samples. C had higher mean summarization ROUGE-L than B (+0.0257) but lower keyword F1 (-0.0720); both paired intervals crossed zero.
+
+Compared with D, C achieved higher summarization (0.3064 vs 0.2388), sentiment (75.0% vs 62.5%), and intent (62.5% vs 25.0%), while D had higher keyword F1 (0.4167 vs 0.3708). C won 6/8 summary pairs. The paired bootstrap interval for Direct minus C summarization was [-0.1506, -0.0010], narrowly excluding zero in this resampling analysis. Given N=8 and multiple comparisons, this should be treated as a focused signal for replication rather than a broad significance claim.
+
+The result does not support a simple claim that lower WER always produces better downstream scores, nor that removing transcription necessarily helps. However, C versus D is still not a pure text-bottleneck intervention: C delegates semantic reasoning to DeepSeek after transcription, whereas D performs semantic reasoning in Qwen and uses DeepSeek only to format structured outputs.
+
+The canonical C result contains 32 unique API responses and 4,615 tokens. Due to a timed-out process continuing in the background while resumptions were launched, 20 duplicate calls were made. The complete 52-call, 7,541-token audit is preserved; the historical cost estimate is approximately $0.026 rather than the planned $0.016.
+
+---
+
+### 4.9 Original-TTS Qwen Transcription Ablation
+
+To complement the human-speech B/C/D ablation, the original eight clean TTS
+clips were processed through C: audio -> Qwen2-Audio transcription -> DeepSeek
+tasks. All eight transcriptions and all 32 downstream calls succeeded. Qwen's
+cleaned normalized WER against the source scripts was 0.0102.
+
+![Original-TTS Qwen transcription comparison](figures/tts_qwen_transcript_comparison.png)
+
+*Figure 9: C versus D on all four tasks, plus the only stored task shared by B/C/D.*
+
+| Path | Summary ROUGE-L | Sentiment accuracy | Keyword F1 | Intent accuracy |
+|---|---:|---:|---:|---:|
+| B: Whisper cascade | 0.3971 | unavailable | unavailable | unavailable |
+| C: Qwen transcript -> DeepSeek | 0.3815 | 75.0% | 0.3694 | 87.5% |
+| D: Qwen direct | 0.4600 | 62.5% | 0.3378 | 87.5% |
+
+C exceeded D on sentiment and keyword means, tied on intent, and trailed on
+summarization. D won 5/8 summaries; C won 6/8 keyword comparisons. Every
+paired bootstrap interval crossed zero, so these are descriptive N=8 trends,
+not evidence of statistical significance. Across the sole B/C/D task,
+summary ROUGE-L was 0.3971, 0.3815, and 0.4600 respectively; both comparisons
+against B also had intervals crossing zero.
+
+The stored B artifact contains neither Whisper transcripts nor sample-level
+structured-task outputs. Consequently, Whisper-versus-Qwen WER cannot be
+measured here, and a full four-task B/C/D table would be invalid. B and D are
+reused from an earlier clean-condition run, while C was run later; latency is
+therefore not compared. The 32 DeepSeek calls used 4,300 total tokens, with an
+estimated historical cost of USD 0.016.
+
+---
+
+### 4.10 Four-Path Comparison on 12 Additional TTS Samples
+
+Twelve additional clean TTS clips with shared ground truth were used to
+compare four concrete paths:
+
+- **A (Oracle):** ground-truth transcript -> DeepSeek tasks
+- **B (Whisper cascade):** audio -> Whisper transcript -> DeepSeek tasks
+- **C (Qwen transcript):** audio -> Qwen2-Audio transcript -> DeepSeek tasks
+- **D (Qwen direct):** audio -> Qwen2-Audio task understanding -> DeepSeek
+  formatting for structured tasks
+
+![TTS12 four-path comparison](figures/tts12_abcd_comparison.png)
+
+*Figure 10: Four-path task means on the additional TTS set (N=12).*
+
+| Path | Summary ROUGE-L | Sentiment accuracy | Keyword F1 | Intent accuracy |
+|---|---:|---:|---:|---:|
+| A: Oracle transcript | **0.3528** | **92%** | **0.4500** | **100%** |
+| B: Whisper cascade | 0.3448 | **92%** | **0.4500** | **100%** |
+| C: Qwen transcript | 0.3479 | 83.3% | 0.4298 | **100%** |
+| D: Qwen direct | 0.3324 | 41.7% | 0.4286 | 16.7% |
+
+A, B, and C were close. The Oracle-minus-Whisper summary difference was only
+0.0079, while C exceeded B by 0.0031. Qwen's mean normalized transcription WER
+was 0.0087. These observations suggest that neither Whisper nor Qwen
+transcription formed a large bottleneck on these clean synthetic clips.
+Oracle should be treated as a transcript control, not a guaranteed upper
+bound: generation variability means it did not win every sample.
+
+D remained near the transcript-based paths on summary and keyword F1. C and D
+split the 12 summary samples 6--6, with a mean C-minus-D difference of 0.0156;
+the paired interval crossed zero. D was much lower on sentiment and intent.
+Its raw intent output labeled 10 of the 12 informational clips as `persuade`,
+so the 16.7% accuracy reflects semantic classification rather than a JSON
+formatting failure.
+
+All six pairwise summary intervals crossed zero. The C-minus-D intervals for
+sentiment and intent did not cross zero in this bootstrap run, but N=12 and
+multiple comparisons remain too small for a broad statistical-significance
+claim. This is a concrete failure signal to replicate, not proof that one
+architecture is generally inferior.
+
+The A/B source contains sample-level summary scores, but its sentiment,
+keyword, and intent results are rounded aggregate values only. Consequently,
+the four-path means are comparable descriptively, while sample-level
+structured-task wins and paired intervals involving A or B cannot be
+calculated. The 84 successful DeepSeek calls for C and D used 10,469 tokens;
+the historical per-call estimate is USD 0.042. Latency is not compared because
+the paths were run with different timing boundaries.
+
 ---
 
 ## 5. Error Analysis
@@ -330,7 +441,7 @@ Our results do not support declaring one architecture superior. Instead, they re
 
 We are transparent about this study's boundaries:
 
-1. **Sample size (N=8).** This is a pilot study. Statistical tests are indicative, not conclusive.
+1. **Small sample sizes (N=8 or N=12).** These are pilot studies. Statistical tests are indicative, not conclusive.
 
 2. **Main benchmark uses synthetic speech.** The primary comparison uses Edge-TTS speech. A supplemental paired pilot includes eight as-recorded human clips, but it has no matched clean recordings and the supplied Cascade file lacks audio hashes.
 
@@ -354,7 +465,7 @@ We are transparent about this study's boundaries:
 
 ## 7. Conclusion
 
-This preliminary benchmark finds no universally dominant architecture for speech understanding. In the original TTS experiment, Direct achieved higher open-ended summarization ROUGE-L (0.448 vs 0.402), while Cascade led the structured tasks. In the white-noise summarization extension, Direct retained the higher mean and won 5 of 8 samples at every level, while Cascade stayed closer to its clean baseline. In the separate as-recorded human-speech pilot, Cascade produced higher means on all four tasks: summary ROUGE-L 0.2807 vs 0.2388, sentiment accuracy 75.0% vs 62.5%, keyword F1 0.4428 vs 0.4167, and intent accuracy 62.5% vs 25.0%. However, every paired bootstrap interval in both extensions crossed zero. These are descriptive, dataset-specific trends rather than statistically conclusive architecture differences. Local Direct inference avoids a speech-model API charge, but its structured evaluation still uses paid DeepSeek post-processing. **Rather than replacing cascade architectures, current end-to-end speech LLMs complement them under different deployment constraints --and the most promising direction may lie not in choosing one over the other, but in understanding when to use each.** The implementation, experiment manifests, raw outputs, paired score files, and automated checks provide a foundation for larger controlled benchmarks.
+This preliminary benchmark finds no universally dominant architecture for speech understanding. In the original TTS experiment, Direct achieved higher open-ended summarization ROUGE-L (0.448 vs 0.402), while Cascade led the structured tasks. In the white-noise summarization extension, Direct retained the higher mean and won 5 of 8 samples at every level, while Cascade stayed closer to its clean baseline. In the separate as-recorded human-speech pilot, Cascade produced higher means on all four tasks. The B/C/D ablation then showed that Qwen transcription had higher WER than Whisper but identical sentiment and intent correctness after the same DeepSeek task stage; Qwen-transcript C also exceeded Qwen-direct D on summary and intent. The additional N=12 four-path experiment found near-matched A/B/C results on clean TTS, while D remained competitive on summary and keywords but failed strongly on intent. This weakens simple explanations based only on WER or on the presence of a transcript, while identifying Direct intent classification as a concrete replication target. Most paired intervals crossed zero; the few non-crossing intervals require replication because the datasets remain small and multiple comparisons are present. These are descriptive, dataset-specific trends rather than general architecture effects. Local Direct inference avoids a speech-model API charge, but its structured evaluation still uses paid DeepSeek post-processing. **Rather than replacing cascade architectures, current end-to-end speech LLMs complement them under different deployment constraints --and the most promising direction may lie not in choosing one over the other, but in identifying which perception and reasoning component produces each difference.** The implementation, experiment manifests, raw outputs, paired score files, API audit, and automated checks provide a foundation for larger controlled benchmarks.
 
 ---
 
@@ -370,4 +481,4 @@ This preliminary benchmark finds no universally dominant architecture for speech
 
 ---
 
-*Preliminary benchmark results. Code and data at speech-benchmark/. Updated 2026-07-02.*
+*Preliminary benchmark results. Code and data at speech-benchmark/. Updated 2026-07-03.*

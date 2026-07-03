@@ -1,0 +1,349 @@
+{
+  "experiment_id": "human_speech_v1_ablation_bcd",
+  "sample_count": 8,
+  "score_row_count": 96,
+  "definitions": {
+    "B_whisper_cascade": "Audio -> Whisper transcript -> DeepSeek tasks",
+    "C_qwen_transcript": "Audio -> Qwen transcript -> DeepSeek tasks",
+    "D_qwen_direct": "Audio -> Qwen direct tasks -> DeepSeek formatting for structured tasks"
+  },
+  "means": {
+    "B_whisper_cascade": {
+      "summarization": 0.28073775610018625,
+      "sentiment": 0.75,
+      "keywords": 0.442775974025974,
+      "intent": 0.625
+    },
+    "C_qwen_transcript": {
+      "summarization": 0.30641296731354306,
+      "sentiment": 0.75,
+      "keywords": 0.37082457983193273,
+      "intent": 0.625
+    },
+    "D_qwen_direct": {
+      "summarization": 0.23881599729369266,
+      "sentiment": 0.625,
+      "keywords": 0.41670829170829166,
+      "intent": 0.25
+    }
+  },
+  "pairwise": {
+    "C_minus_B": {
+      "summarization": {
+        "mean_difference": 0.025675211213356787,
+        "paired_bootstrap_95_ci": [
+          -0.02671820757408548,
+          0.08938560213668267
+        ],
+        "left_wins": 4,
+        "right_wins": 3,
+        "ties": 1
+      },
+      "sentiment": {
+        "mean_difference": 0.0,
+        "paired_bootstrap_95_ci": [
+          0.0,
+          0.0
+        ],
+        "left_wins": 0,
+        "right_wins": 0,
+        "ties": 8
+      },
+      "keywords": {
+        "mean_difference": -0.07195139419404126,
+        "paired_bootstrap_95_ci": [
+          -0.2719426406926407,
+          0.10355392156862744
+        ],
+        "left_wins": 3,
+        "right_wins": 3,
+        "ties": 2
+      },
+      "intent": {
+        "mean_difference": 0.0,
+        "paired_bootstrap_95_ci": [
+          0.0,
+          0.0
+        ],
+        "left_wins": 0,
+        "right_wins": 0,
+        "ties": 8
+      }
+    },
+    "D_minus_C": {
+      "summarization": {
+        "mean_difference": -0.0675969700198504,
+        "paired_bootstrap_95_ci": [
+          -0.15057854191152562,
+          -0.0009723478950120386
+        ],
+        "left_wins": 2,
+        "right_wins": 6,
+        "ties": 0
+      },
+      "sentiment": {
+        "mean_difference": -0.125,
+        "paired_bootstrap_95_ci": [
+          -0.5,
+          0.25
+        ],
+        "left_wins": 1,
+        "right_wins": 2,
+        "ties": 5
+      },
+      "keywords": {
+        "mean_difference": 0.04588371187635894,
+        "paired_bootstrap_95_ci": [
+          -0.0775480646804176,
+          0.21956670780200188
+        ],
+        "left_wins": 4,
+        "right_wins": 2,
+        "ties": 2
+      },
+      "intent": {
+        "mean_difference": -0.375,
+        "paired_bootstrap_95_ci": [
+          -0.875,
+          0.125
+        ],
+        "left_wins": 1,
+        "right_wins": 4,
+        "ties": 3
+      }
+    },
+    "D_minus_B": {
+      "summarization": {
+        "mean_difference": -0.04192175880649361,
+        "paired_bootstrap_95_ci": [
+          -0.0875551426069931,
+          0.019928390253092166
+        ],
+        "left_wins": 2,
+        "right_wins": 6,
+        "ties": 0
+      },
+      "sentiment": {
+        "mean_difference": -0.125,
+        "paired_bootstrap_95_ci": [
+          -0.5,
+          0.25
+        ],
+        "left_wins": 1,
+        "right_wins": 2,
+        "ties": 5
+      },
+      "keywords": {
+        "mean_difference": -0.026067682317682323,
+        "paired_bootstrap_95_ci": [
+          -0.15614073426573427,
+          0.10461413586413588
+        ],
+        "left_wins": 2,
+        "right_wins": 4,
+        "ties": 2
+      },
+      "intent": {
+        "mean_difference": -0.375,
+        "paired_bootstrap_95_ci": [
+          -0.875,
+          0.125
+        ],
+        "left_wins": 1,
+        "right_wins": 4,
+        "ties": 3
+      }
+    }
+  },
+  "transcription": {
+    "whisper_project_wer": 0.08130342697663875,
+    "qwen_cleaned_project_wer": 0.180671473804363,
+    "whisper_normalized_wer": 0.033764022435897434,
+    "qwen_cleaned_normalized_wer": 0.06964962121212122
+  },
+  "c_api": {
+    "canonical_call_count": 32,
+    "canonical_usage": {
+      "prompt_tokens": 3696,
+      "completion_tokens": 919,
+      "total_tokens": 4615
+    },
+    "audit_call_count": 52,
+    "audit_total_usage": {
+      "prompt_tokens": 6053,
+      "completion_tokens": 1488,
+      "total_tokens": 7541
+    },
+    "extra_duplicate_calls": 20,
+    "estimated_all_call_cost_usd_at_0.0005_per_call": 0.026000000000000002
+  },
+  "sample_scores": {
+    "altitude": {
+      "B_whisper_cascade": {
+        "summarization": 0.28571428571428575,
+        "sentiment": 1.0,
+        "keywords": 0.0,
+        "intent": 1.0
+      },
+      "C_qwen_transcript": {
+        "summarization": 0.28571428571428575,
+        "sentiment": 1.0,
+        "keywords": 0.0,
+        "intent": 1.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.18749999999999997,
+        "sentiment": 0.0,
+        "keywords": 0.0,
+        "intent": 0.0
+      }
+    },
+    "calm": {
+      "B_whisper_cascade": {
+        "summarization": 0.5423728813559322,
+        "sentiment": 1.0,
+        "keywords": 0.8571428571428571,
+        "intent": 1.0
+      },
+      "C_qwen_transcript": {
+        "summarization": 0.4482758620689655,
+        "sentiment": 1.0,
+        "keywords": 0.7999999999999999,
+        "intent": 1.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.4615384615384615,
+        "sentiment": 1.0,
+        "keywords": 0.8571428571428571,
+        "intent": 0.0
+      }
+    },
+    "depression": {
+      "B_whisper_cascade": {
+        "summarization": 0.18604651162790697,
+        "sentiment": 0.0,
+        "keywords": 0.375,
+        "intent": 0.0
+      },
+      "C_qwen_transcript": {
+        "summarization": 0.2608695652173913,
+        "sentiment": 0.0,
+        "keywords": 0.7058823529411764,
+        "intent": 0.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.3333333333333333,
+        "sentiment": 0.0,
+        "keywords": 0.7142857142857143,
+        "intent": 1.0
+      }
+    },
+    "happiness": {
+      "B_whisper_cascade": {
+        "summarization": 0.19444444444444448,
+        "sentiment": 1.0,
+        "keywords": 0.25,
+        "intent": 0.0
+      },
+      "C_qwen_transcript": {
+        "summarization": 0.1917808219178082,
+        "sentiment": 1.0,
+        "keywords": 0.28571428571428575,
+        "intent": 0.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.15789473684210525,
+        "sentiment": 1.0,
+        "keywords": 0.30769230769230765,
+        "intent": 0.0
+      }
+    },
+    "healthy": {
+      "B_whisper_cascade": {
+        "summarization": 0.15384615384615388,
+        "sentiment": 0.0,
+        "keywords": 0.37499999999999994,
+        "intent": 1.0
+      },
+      "C_qwen_transcript": {
+        "summarization": 0.18749999999999997,
+        "sentiment": 0.0,
+        "keywords": 0.37499999999999994,
+        "intent": 1.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.16393442622950818,
+        "sentiment": 1.0,
+        "keywords": 0.1818181818181818,
+        "intent": 0.0
+      }
+    },
+    "menopause": {
+      "B_whisper_cascade": {
+        "summarization": 0.23076923076923078,
+        "sentiment": 1.0,
+        "keywords": 0.5714285714285715,
+        "intent": 1.0
+      },
+      "C_qwen_transcript": {
+        "summarization": 0.4444444444444444,
+        "sentiment": 1.0,
+        "keywords": 0.6666666666666666,
+        "intent": 1.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.1276595744680851,
+        "sentiment": 1.0,
+        "keywords": 0.5454545454545454,
+        "intent": 1.0
+      }
+    },
+    "speak": {
+      "B_whisper_cascade": {
+        "summarization": 0.3137254901960784,
+        "sentiment": 1.0,
+        "keywords": 0.3636363636363636,
+        "intent": 1.0
+      },
+      "C_qwen_transcript": {
+        "summarization": 0.27450980392156865,
+        "sentiment": 1.0,
+        "keywords": 0.0,
+        "intent": 1.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.23728813559322032,
+        "sentiment": 1.0,
+        "keywords": 0.0,
+        "intent": 0.0
+      }
+    },
+    "thanks": {
+      "B_whisper_cascade": {
+        "summarization": 0.3389830508474576,
+        "sentiment": 1.0,
+        "keywords": 0.7499999999999999,
+        "intent": 0.0
+      },
+      "C_qwen_transcript": {
+        "summarization": 0.3582089552238806,
+        "sentiment": 1.0,
+        "keywords": 0.13333333333333333,
+        "intent": 0.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.24137931034482757,
+        "sentiment": 0.0,
+        "keywords": 0.7272727272727272,
+        "intent": 0.0
+      }
+    }
+  },
+  "caveats": [
+    "N=8 supports descriptive trends only, not statistical significance.",
+    "B and C isolate the ASR model approximately because they use the same DeepSeek prompts, but B audio hashes are unavailable.",
+    "C and D both use Qwen2-Audio, but task prompting and generation differ, so D-C is an approximate transcription-bottleneck test.",
+    "Direct structured tasks include DeepSeek formatting.",
+    "Latency is not compared because environments and timing boundaries differ."
+  ]
+}

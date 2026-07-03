@@ -3,6 +3,7 @@
 [English](human_speech_v1_report.md)
 
 **日期：** 2026-07-02  
+**作者：** Jiayi Li、Liu Luofei（刘洛菲）、Zhang Yuchen（张予辰）
 **范围：** 8 个成对的真实英文人声样本，4 项任务  
 **性质：** 初步描述性先导实验
 
@@ -87,6 +88,22 @@ Cascade 的记录任务均值为 16.239 至 18.290 秒，Direct 为 1.462 至 4.
 
 因此，不能把路径差异归因于环境噪声，不能宣称统计显著，也不能把当前延迟顺序推广到两种架构。
 
+## B/C/D 消融实验
+
+新增路径 C 使用 Qwen2-Audio 做逐字转写，再采用与 Whisper Cascade 相同的 DeepSeek 任务提示词。
+
+| 路径 | 摘要 ROUGE-L | 情感 | 关键词 F1 | 意图 |
+|---|---:|---:|---:|---:|
+| B：Whisper 转写 | 0.2807 | 75.0% | 0.4428 | 62.5% |
+| C：Qwen 转写 | 0.3064 | 75.0% | 0.3708 | 62.5% |
+| D：Qwen 直接理解 | 0.2388 | 62.5% | 0.4167 | 25.0% |
+
+规范化 WER 中，Whisper 为 0.0338，Qwen 为 0.0696。尽管 Qwen 的 WER 更高，B 与 C 的情感和意图正确性完全相同；C 的摘要和意图也高于 D。这说明 WER 和是否存在中间转写，都不能单独解释系统差异。
+
+C 与 D 仍是近似比较，因为 C 由 DeepSeek 完成语义任务，而 D 由 Qwen 完成语义任务。Direct 减 C 的摘要 bootstrap 区间为 [-0.1506, -0.0010]，刚好没有跨 0，但 N=8 和多重比较要求进一步复现。
+
+正式 C 结果使用 32 个唯一调用和 4,615 tokens。由于超时进程继续运行并与人工续跑重叠，完整审计包含 52 次调用和 7,541 tokens。按项目历史口径，全部调用估算约 0.026 美元。
+
 ## Git 复现文件
 
 - `experiments/human_speech_v1.json`
@@ -99,4 +116,8 @@ Cascade 的记录任务均值为 16.239 至 18.290 秒，Direct 为 1.462 至 4.
 - `data/results/human_speech_v1/direct_postprocessed.jsonl`
 - `data/results/human_speech_v1/path_comparison_scores.csv`
 - `data/results/human_speech_v1/path_comparison_summary.json`
+- `data/results/human_speech_v1/qwen_transcription_raw.jsonl`
+- `data/results/human_speech_v1/qwen_transcript_cascade_raw.jsonl`
+- `data/results/human_speech_v1/bcd_ablation_summary.json`
 - `compare_human_paths.py`
+- `compare_human_bcd_ablation.py`
