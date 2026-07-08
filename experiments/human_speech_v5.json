@@ -1,0 +1,23 @@
+{
+  "experiment_id": "human_speech_v5",
+  "description": "Nine as-recorded human English speech samples",
+  "sample_rate": 16000,
+  "samples": [
+    "attention",
+    "chocolate",
+    "comparison",
+    "gay",
+    "healthcare",
+    "her",
+    "kill",
+    "smoking",
+    "tiger"
+  ],
+  "tasks": [
+    "summarization",
+    "sentiment",
+    "keywords",
+    "intent"
+  ],
+  "condition": "as_recorded"
+}

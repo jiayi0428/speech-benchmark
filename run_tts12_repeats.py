@@ -1,4 +1,4 @@
-"""Run local Qwen stages for the 12-sample TTS C/D experiment."""
+"""Run isolated local Qwen rerun and summary-stability experiments."""
 from __future__ import annotations
 
 import argparse
@@ -10,8 +10,10 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent
 INDEX = ROOT / "data" / "processed" / "tts12_cd_v1" / "index.json"
-RESULT_DIR = ROOT / "data" / "results" / "tts12_cd_v1"
+RERUN_DIR = ROOT / "data" / "results" / "tts12_d_rerun_v2"
+STABILITY_DIR = ROOT / "data" / "results" / "tts12_summary_stability_v1"
 TASKS = ["summarization", "sentiment", "keywords", "intent"]
+REPETITIONS = [1, 2, 3]
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -31,54 +33,65 @@ def append_jsonl(path: Path, record: dict[str, Any]) -> None:
         handle.flush()
 
 
+def scope(
+    stage: str, entries: list[dict[str, Any]]
+) -> tuple[Path, list[tuple[dict[str, Any], str, int]]]:
+    if stage == "d-rerun":
+        return (
+            RERUN_DIR / "direct_raw.jsonl",
+            [(entry, task, 1) for entry in entries for task in TASKS],
+        )
+    if stage == "stability-c":
+        return (
+            STABILITY_DIR / "c_transcriptions.jsonl",
+            [
+                (entry, "transcription", repetition)
+                for entry in entries
+                for repetition in REPETITIONS
+            ],
+        )
+    return (
+        STABILITY_DIR / "d_summaries.jsonl",
+        [
+            (entry, "summarization", repetition)
+            for entry in entries
+            for repetition in REPETITIONS
+        ],
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--stage", required=True, choices=["transcription", "direct"]
+        "--stage",
+        required=True,
+        choices=["d-rerun", "stability-c", "stability-d"],
     )
     parser.add_argument("--model-path", type=Path)
-    parser.add_argument(
-        "--prompt-mode", choices=["user", "system"], default="system"
-    )
-    parser.add_argument("--result-dir", type=Path, default=RESULT_DIR)
-    parser.add_argument("--experiment-id", default="tts12_cd_v1")
     parser.add_argument("--max-items", type=int)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-
     entries = json.loads(INDEX.read_text(encoding="utf-8"))
-    if len(entries) != 12 or len({entry["topic"] for entry in entries}) != 12:
-        raise ValueError("Expected exactly 12 unique prepared TTS samples")
-    result_dir = args.result_dir.resolve()
-    output = result_dir / (
-        "qwen_transcription_raw.jsonl"
-        if args.stage == "transcription"
-        else "direct_raw.jsonl"
-    )
-    existing = [
+    if len(entries) != 12:
+        raise ValueError("Expected 12 prepared TTS samples")
+    output, full_scope = scope(args.stage, entries)
+    successful = [
         record for record in read_jsonl(output)
         if record.get("status") == "success"
     ]
-    if args.stage == "transcription":
-        completed = {record["sample"] for record in existing}
-        pending = [
-            (entry, "transcription")
-            for entry in entries
-            if entry["topic"] not in completed
-        ]
-    else:
-        completed = {(record["sample"], record["task"]) for record in existing}
-        pending = [
-            (entry, task)
-            for entry in entries
-            for task in TASKS
-            if (entry["topic"], task) not in completed
-        ]
-    if len(completed) != len(existing):
-        raise ValueError(f"Duplicate successful {args.stage} records detected")
+    completed = {
+        (record["sample"], record["task"], record["repetition"])
+        for record in successful
+    }
+    if len(completed) != len(successful):
+        raise ValueError(f"Duplicate successful records in {output}")
+    pending = [
+        item
+        for item in full_scope
+        if (item[0]["topic"], item[1], item[2]) not in completed
+    ]
     print(
-        f"TTS12 {args.stage}: total="
-        f"{12 if args.stage == 'transcription' else 48}; "
+        f"{args.stage}: total={len(full_scope)}; "
         f"completed={len(completed)}; pending={len(pending)}"
     )
     if args.dry_run:
@@ -91,49 +104,47 @@ def main() -> None:
         os.environ["QWEN_MODEL_PATH"] = str(model_path)
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
-    from src.direct_qwen import (
-        MODEL_ID,
-        SYSTEM_PROMPT_VERSION,
-        USER_PROMPT_VERSION,
-        QwenAudioPipeline,
-    )
+    from src.direct_qwen import MODEL_ID, PROMPT_VERSION, QwenAudioPipeline
 
-    effective_prompt_mode = (
-        "user" if args.stage == "transcription" else args.prompt_mode
+    pipeline = QwenAudioPipeline(
+        prompt_mode="user" if args.stage == "stability-c" else "system"
     )
-    pipeline = QwenAudioPipeline(prompt_mode=effective_prompt_mode)
     written = 0
-    for entry, task in pending:
+    for entry, task, repetition in pending:
         if args.max_items is not None and written >= args.max_items:
             break
         sample = entry["topic"]
-        audio_path = ROOT / entry["audio_path"]
         base = {
-            "experiment_id": args.experiment_id,
+            "experiment_id": (
+                "tts12_d_rerun_v2"
+                if args.stage == "d-rerun"
+                else "tts12_summary_stability_v1"
+            ),
             "pipeline": (
                 "qwen_transcription"
-                if args.stage == "transcription"
+                if args.stage == "stability-c"
                 else "qwen_direct"
             ),
             "sample": sample,
             "condition": "clean",
             "task": task,
+            "repetition": repetition,
             "audio_path": entry["audio_path"],
             "audio_sha256": entry["audio_sha256"],
             "speech_model": MODEL_ID,
             "prompt_version": (
                 "qwen_verbatim_transcription_v1"
                 if task == "transcription"
-                else (
-                    SYSTEM_PROMPT_VERSION
-                    if args.prompt_mode == "system"
-                    else USER_PROMPT_VERSION
-                )
+                else PROMPT_VERSION
             ),
-            "prompt_mode": effective_prompt_mode,
+            "generation_config": {
+                "do_sample": False,
+                "temperature": None,
+                "max_new_tokens": 256,
+            },
         }
         try:
-            result = pipeline.run(str(audio_path), task)
+            result = pipeline.run(str(ROOT / entry["audio_path"]), task)
             record = {
                 **base,
                 "status": "success",
@@ -141,7 +152,7 @@ def main() -> None:
                     result["output"],
                 "latency_seconds": result["latency_seconds"],
             }
-            print(f"[OK] {args.stage} {sample} {task}")
+            print(f"[OK] {args.stage} {sample} {task} rep={repetition}")
         except Exception as exc:
             record = {
                 **base,
@@ -149,7 +160,10 @@ def main() -> None:
                 "stage": "qwen_inference",
                 "error": repr(exc),
             }
-            print(f"[ERROR] {args.stage} {sample} {task}: {exc}")
+            print(
+                f"[ERROR] {args.stage} {sample} {task} "
+                f"rep={repetition}: {exc}"
+            )
         append_jsonl(output, record)
         written += 1
     print(f"Recorded {written} new records in {output}")

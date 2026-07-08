@@ -1,0 +1,38 @@
+{
+  "experiment_id": "human_speech_v4",
+  "description": "Twenty-four as-recorded human English speech samples",
+  "sample_rate": 16000,
+  "samples": [
+    "American",
+    "avenue",
+    "battlefield",
+    "castle",
+    "chemistry",
+    "constructed",
+    "cousin",
+    "fairy",
+    "flowers",
+    "house",
+    "intellegent",
+    "lily",
+    "love",
+    "lovely",
+    "magic",
+    "mountain",
+    "mystery",
+    "princess",
+    "rainbow",
+    "reality",
+    "skill",
+    "soldier",
+    "violin",
+    "woman"
+  ],
+  "tasks": [
+    "summarization",
+    "sentiment",
+    "keywords",
+    "intent"
+  ],
+  "condition": "as_recorded"
+}

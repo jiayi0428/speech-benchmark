@@ -8,6 +8,12 @@ from src.evaluation import (
     compute_sentiment_accuracy,
 )
 
+from evaluate_white_noise import rouge_l
+
+
+def test_rouge_l_returns_zero_when_texts_have_no_token_overlap():
+    assert rouge_l("alpha beta", "gamma delta") == 0.0
+
 
 def test_wer_identical_is_zero():
     assert compute_wer("hello world", "hello world") == 0.0

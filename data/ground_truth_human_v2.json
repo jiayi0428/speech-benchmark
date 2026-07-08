@@ -1,0 +1,142 @@
+{
+  "butter": {
+    "transcript": "Mode. Cut up the onion and carrot into small rings, and put them into a stewpan with the herbs, mushrooms, bay-leaf, cloves, and mace. Add the butter and simmer the whole very gently over a slow fire until the onion is quite tender.",
+    "summary": "A set of cooking instructions detailing how to prepare and simmer vegetables and herbs with butter.",
+    "sentiment": "neutral",
+    "keywords": [
+      "cooking",
+      "recipe",
+      "onion",
+      "butter",
+      "simmer",
+      "stewpan"
+    ],
+    "intent": "inform"
+  },
+  "centry": {
+    "transcript": "While the liberated exiles rejoiced on the plain of Meath, the tent of the abbot of Iona was pitched on the rath of Tara, a fact which would seem to indicate that already, in little more than a century since the interdict had fallen on it, the edifices which made so fine a show in the days of Patrick were ruined and uninhabitable.",
+    "summary": "A historical account describing the ruined state of ancient edifices at Tara following a century of interdict.",
+    "sentiment": "neutral",
+    "keywords": [
+      "exiles",
+      "Tara",
+      "interdict",
+      "edifices",
+      "ruined",
+      "history"
+    ],
+    "intent": "describe"
+  },
+  "childhood": {
+    "transcript": "And already, this astounding blow begins to take its place among other events, as a thing strange and terrible indeed, but related to all the strangeness and mystery of life; part of the universal mysteries of despair and futility and death, that have troubled my consciousness since childhood.",
+    "summary": "A somber reflection on a tragic event and its connection to the universal mysteries of life, despair, and death.",
+    "sentiment": "negative",
+    "keywords": [
+      "astounding",
+      "terrible",
+      "mystery",
+      "despair",
+      "futility",
+      "death"
+    ],
+    "intent": "describe"
+  },
+  "fire": {
+    "transcript": "Put the sugar, with one quarter pint of water, in a saucepan over the fire. Remove the scum as it rises, and add the lemon-peel and ginger with the outside scraped off. When the syrup is tolerably thick, take it off the fire, and when cold, wipe the cucumbers dry, and put them in.",
+    "summary": "Instructions for making a thick syrup with sugar, lemon peel, and ginger to preserve cucumbers.",
+    "sentiment": "neutral",
+    "keywords": [
+      "sugar",
+      "syrup",
+      "saucepan",
+      "ginger",
+      "cucumbers",
+      "recipe"
+    ],
+    "intent": "inform"
+  },
+  "justice": {
+    "transcript": "He lived and died for the service of mankind; but the life and death of Socrates had likewise been devoted to the cause of religion and justice; and although the stoic or the hero may disdain the humble virtues of Jesus, the tears which he shed over his friend and country may be esteemed the purest evidence of his humanity.",
+    "summary": "A philosophical comparison reflecting on the virtues, humanity, and devotion to justice of historical and religious figures like Socrates and Jesus.",
+    "sentiment": "positive",
+    "keywords": [
+      "mankind",
+      "Socrates",
+      "justice",
+      "Jesus",
+      "virtues",
+      "humanity"
+    ],
+    "intent": "inform"
+  },
+  "literature": {
+    "transcript": "It seems to me more and more as I live longer, that most poetry and most literature, and particularly the literature of the past, is discordant with the vastness and variety, the reserves and resources and recuperations of life as we live it to-day.",
+    "summary": "A personal critique expressing that literature of the past feels increasingly disconnected from the complexity of modern life.",
+    "sentiment": "negative",
+    "keywords": [
+      "poetry",
+      "literature",
+      "discordant",
+      "vastness",
+      "variety",
+      "past"
+    ],
+    "intent": "persuade"
+  },
+  "objects": {
+    "transcript": "In aristocracies, every man has one sole object which he unceasingly pursues, but amongst democratic nations, the existence of man is more complex; the same mind will almost always embrace several objects at the same time, and these objects are frequently wholly foreign to each other. As it cannot know them all well, the mind is readily satisfied with imperfect notions of each.",
+    "summary": "An observation contrasting the single-minded focus of individuals in aristocracies with the complex, multifaceted pursuits of those in democratic nations.",
+    "sentiment": "neutral",
+    "keywords": [
+      "aristocracies",
+      "democratic",
+      "complex",
+      "objects",
+      "pursuits",
+      "mind"
+    ],
+    "intent": "inform"
+  },
+  "pictures": {
+    "transcript": "He laments most bitterly the divorce that has been made between decorative art and what we usually call pictures, makes a customary appeal to the Last Judgment, and reminds us that in the great days of art Michelangelo was the furnishing upholsterer.",
+    "summary": "A summary of a critic's lament regarding the modern separation of decorative art from fine art pictures.",
+    "sentiment": "neutral",
+    "keywords": [
+      "divorce",
+      "decorative",
+      "art",
+      "pictures",
+      "Michelangelo",
+      "lament"
+    ],
+    "intent": "describe"
+  },
+  "revolution": {
+    "transcript": "It was the season when the ancient sun-god had been accustomed to receive his annual oblations, and we can well believe that those whose hearts still trembled at the name of Bel, must have connected the eclipse and the plague with the revolution in the national worship, and the overthrow of the ancient gods on that plain of prostration, where they had so long...",
+    "summary": "A historical narrative about ancient peoples linking natural phenomena like eclipses to religious revolutions and the fall of their gods.",
+    "sentiment": "neutral",
+    "keywords": [
+      "sun-god",
+      "oblations",
+      "eclipse",
+      "plague",
+      "revolution",
+      "worship"
+    ],
+    "intent": "describe"
+  },
+  "table": {
+    "transcript": "I can see them now, exactly as they looked, working about the table in the lamplight. Jake, with his heavy features so rudely molded that his face seemed somehow unfinished; Otto, with his half ear and the savage scar that made his upper lip curl so ferociously under his twisted mustache.",
+    "summary": "A vivid memory recalling the distinct, rugged facial features of two men working together at a table.",
+    "sentiment": "neutral",
+    "keywords": [
+      "lamplight",
+      "Jake",
+      "features",
+      "Otto",
+      "scar",
+      "mustache"
+    ],
+    "intent": "describe"
+  }
+}

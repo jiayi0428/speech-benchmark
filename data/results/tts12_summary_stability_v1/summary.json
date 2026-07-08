@@ -1,0 +1,230 @@
+{
+  "experiment_id": "tts12_summary_stability_v1",
+  "sample_count": 12,
+  "repetitions": 3,
+  "score_row_count": 72,
+  "per_repetition": {
+    "1": {
+      "C_mean": 0.3496586512078453,
+      "D_mean": 0.3323512254872047,
+      "C_minus_D": 0.017307425720640597,
+      "paired_bootstrap_95_ci": [
+        -0.04045177256495572,
+        0.07395513732722873
+      ],
+      "C_wins": 7,
+      "D_wins": 5,
+      "ties": 0
+    },
+    "2": {
+      "C_mean": 0.34669589883423224,
+      "D_mean": 0.3323512254872047,
+      "C_minus_D": 0.014344673347027588,
+      "paired_bootstrap_95_ci": [
+        -0.03525662085985784,
+        0.06604721153781086
+      ],
+      "C_wins": 7,
+      "D_wins": 5,
+      "ties": 0
+    },
+    "3": {
+      "C_mean": 0.35657142444519624,
+      "D_mean": 0.3323512254872047,
+      "C_minus_D": 0.024220198957991552,
+      "paired_bootstrap_95_ci": [
+        -0.026507355398129734,
+        0.07450169542488476
+      ],
+      "C_wins": 7,
+      "D_wins": 5,
+      "ties": 0
+    }
+  },
+  "determinism": {
+    "samples_with_three_identical_C_transcripts": 12,
+    "samples_with_three_identical_C_summaries": 5,
+    "samples_with_three_identical_D_summaries": 12,
+    "samples_with_stable_C_vs_D_winner": 12
+  },
+  "sample_direction_stability": {
+    "ocean_currents": {
+      "differences": [
+        0.07291666666666669,
+        0.041666666666666685,
+        0.041666666666666685
+      ],
+      "winner_by_repetition": [
+        "C",
+        "C",
+        "C"
+      ],
+      "stable_winner": true
+    },
+    "vaccine_development": {
+      "differences": [
+        0.12678062678062668,
+        0.04745370370370372,
+        0.12678062678062668
+      ],
+      "winner_by_repetition": [
+        "C",
+        "C",
+        "C"
+      ],
+      "stable_winner": true
+    },
+    "remote_work": {
+      "differences": [
+        -0.012477718360071277,
+        -0.012477718360071277,
+        -0.012477718360071277
+      ],
+      "winner_by_repetition": [
+        "D",
+        "D",
+        "D"
+      ],
+      "stable_winner": true
+    },
+    "sleep_science": {
+      "differences": [
+        -0.025862068965517182,
+        -0.060477453580901785,
+        -0.025862068965517182
+      ],
+      "winner_by_repetition": [
+        "D",
+        "D",
+        "D"
+      ],
+      "stable_winner": true
+    },
+    "renewable_energy": {
+      "differences": [
+        0.01968826907301069,
+        0.01968826907301069,
+        0.01968826907301069
+      ],
+      "winner_by_repetition": [
+        "C",
+        "C",
+        "C"
+      ],
+      "stable_winner": true
+    },
+    "memory_formation": {
+      "differences": [
+        0.05714285714285716,
+        0.05714285714285716,
+        0.05714285714285716
+      ],
+      "winner_by_repetition": [
+        "C",
+        "C",
+        "C"
+      ],
+      "stable_winner": true
+    },
+    "urban_biodiversity": {
+      "differences": [
+        -0.029583333333333295,
+        -0.029583333333333295,
+        -0.029583333333333295
+      ],
+      "winner_by_repetition": [
+        "D",
+        "D",
+        "D"
+      ],
+      "stable_winner": true
+    },
+    "nuclear_fusion": {
+      "differences": [
+        0.024242424242424232,
+        0.038825757575757625,
+        0.038825757575757625
+      ],
+      "winner_by_repetition": [
+        "C",
+        "C",
+        "C"
+      ],
+      "stable_winner": true
+    },
+    "microbiome": {
+      "differences": [
+        -0.1569796323894685,
+        -0.16738816738816742,
+        -0.1569796323894685
+      ],
+      "winner_by_repetition": [
+        "D",
+        "D",
+        "D"
+      ],
+      "stable_winner": true
+    },
+    "deep_sea": {
+      "differences": [
+        0.21333333333333335,
+        0.21333333333333335,
+        0.21333333333333335
+      ],
+      "winner_by_repetition": [
+        "C",
+        "C",
+        "C"
+      ],
+      "stable_winner": true
+    },
+    "language_acquisition": {
+      "differences": [
+        -0.1536126290224652,
+        -0.04814814814814822,
+        -0.04814814814814822
+      ],
+      "winner_by_repetition": [
+        "D",
+        "D",
+        "D"
+      ],
+      "stable_winner": true
+    },
+    "plastic_pollution": {
+      "differences": [
+        0.07210031347962381,
+        0.07210031347962381,
+        0.0662557781201849
+      ],
+      "winner_by_repetition": [
+        "C",
+        "C",
+        "C"
+      ],
+      "stable_winner": true
+    }
+  },
+  "api": {
+    "canonical_C_calls": 36,
+    "actual_C_calls": 48,
+    "extra_duplicate_C_calls": 12,
+    "canonical_C_usage": {
+      "prompt_tokens": 3528,
+      "completion_tokens": 1799,
+      "total_tokens": 5327
+    },
+    "actual_C_usage": {
+      "prompt_tokens": 4743,
+      "completion_tokens": 2449,
+      "total_tokens": 7192
+    },
+    "estimated_actual_C_cost_usd_at_0.0005_per_call": 0.024
+  },
+  "caveats": [
+    "Qwen uses deterministic decoding, so this tests workflow reproducibility rather than stochastic decoding sensitivity.",
+    "The three repetitions for a sample are not independent samples; N remains 12.",
+    "Twelve accidental duplicate C calls are retained in the audit but excluded from scoring.",
+    "No latency comparison is made."
+  ]
+}

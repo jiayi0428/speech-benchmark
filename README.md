@@ -162,6 +162,12 @@ A/B/C were close, while D preserved comparable summary and keyword scores but
 showed a strong intent-classification failure. N=12 remains descriptive. See
 [`experiments/TTS12_CD_V1.md`](experiments/TTS12_CD_V1.md).
 
+A separate D rerun exactly reproduced all 48 outputs and scores. In three new
+C/D summary repetitions, C had the higher mean every time (7 wins versus 5),
+and every sample kept the same winner across repetitions. All intervals still
+crossed zero. See
+[`experiments/TTS12_REPEAT_STABILITY_V1.md`](experiments/TTS12_REPEAT_STABILITY_V1.md).
+
 ---
 
 ## Evaluation Summary

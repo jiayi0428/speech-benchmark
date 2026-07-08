@@ -1,0 +1,1087 @@
+{
+  "v1/altitude": {
+    "dataset": "v1",
+    "sample": "altitude",
+    "transcript": "Within the first few days above 1,500 meters, the volume of plasma in your blood decreases, which increases the concentration of hemoglobin. Over the next two weeks your hemoglobin levels will continue to rise, allowing your blood to carry even more oxygen per milliliter.",
+    "summary": "The body adapts to high altitudes by decreasing blood plasma volume and increasing hemoglobin levels, which ultimately enhances the blood's ability to transport oxygen.",
+    "sentiment": "neutral",
+    "keywords": [
+      "high altitude",
+      "blood plasma",
+      "hemoglobin concentration",
+      "oxygen transport",
+      "physiological adaptation",
+      "acclimatization"
+    ],
+    "intent": "inform"
+  },
+  "v1/calm": {
+    "dataset": "v1",
+    "sample": "calm",
+    "transcript": "But why does being nervous undermine expert performance? There are two sets of theories, which both say that primarily, choking under pressure boils down to focus. First, there are the distraction theories. These suggest that performance suffers when the mind is preoccupied with worries, doubt",
+    "summary": "Expert performance often declines under pressure due to a loss of focus. Distraction theories explain this by suggesting that performance suffers when the mind becomes preoccupied with worries and doubts.",
+    "sentiment": "neutral",
+    "keywords": [
+      "nervousness",
+      "expert performance",
+      "choking under pressure",
+      "focus",
+      "distraction theories",
+      "worries",
+      "doubt"
+    ],
+    "intent": "inform"
+  },
+  "v1/depression": {
+    "dataset": "v1",
+    "sample": "depression",
+    "transcript": "As a Black woman, I've had to develop extraordinary resilience to succeed. And like most people in my community, I had the misconception that depression was a sign of weakness, a character flaw. But I wasn't weak. I was a high achiever. I'd earned a master's degree in media studies and had a string of high-profile jobs in the film and television industries.",
+    "summary": "A highly successful woman reflects on her journey and challenges the misconception within her community that depression is a sign of weakness. She highlights her resilience and professional achievements to prove that mental health struggles do not equate to a character flaw.",
+    "sentiment": "neutral",
+    "keywords": [
+      "Black woman",
+      "resilience",
+      "depression",
+      "misconception",
+      "weakness",
+      "high achiever",
+      "mental health"
+    ],
+    "intent": "describe"
+  },
+  "v1/happiness": {
+    "dataset": "v1",
+    "sample": "happiness",
+    "transcript": "First up, crowdsourcing my 420 sq ft apartment in Manhattan with partners mutopo and jovoto.com. I wanted it all. Home office, sit-down dinner for 10, room for guests, and all my kite surfing gear. With over 300 entries from around the world, I got it. My own little jewel box.",
+    "summary": "The speaker successfully crowdsourced the design of a small Manhattan apartment to accommodate multiple functions, resulting in a highly customized and efficient living space.",
+    "sentiment": "positive",
+    "keywords": [
+      "crowdsourcing",
+      "apartment",
+      "Manhattan",
+      "small space",
+      "design",
+      "multi-functional"
+    ],
+    "intent": "describe"
+  },
+  "v1/healthy": {
+    "dataset": "v1",
+    "sample": "healthy",
+    "transcript": "The majority, 60 percent, yielded to sexual temptations within one year, and most of them did so without using birth control. So much for promises. Now let's tempt four-year-olds, giving them a treat. They can have one marshmallow now, but if they wait until the experimenter comes back, they can have two. Of course it pays, if you like marshmallows, to wait.",
+    "summary": "The speaker contrasts two examples of yielding to temptation: teenagers breaking sexual abstinence pledges and four-year-olds participating in the marshmallow test, illustrating different aspects of self-control.",
+    "sentiment": "neutral",
+    "keywords": [
+      "temptation",
+      "self-control",
+      "promises",
+      "marshmallow test",
+      "delayed gratification",
+      "yield"
+    ],
+    "intent": "inform"
+  },
+  "v1/menopause": {
+    "dataset": "v1",
+    "sample": "menopause",
+    "transcript": "So in terms of a timeline, most women go through menopause in their early 50s. But it can be earlier, often because of medical interventions. And the common example is a hysterectomy and/or an oophorectomy, which is the surgical removal of the uterus and/or the ovaries.",
+    "summary": "While menopause typically occurs in a woman's early 50s, medical procedures like hysterectomies or oophorectomies can induce it earlier.",
+    "sentiment": "neutral",
+    "keywords": [
+      "menopause",
+      "timeline",
+      "medical interventions",
+      "hysterectomy",
+      "oophorectomy",
+      "surgery"
+    ],
+    "intent": "inform"
+  },
+  "v1/speak": {
+    "dataset": "v1",
+    "sample": "speak",
+    "transcript": "Seven deadly sins of speaking. I'm not pretending this is an exhaustive list, but these seven, I think, are pretty large habits that we can all fall into. First, gossip. Speaking ill of somebody who's not present. Not a nice habit, and we know perfectly well the person gossiping, five minutes later, will be gossiping",
+    "summary": "The speaker introduces the \"seven deadly sins of speaking,\" starting with gossip, which is defined as speaking negatively about someone who isn't present, and notes its pervasive nature.",
+    "sentiment": "negative",
+    "keywords": [
+      "speaking",
+      "deadly sins",
+      "habits",
+      "gossip",
+      "negative talk",
+      "communication"
+    ],
+    "intent": "inform"
+  },
+  "v1/thanks": {
+    "dataset": "v1",
+    "sample": "thanks",
+    "transcript": "that I would want to say thank you to someone, I would want to praise them, I would want to take in their praise of me and I'd just stop it. And I asked myself, why? I felt shy, I felt embarrassed. And then my question became, am I the only one who does this? So I decided to investigate.",
+    "summary": "The speaker reflects on their personal habit of withholding praise and deflecting compliments due to shyness and embarrassment, leading them to investigate if others share this behavior.",
+    "sentiment": "neutral",
+    "keywords": [
+      "thank you",
+      "praise",
+      "shy",
+      "embarrassed",
+      "investigate",
+      "self-reflection"
+    ],
+    "intent": "describe"
+  },
+  "v2/butter": {
+    "dataset": "v2",
+    "sample": "butter",
+    "transcript": "Mode. Cut up the onion and carrot into small rings, and put them into a stewpan with the herbs, mushrooms, bay-leaf, cloves, and mace. Add the butter and simmer the whole very gently over a slow fire until the onion is quite tender.",
+    "summary": "A set of cooking instructions detailing how to prepare and simmer vegetables and herbs with butter.",
+    "sentiment": "neutral",
+    "keywords": [
+      "cooking",
+      "recipe",
+      "onion",
+      "butter",
+      "simmer",
+      "stewpan"
+    ],
+    "intent": "inform"
+  },
+  "v2/centry": {
+    "dataset": "v2",
+    "sample": "centry",
+    "transcript": "While the liberated exiles rejoiced on the plain of Meath, the tent of the abbot of Iona was pitched on the rath of Tara, a fact which would seem to indicate that already, in little more than a century since the interdict had fallen on it, the edifices which made so fine a show in the days of Patrick were ruined and uninhabitable.",
+    "summary": "A historical account describing the ruined state of ancient edifices at Tara following a century of interdict.",
+    "sentiment": "neutral",
+    "keywords": [
+      "exiles",
+      "Tara",
+      "interdict",
+      "edifices",
+      "ruined",
+      "history"
+    ],
+    "intent": "describe"
+  },
+  "v2/childhood": {
+    "dataset": "v2",
+    "sample": "childhood",
+    "transcript": "And already, this astounding blow begins to take its place among other events, as a thing strange and terrible indeed, but related to all the strangeness and mystery of life; part of the universal mysteries of despair and futility and death, that have troubled my consciousness since childhood.",
+    "summary": "A somber reflection on a tragic event and its connection to the universal mysteries of life, despair, and death.",
+    "sentiment": "negative",
+    "keywords": [
+      "astounding",
+      "terrible",
+      "mystery",
+      "despair",
+      "futility",
+      "death"
+    ],
+    "intent": "describe"
+  },
+  "v2/fire": {
+    "dataset": "v2",
+    "sample": "fire",
+    "transcript": "Put the sugar, with one quarter pint of water, in a saucepan over the fire. Remove the scum as it rises, and add the lemon-peel and ginger with the outside scraped off. When the syrup is tolerably thick, take it off the fire, and when cold, wipe the cucumbers dry, and put them in.",
+    "summary": "Instructions for making a thick syrup with sugar, lemon peel, and ginger to preserve cucumbers.",
+    "sentiment": "neutral",
+    "keywords": [
+      "sugar",
+      "syrup",
+      "saucepan",
+      "ginger",
+      "cucumbers",
+      "recipe"
+    ],
+    "intent": "inform"
+  },
+  "v2/justice": {
+    "dataset": "v2",
+    "sample": "justice",
+    "transcript": "He lived and died for the service of mankind; but the life and death of Socrates had likewise been devoted to the cause of religion and justice; and although the stoic or the hero may disdain the humble virtues of Jesus, the tears which he shed over his friend and country may be esteemed the purest evidence of his humanity.",
+    "summary": "A philosophical comparison reflecting on the virtues, humanity, and devotion to justice of historical and religious figures like Socrates and Jesus.",
+    "sentiment": "positive",
+    "keywords": [
+      "mankind",
+      "Socrates",
+      "justice",
+      "Jesus",
+      "virtues",
+      "humanity"
+    ],
+    "intent": "inform"
+  },
+  "v2/literature": {
+    "dataset": "v2",
+    "sample": "literature",
+    "transcript": "It seems to me more and more as I live longer, that most poetry and most literature, and particularly the literature of the past, is discordant with the vastness and variety, the reserves and resources and recuperations of life as we live it to-day.",
+    "summary": "A personal critique expressing that literature of the past feels increasingly disconnected from the complexity of modern life.",
+    "sentiment": "negative",
+    "keywords": [
+      "poetry",
+      "literature",
+      "discordant",
+      "vastness",
+      "variety",
+      "past"
+    ],
+    "intent": "persuade"
+  },
+  "v2/objects": {
+    "dataset": "v2",
+    "sample": "objects",
+    "transcript": "In aristocracies, every man has one sole object which he unceasingly pursues, but amongst democratic nations, the existence of man is more complex; the same mind will almost always embrace several objects at the same time, and these objects are frequently wholly foreign to each other. As it cannot know them all well, the mind is readily satisfied with imperfect notions of each.",
+    "summary": "An observation contrasting the single-minded focus of individuals in aristocracies with the complex, multifaceted pursuits of those in democratic nations.",
+    "sentiment": "neutral",
+    "keywords": [
+      "aristocracies",
+      "democratic",
+      "complex",
+      "objects",
+      "pursuits",
+      "mind"
+    ],
+    "intent": "inform"
+  },
+  "v2/pictures": {
+    "dataset": "v2",
+    "sample": "pictures",
+    "transcript": "He laments most bitterly the divorce that has been made between decorative art and what we usually call pictures, makes a customary appeal to the Last Judgment, and reminds us that in the great days of art Michelangelo was the furnishing upholsterer.",
+    "summary": "A summary of a critic's lament regarding the modern separation of decorative art from fine art pictures.",
+    "sentiment": "neutral",
+    "keywords": [
+      "divorce",
+      "decorative",
+      "art",
+      "pictures",
+      "Michelangelo",
+      "lament"
+    ],
+    "intent": "describe"
+  },
+  "v2/revolution": {
+    "dataset": "v2",
+    "sample": "revolution",
+    "transcript": "It was the season when the ancient sun-god had been accustomed to receive his annual oblations, and we can well believe that those whose hearts still trembled at the name of Bel, must have connected the eclipse and the plague with the revolution in the national worship, and the overthrow of the ancient gods on that plain of prostration, where they had so long...",
+    "summary": "A historical narrative about ancient peoples linking natural phenomena like eclipses to religious revolutions and the fall of their gods.",
+    "sentiment": "neutral",
+    "keywords": [
+      "sun-god",
+      "oblations",
+      "eclipse",
+      "plague",
+      "revolution",
+      "worship"
+    ],
+    "intent": "describe"
+  },
+  "v2/table": {
+    "dataset": "v2",
+    "sample": "table",
+    "transcript": "I can see them now, exactly as they looked, working about the table in the lamplight. Jake, with his heavy features so rudely molded that his face seemed somehow unfinished; Otto, with his half ear and the savage scar that made his upper lip curl so ferociously under his twisted mustache.",
+    "summary": "A vivid memory recalling the distinct, rugged facial features of two men working together at a table.",
+    "sentiment": "neutral",
+    "keywords": [
+      "lamplight",
+      "Jake",
+      "features",
+      "Otto",
+      "scar",
+      "mustache"
+    ],
+    "intent": "describe"
+  },
+  "v3/beast": {
+    "dataset": "v3",
+    "sample": "beast",
+    "transcript": "The people is a beast of muddy brain, that knows not its own force and therefore stands loaded with wood and stone, the powerless hands of a mere child, guided with bit and rein. One kick would be enough to break the chain, but the beast fears, and what the child demands it does, nor its own terror understands, confused and stupefied by bugbears vain.",
+    "summary": "A metaphorical description of the masses as a powerful but ignorant beast, easily controlled by a much weaker force due to its own blind fear and confusion.",
+    "sentiment": "negative",
+    "keywords": [
+      "people",
+      "beast",
+      "force",
+      "chain",
+      "fear",
+      "control",
+      "child"
+    ],
+    "intent": "describe"
+  },
+  "v3/body": {
+    "dataset": "v3",
+    "sample": "body",
+    "transcript": "The second part is divided into two. For in the first, I speak of her as regards the nobleness of her soul, relating some of her virtues proceeding from her soul. In the second, I speak of her as regards the nobleness of her body, narrating some of her beauties. Here, love saith concerning her...",
+    "summary": "The speaker outlines the structural division of a text, explaining that the first section focuses on a woman's noble soul, while the second praises her physical beauty.",
+    "sentiment": "positive",
+    "keywords": [
+      "nobleness",
+      "soul",
+      "virtues",
+      "body",
+      "beauties",
+      "love"
+    ],
+    "intent": "inform"
+  },
+  "v3/creature": {
+    "dataset": "v3",
+    "sample": "creature",
+    "transcript": "You don't know what it is to be used to seeing a pretty creature, always nicely dressed, always about the room, thinking so much of you, and so little of herself, and then to be left alone as I am left, out in the dark.",
+    "summary": "A sorrowful reflection on the profound loneliness experienced after losing the constant, selfless companionship of a beautiful and caring presence.",
+    "sentiment": "negative",
+    "keywords": [
+      "creature",
+      "dressed",
+      "thinking",
+      "alone",
+      "dark",
+      "companionship"
+    ],
+    "intent": "describe"
+  },
+  "v3/discomfort": {
+    "dataset": "v3",
+    "sample": "discomfort",
+    "transcript": "Whereby other ladies who were about the room, becoming aware of my discomfort by reason of the moan that she made, who, indeed, was of my very near kindred, led her away from where I was, and then set themselves to awaken me, thinking that I dreamed, and saying, 'Sleep no longer, and be not disquieted.'",
+    "summary": "The narrator recalls a distressing moment where surrounding ladies, mistaking physical or emotional discomfort for a bad dream, attempt to wake and comfort them.",
+    "sentiment": "negative",
+    "keywords": [
+      "ladies",
+      "discomfort",
+      "moan",
+      "kindred",
+      "awaken",
+      "dreamed"
+    ],
+    "intent": "describe"
+  },
+  "v3/farm": {
+    "dataset": "v3",
+    "sample": "farm",
+    "transcript": "He had little enough to break or bite, and once, when there was a great famine in the land, he could hardly procure even his daily bread. And as he lay thinking in his bed one night, he sighed and said to his wife, 'What will become of us?'",
+    "summary": "A bleak account of a poor man struggling to feed his family during a severe famine, expressing deep anxiety about their future to his wife.",
+    "sentiment": "negative",
+    "keywords": [
+      "famine",
+      "land",
+      "procure",
+      "bread",
+      "thinking",
+      "wife"
+    ],
+    "intent": "describe"
+  },
+  "v3/often": {
+    "dataset": "v3",
+    "sample": "often",
+    "transcript": "Often would he avail himself of any special grace of his own idiom and epoch, if only his will belonged to him. Often would some cadence serve him, but for his author's structure; some structure, but for his author's cadence. Often the beautiful turn of a stanza must be weakened to adopt some rhyme which will tally, and he sees the poet reveling in abundance of language where himself is scantily supplied.",
+    "summary": "An analysis of the linguistic constraints a translator faces when trying to balance the original author's structure and cadence with the limitations of their own language's rhyme and idiom.",
+    "sentiment": "neutral",
+    "keywords": [
+      "idiom",
+      "cadence",
+      "structure",
+      "stanza",
+      "rhyme",
+      "language",
+      "translator"
+    ],
+    "intent": "inform"
+  },
+  "v3/prospect": {
+    "dataset": "v3",
+    "sample": "prospect",
+    "transcript": "This violent and triumphant revolution in his prospects and his fortunes, was hardly yet completely comprehended by our friend Ferdinand Armine; and when he had left a note for the generous Mirabel, whose slumbers he would not disturb at this early hour, even with good news, he strolled along up Charles Street, and to the park, in one of those wild and joyous reveries...",
+    "summary": "Ferdinand Armine takes a joyous morning walk, happily overwhelmed and deep in thought as he processes a sudden, triumphant improvement in his fortunes.",
+    "sentiment": "positive",
+    "keywords": [
+      "revolution",
+      "prospects",
+      "fortunes",
+      "note",
+      "strolled",
+      "joyous"
+    ],
+    "intent": "describe"
+  },
+  "v3/work": {
+    "dataset": "v3",
+    "sample": "work",
+    "transcript": "In exactly ten minutes, it is in the power of every man, to free himself from all the tumult of the world; the pangs of love, the throbs of ambition, the wear and tear of play, the recriminating boudoir, the conspiring club, the rattling hell; and find himself in a sublime sylvan solitude.",
+    "summary": "The speaker passionately claims that anyone can escape the exhausting chaos, emotional turmoil, and ambitious drives of society to find peace in nature in just ten minutes.",
+    "sentiment": "positive",
+    "keywords": [
+      "minutes",
+      "power",
+      "tumult",
+      "ambition",
+      "solitude",
+      "sylvan"
+    ],
+    "intent": "persuade"
+  },
+  "v4/American": {
+    "dataset": "v4",
+    "sample": "American",
+    "transcript": "It is well known that the American Indian had somehow developed a cold power, and although in the latter days there have been many impostures, and allowing for the vanity and weakness of human nature, it is fair to assume that there must have been some even in the old days, yet there are well attested instances of remarkable prophecies, another mystic practice.",
+    "summary": "The passage discusses the American Indian's reputed mystical powers, acknowledging historical impostures while affirming documented instances of genuine prophecy and mystic practices.",
+    "sentiment": "neutral",
+    "keywords": [
+      "American Indian",
+      "mystic",
+      "prophecy",
+      "imposture",
+      "human nature",
+      "power",
+      "history"
+    ],
+    "intent": "inform"
+  },
+  "v4/avenue": {
+    "dataset": "v4",
+    "sample": "avenue",
+    "transcript": "This avenue was straight and of moderate length, running between a double row of very ancient horse chestnuts, planted alternately with sycamores, which rose to such huge heights, and nourished so luxuriously, that their boughs completely overarched the broad road beneath.",
+    "summary": "A straight avenue of moderate length is lined with towering ancient horse chestnuts and sycamores whose lush branches form a complete canopy over the road below.",
+    "sentiment": "positive",
+    "keywords": [
+      "avenue",
+      "horse chestnut",
+      "sycamore",
+      "canopy",
+      "road",
+      "ancient",
+      "luxuriant"
+    ],
+    "intent": "describe"
+  },
+  "v4/battlefield": {
+    "dataset": "v4",
+    "sample": "battlefield",
+    "transcript": "I had heard and read of battlefields, seen pictures of battlefields, of horses and men, of cannon wagons, all jumbled together, while the ground was strewn with dead, and dying, and wounded, but I must confess that I never realized the pomp and circumstance of the thing called glorious war until I saw this.",
+    "summary": "The narrator reflects on how witnessing a real battlefield firsthand revealed the true horror and irony of glorifying war, far beyond what books and pictures could convey.",
+    "sentiment": "negative",
+    "keywords": [
+      "battlefield",
+      "war",
+      "death",
+      "glory",
+      "horror",
+      "pomp",
+      "reality"
+    ],
+    "intent": "describe"
+  },
+  "v4/castle": {
+    "dataset": "v4",
+    "sample": "castle",
+    "transcript": "One said it was an enchanted castle. Another that witches lived there. But most believed that it was occupied by a great ogre, which carried thither all the children he could catch and ate them up one at a time. For nobody could get at him through the wood.",
+    "summary": "This storytelling excerpt describes various local rumors about a mysterious location, with the most popular belief being that an unreachable, child-eating ogre lives there.",
+    "sentiment": "negative",
+    "keywords": [
+      "enchanted castle",
+      "witches",
+      "great ogre",
+      "rumors",
+      "folklore",
+      "children"
+    ],
+    "intent": "entertain"
+  },
+  "v4/chemistry": {
+    "dataset": "v4",
+    "sample": "chemistry",
+    "transcript": "It seemed evident that a mysterious and probably a cult science, which was to surgery what alchemy was to chemistry, had chiselled his flesh, evidently at a very tender age, and manufactured his compliance with premeditation.",
+    "summary": "A mysterious cult-like science, compared to alchemy's relationship with chemistry, appears to have surgically altered someone from a young age to control or manufacture their behavior.",
+    "sentiment": "negative",
+    "keywords": [
+      "alchemy",
+      "chemistry",
+      "surgery",
+      "cult",
+      "mystery",
+      "flesh",
+      "premeditation"
+    ],
+    "intent": "describe"
+  },
+  "v4/constructed": {
+    "dataset": "v4",
+    "sample": "constructed",
+    "transcript": "This fortune had allowed Ursus, who was the administrator of Gwynplaine's success, to have the chariot of his dreams constructed, that is to say, a car of an enormous size large enough to carry a theater, and to show science and art in the highways.",
+    "summary": "Ursus used Gwynplaine's earnings to build an enormous traveling theater chariot designed to bring science and art performances to the public roads.",
+    "sentiment": "positive",
+    "keywords": [
+      "Ursus",
+      "Gwynplaine",
+      "chariot",
+      "theater",
+      "fortune",
+      "art",
+      "highways"
+    ],
+    "intent": "describe"
+  },
+  "v4/cousin": {
+    "dataset": "v4",
+    "sample": "cousin",
+    "transcript": "The remoter degrees of kinship were fully recognized, and that not as a matter of form only. First cousins were known as brothers and sisters. The name of cousin constituted a binding claim, and a rigid morality forbade marriage between cousins in any known degree, or in other words, within the clan.",
+    "summary": "A society recognized extended kinship deeply, treating cousins as siblings and enforcing strict moral prohibitions against any marriage within the clan.",
+    "sentiment": "neutral",
+    "keywords": [
+      "kinship",
+      "cousin",
+      "marriage",
+      "clan",
+      "morality",
+      "family",
+      "society"
+    ],
+    "intent": "inform"
+  },
+  "v4/fairy": {
+    "dataset": "v4",
+    "sample": "fairy",
+    "transcript": "One of the young fairies, overhearing her, and fancying she might work some mischief to the little baby, went and hid herself behind the hangings in the hall, so as to be able to have the last word and undo any harm the old fairy might wish to work.",
+    "summary": "A young fairy hides in the hall to protect a baby, preparing to use her own magic to undo any malicious spell an older fairy might cast.",
+    "sentiment": "neutral",
+    "keywords": [
+      "young fairy",
+      "mischief",
+      "little baby",
+      "hide",
+      "undo harm",
+      "old fairy"
+    ],
+    "intent": "entertain"
+  },
+  "v4/flowers": {
+    "dataset": "v4",
+    "sample": "flowers",
+    "transcript": "Making a sort of eddying circuit round the garden, he knocked over the convolvulus pole, tore the strips from the stick that held up the white lily, loosed all the carnation flowers from their fastenings, broke the rose tree down, and leveled the sweet peas to the ground.",
+    "summary": "A destructive force sweeps through a garden, violently breaking down and tearing apart various plants, including lilies, carnations, and rose trees.",
+    "sentiment": "negative",
+    "keywords": [
+      "eddying circuit",
+      "garden",
+      "convolvulus",
+      "white lily",
+      "carnations",
+      "rose tree",
+      "sweet peas"
+    ],
+    "intent": "describe"
+  },
+  "v4/house": {
+    "dataset": "v4",
+    "sample": "house",
+    "transcript": "At the time Mary had noted nothing of these things; now she saw them all, as for the first time, in minute detail, while slowly she went up the stair and through the narrowed ways, and heard the same wind that raved alike about the new grave and the old house, into which latter, for all the bales banked against the walls, it found many a chink of entrance.",
+    "summary": "Mary ascends the stairs of an old house, deeply observant of its minute details and the howling wind blowing through its cracks and over a recent grave.",
+    "sentiment": "negative",
+    "keywords": [
+      "minute detail",
+      "narrowed ways",
+      "raving wind",
+      "new grave",
+      "old house",
+      "chink of entrance",
+      "observation"
+    ],
+    "intent": "describe"
+  },
+  "v4/intellegent": {
+    "dataset": "v4",
+    "sample": "intellegent",
+    "transcript": "Yet the physiognomy of the people, when more closely examined, was far from exhibiting the indifference of stupidity. Their features were rough, but remarkably intelligent; grave, but the very reverse of stupid; and from among the young women, an artist might have chosen more than one model, whose features and form resembled those of Minerva.",
+    "summary": "Despite rough appearances, the people displayed remarkable intelligence and dignity, with some young women possessing the noble, Minerva-like beauty worthy of artistic representation.",
+    "sentiment": "positive",
+    "keywords": [
+      "physiognomy",
+      "intelligent",
+      "Minerva",
+      "beauty",
+      "artist",
+      "dignity",
+      "people"
+    ],
+    "intent": "describe"
+  },
+  "v4/lily": {
+    "dataset": "v4",
+    "sample": "lily",
+    "transcript": "Then the wind took another fall around the garden, and made up to the large white Lily, and to whose refined ear he whispered a doubt as to the necessity or advantage of her thick powerful stem, being propped up against a stupid ugly stick.",
+    "summary": "The wind approaches a white lily in the garden and whispers a doubt about whether her strong stem truly needs to be propped up by an ugly stick.",
+    "sentiment": "neutral",
+    "keywords": [
+      "wind",
+      "lily",
+      "garden",
+      "stem",
+      "support",
+      "doubt",
+      "nature"
+    ],
+    "intent": "describe"
+  },
+  "v4/love": {
+    "dataset": "v4",
+    "sample": "love",
+    "transcript": "When our left man or woman or child, ye are right, then will doubt no longer need that I tell thee how God and his Christ would not be content with each other alone in the glories even of the eternal original love, because they could create more love.",
+    "summary": "The speaker asserts that when humanity is righteous, it becomes self-evident how God and Christ sought to expand their eternal love by creating more love in the world.",
+    "sentiment": "positive",
+    "keywords": [
+      "love",
+      "God",
+      "Christ",
+      "eternal",
+      "creation",
+      "righteousness",
+      "divine"
+    ],
+    "intent": "persuade"
+  },
+  "v4/lovely": {
+    "dataset": "v4",
+    "sample": "lovely",
+    "transcript": "Did that lovely creature suppose that nature, who had done so much for her, that the fame of her beauty extended throughout the world, had yet left her so weak and feeble, that she could not support herself in the position most calculated to give her ease in pleasure?",
+    "summary": "The speaker rhetorically questions whether a beautiful creature truly believes nature made her too frail to support herself in her most comfortable position.",
+    "sentiment": "negative",
+    "keywords": [
+      "nature",
+      "beauty",
+      "weakness",
+      "creature",
+      "support",
+      "pleasure",
+      "world"
+    ],
+    "intent": "persuade"
+  },
+  "v4/magic": {
+    "dataset": "v4",
+    "sample": "magic",
+    "transcript": "Besides, we must remember that they had in those times means of putting patience to sleep and of suppressing all suffering. Only then it was called magic. Well, now it is called anesthesia.",
+    "summary": "The speaker draws a parallel between ancient magic that suppressed pain and suffering and modern anesthesia, reframing historical mysticism as early medical practice.",
+    "sentiment": "neutral",
+    "keywords": [
+      "magic",
+      "anesthesia",
+      "suffering",
+      "sleep",
+      "medicine",
+      "history",
+      "pain"
+    ],
+    "intent": "inform"
+  },
+  "v4/mountain": {
+    "dataset": "v4",
+    "sample": "mountain",
+    "transcript": "Going down the mountain, said Mercury, and as you go, cast the bones of your mother over your shoulders behind you. And with these words he leaped into the air, and was seen no more.",
+    "summary": "Mercury instructs someone to cast their mother's bones over their shoulders while descending the mountain, then leaps into the air and disappears.",
+    "sentiment": "neutral",
+    "keywords": [
+      "Mercury",
+      "mountain",
+      "bones",
+      "mother",
+      "myth",
+      "instruction",
+      "disappear"
+    ],
+    "intent": "describe"
+  },
+  "v4/mystery": {
+    "dataset": "v4",
+    "sample": "mystery",
+    "transcript": "At the solemn hour of sunrise, Orsung said, he took up his position overlooking the glories of earth and facing the great mystery, and there he remained, naked, erect, silent and motionless, exposed to the elements and forces of Asarming, for a night and a day to two days and nights, but rarely longer.",
+    "summary": "Orsung describes a spiritual figure who stands naked and motionless before the great mystery, exposed to the elements for extended periods of ritual endurance.",
+    "sentiment": "neutral",
+    "keywords": [
+      "mystery",
+      "sunrise",
+      "ritual",
+      "elements",
+      "endurance",
+      "spiritual",
+      "Asarming"
+    ],
+    "intent": "describe"
+  },
+  "v4/princess": {
+    "dataset": "v4",
+    "sample": "princess",
+    "transcript": "Now 15 years after the princess was born, she was with the king and Queen, in one of their castles, and as she was running about by herself she came to a little chamber at the top of a tower, and there sat an honest old woman spinning, but she had never heard of the king's decree.",
+    "summary": "Fifteen years after her birth, the princess discovers an old woman spinning in a tower chamber, unaware of the royal prohibition.",
+    "sentiment": "neutral",
+    "keywords": [
+      "princess",
+      "tower",
+      "spinning",
+      "old woman",
+      "king",
+      "decree",
+      "fairy tale"
+    ],
+    "intent": "describe"
+  },
+  "v4/rainbow": {
+    "dataset": "v4",
+    "sample": "rainbow",
+    "transcript": "Whenever in the course of the daily hunt, the red hunter comes upon a scene that is strikingly beautiful or sublime—a black thundercloud with a rainbow glowing arch above the mountain, a white waterfall in the heart of the green gorge, a vast prairie tinged with the blood red of sunset—he pauses for an instant in the attitude of worship.",
+    "summary": "The Native American hunter pauses in reverent worship whenever he encounters sublime natural beauty, such as rainbows, waterfalls, or blood-red sunsets.",
+    "sentiment": "positive",
+    "keywords": [
+      "rainbow",
+      "hunter",
+      "worship",
+      "nature",
+      "sublime",
+      "sunset",
+      "waterfall"
+    ],
+    "intent": "describe"
+  },
+  "v4/reality": {
+    "dataset": "v4",
+    "sample": "reality",
+    "transcript": "Some believed it to be natural, others declared it to be artificial, and as conjecture was added to reality everywhere, at every crossroad on the journey, in all the grounds of fairs, the crowd ran after Gwynplaine.",
+    "summary": "Public debate over whether Gwynplaine's appearance is natural or artificial fuels widespread curiosity, causing crowds to chase him at every crossroad and fairground.",
+    "sentiment": "neutral",
+    "keywords": [
+      "Gwynplaine",
+      "crowd",
+      "natural",
+      "artificial",
+      "conjecture",
+      "reality",
+      "fame"
+    ],
+    "intent": "describe"
+  },
+  "v4/skill": {
+    "dataset": "v4",
+    "sample": "skill",
+    "transcript": "The men appeared robust, but heavy, fair haired, like Germans, but of pensive, mean exiles of a higher scale in the ladder of humanity than the Eskimos, but I thought much more unhappy, since with superior perceptions, they are compelled to live within the limits of the polar circle.",
+    "summary": "A group of fair-haired, robust people are described as intellectually superior to Eskimos yet tragically confined to the harsh polar circle, making them deeply unhappy despite their advanced perceptions.",
+    "sentiment": "negative",
+    "keywords": [
+      "polar circle",
+      "Eskimos",
+      "humanity",
+      "unhappiness",
+      "perception",
+      "exile",
+      "confinement"
+    ],
+    "intent": "describe"
+  },
+  "v4/soldier": {
+    "dataset": "v4",
+    "sample": "soldier",
+    "transcript": "Those old soldiers had long, long ago forgotten about that old law of the long gone past, but Jim's treasure did up in his memory law these many years, and he thought it would serve him now, as it had no doubt frequently done in the past.",
+    "summary": "While old soldiers had forgotten an ancient law, Jim's treasured memory of it resurfaces, and he believes it will once again prove useful as it had in the past.",
+    "sentiment": "neutral",
+    "keywords": [
+      "soldier",
+      "law",
+      "memory",
+      "treasure",
+      "past",
+      "Jim",
+      "survival"
+    ],
+    "intent": "describe"
+  },
+  "v4/violin": {
+    "dataset": "v4",
+    "sample": "violin",
+    "transcript": "One wet evening, work was over for the day, Joseph locked the door of his smithy, washed himself well, put on clean clothes, and taking his violin, set out for Testbridge. Mary was expecting him to tea.",
+    "summary": "After finishing work at his smithy, Joseph cleans up, takes his violin, and sets out through the wet evening to join Mary for tea at Testbridge.",
+    "sentiment": "positive",
+    "keywords": [
+      "violin",
+      "smithy",
+      "Joseph",
+      "Mary",
+      "evening",
+      "tea",
+      "journey"
+    ],
+    "intent": "describe"
+  },
+  "v4/woman": {
+    "dataset": "v4",
+    "sample": "woman",
+    "transcript": "As a special mark of respect, the body of a young woman or a warrior was sometimes laid out in state in a new teepee, with the usual household articles, and even with a dish of food left beside it. Not that they supposed the spirit could use the implements or eat the food, but merely, as a last tribute.",
+    "summary": "Native American funeral customs involved laying out the honored dead in a new teepee with household items and food as a final tribute, not because spirits needed them, but as a mark of respect.",
+    "sentiment": "neutral",
+    "keywords": [
+      "funeral",
+      "teepee",
+      "warrior",
+      "tribute",
+      "spirit",
+      "custom",
+      "respect"
+    ],
+    "intent": "inform"
+  },
+  "v5/attention": {
+    "dataset": "v5",
+    "sample": "attention",
+    "transcript": "so why is it so hard to pay attention? will study show that even when were really trying to pay attention to something like maybe this talk, at some point about half of us will drift off into a daydream or have this urge to check our Twitter feed. so whats going on here? it turns out that were fighting one of the most evolutionarily conserve learning processes currently known in science.",
+    "summary": "The speaker explains why paying attention is difficult, noting that about half of people will daydream or check social media during a talk, and attributes this to an evolutionarily conserved learning process.",
+    "sentiment": "neutral",
+    "keywords": [
+      "attention",
+      "daydream",
+      "Twitter",
+      "evolution",
+      "learning process",
+      "science",
+      "focus"
+    ],
+    "intent": "question"
+  },
+  "v5/chocolate": {
+    "dataset": "v5",
+    "sample": "chocolate",
+    "transcript": "you can use this for more than just remembering where food is. you know, next time you feel bad, why dont you try eating something good so youre better? we think our brains for the great idea. try this and quickly learn that if we eat chocolate or ice cream when were matter said we feel better.",
+    "summary": "The speaker discusses how eating something good like chocolate or ice cream when feeling bad can make us feel better, illustrating a learned reward-based behavior.",
+    "sentiment": "neutral",
+    "keywords": [
+      "chocolate",
+      "ice cream",
+      "reward",
+      "brain",
+      "feel better",
+      "food",
+      "learning"
+    ],
+    "intent": "question"
+  },
+  "v5/comparison": {
+    "dataset": "v5",
+    "sample": "comparison",
+    "transcript": "You know that phrase, comparison is the thief of joy? It's it's it's it's a it's a beautiful phrase, but my actor friend, he's kind of intense, he got it tattooed on his arm, one line. Comparison is the thief of joy. Just in case he forgets. And I'm really thinking about getting the same tattoo but bigger.",
+    "summary": "A comedian jokes about an intense friend who got a famous quote tattooed on his arm, and the ironic desire to get the exact same tattoo but larger.",
+    "sentiment": "neutral",
+    "keywords": [
+      "comparison",
+      "thief of joy",
+      "tattoo",
+      "actor friend",
+      "irony",
+      "standup comedy"
+    ],
+    "intent": "entertain"
+  },
+  "v5/gay": {
+    "dataset": "v5",
+    "sample": "gay",
+    "transcript": "I don't know what it is about me, but I post pictures of myself online. People accuse me of gay baiting. And like, you can't blame the worm for the kind of fish that it catches. And let me tell you, let me tell you, it rubs some people the wrong way that I won't rub them the right way.",
+    "summary": "The speaker addresses online accusations of \"gay baiting\" using a clever fishing metaphor and a pun about rubbing people the wrong way.",
+    "sentiment": "neutral",
+    "keywords": [
+      "gay baiting",
+      "online pictures",
+      "worm and fish",
+      "metaphor",
+      "accusations",
+      "humor"
+    ],
+    "intent": "entertain"
+  },
+  "v5/healthcare": {
+    "dataset": "v5",
+    "sample": "healthcare",
+    "transcript": "Did you know that Canadian healthcare uh uh covers taking your own life? We have that in America too, by the way. We just call it not giving people healthcare. It's kind of a delayed release euthanasia. If you want something more fast acting you gotta become a healthcare CEO.",
+    "summary": "A piece of dark satire comparing Canada's medical assistance policies to America's lack of universal healthcare, framing the latter as delayed euthanasia.",
+    "sentiment": "neutral",
+    "keywords": [
+      "Canadian healthcare",
+      "American healthcare",
+      "euthanasia",
+      "satire",
+      "delayed release",
+      "CEO"
+    ],
+    "intent": "entertain"
+  },
+  "v5/her": {
+    "dataset": "v5",
+    "sample": "her",
+    "transcript": "the specific boxes society has laid out. Like I still do events where, you know, maybe I have a name tag and they want me to put my pronouns. And I always put he/him. But I don't always like the feeling of meeting someone for the first time and being like, Gianmarco Soresi, he/him. I think it'd be more accurate to be like, Gianmarco Soresi, he/him, but I'll smile if you call me girl.",
+    "summary": "Comedian Gianmarco Soresi discusses his relationship with societal pronoun boxes, expressing a lighthearted appreciation for being playfully misgendered.",
+    "sentiment": "positive",
+    "keywords": [
+      "pronouns",
+      "he/him",
+      "gender boxes",
+      "name tag",
+      "Gianmarco Soresi",
+      "identity"
+    ],
+    "intent": "entertain"
+  },
+  "v5/kill": {
+    "dataset": "v5",
+    "sample": "kill",
+    "transcript": "You'll go to hell! I understood religion more as I get older every day. You know, sometimes you need to believe that there's something worse than staying alive. Listen, some of these jokes are gonna be disrespectful to people who have actually taken their own lives, but none of them are here tonight. So I want you to just enjoy it, okay? Cause listen, my friend is-",
+    "summary": "The comedian delivers dark jokes about religion, hell, and suicide, breaking the tension by pointing out that the subjects of his edgy jokes are not in the audience.",
+    "sentiment": "positive",
+    "keywords": [
+      "religion",
+      "hell",
+      "dark humor",
+      "suicide jokes",
+      "disrespectful",
+      "standup"
+    ],
+    "intent": "entertain"
+  },
+  "v5/smoking": {
+    "dataset": "v5",
+    "sample": "smoking",
+    "transcript": "We instead tapped into this natural reward-based learning process... but added a twist. What if instead we just got really curious about what was happening in our momentary experience? I'll give you an example. In my lab we studied whether mindfulness training could help people quit smoking. Now, just like trying to force myself to pay attention to my breath, they could try to force themselves to quit smoking.",
+    "summary": "The speaker introduces a novel approach to breaking habits by combining reward-based learning with curiosity and mindfulness, using a smoking cessation study as an example.",
+    "sentiment": "positive",
+    "keywords": [
+      "mindfulness",
+      "curiosity",
+      "quit smoking",
+      "momentary experience",
+      "research",
+      "habits",
+      "training"
+    ],
+    "intent": "inform"
+  },
+  "v5/tiger": {
+    "dataset": "v5",
+    "sample": "tiger",
+    "transcript": "Hey look, the tiger's in a cage. You know what a cage is?They can't escape from a cage. It's okay to calm down. It's a feedback loop that can help keep the response in check. The hippocampus is also involved. It provides context, saying things like, Hey, we've seen tigers in cages before. We're in a zoo. You are extra safe.",
+    "summary": "This section explains how the brain's hippocampus uses contextual information to create a feedback loop that suppresses the fear response and promotes calmness.",
+    "sentiment": "positive",
+    "keywords": [
+      "hippocampus",
+      "feedback loop",
+      "fear response",
+      "context",
+      "brain function",
+      "calming down",
+      "safety"
+    ],
+    "intent": "describe"
+  },
+  "v6/arts": {
+    "dataset": "v6",
+    "sample": "arts",
+    "transcript": "So how do we know that all these benefits are unique to music, as opposed to say, sports or painting? Or could it be that people who go into music were already smarter to begin with? Neuroscientists have explored these issues, but so far they have found that the artistic and aesthetic aspects of learning to play a musical instrument are different from any other activity studied, including other arts.",
+    "summary": "The speaker questions whether the cognitive benefits of playing music are unique and explains that neuroscientists have found learning an instrument differs from all other activities.",
+    "sentiment": "neutral",
+    "keywords": [
+      "music benefits",
+      "neuroscience",
+      "musical instrument",
+      "artistic aspects",
+      "cognitive development"
+    ],
+    "intent": "question"
+  },
+  "v6/believe": {
+    "dataset": "v6",
+    "sample": "believe",
+    "transcript": "had one of his editors said to me, hey, Have you ever considered writing a book? I said funny you should ask. And I pulled out the exact same proposal that I had showed his boss a year earlier. Within two weeks I had a contract and within two years the book had sold over a million copies around the world.",
+    "summary": "The speaker shares a personal success story about pitching an old proposal to an editor, which quickly resulted in a contract and a million-copy bestseller.",
+    "sentiment": "positive",
+    "keywords": [
+      "book proposal",
+      "publishing contract",
+      "million copies",
+      "editor",
+      "success story"
+    ],
+    "intent": "entertain"
+  },
+  "v6/brain": {
+    "dataset": "v6",
+    "sample": "brain",
+    "transcript": "How do we know this? Well, in the last few decades, neuroscientists have made enormous breakthroughs in understanding how our brains work by monitoring them in real time with instruments like fMRI and PET scanners. When people are hooked up to these machines, tasks such as reading or doing math problems each have corresponding areas of the brain where activity can be observed.",
+    "summary": "The speaker details how advancements in fMRI and PET scanners have allowed neuroscientists to monitor real-time brain activity during specific tasks.",
+    "sentiment": "neutral",
+    "keywords": [
+      "neuroscientists",
+      "brain activity",
+      "fMRI scanners",
+      "PET scanners",
+      "real-time monitoring"
+    ],
+    "intent": "inform"
+  },
+  "v6/fat": {
+    "dataset": "v6",
+    "sample": "fat",
+    "transcript": "You may have been thinking, where does she get her confidence from? Because a confident fat woman is almost unthinkable. the fashion conscious members of the audience may have been thinking, how fabulous I look in this bethdid dress.",
+    "summary": "The speaker reflects on societal shock at confident fat women and the fashion industry's narrow beauty standards.",
+    "sentiment": "negative",
+    "keywords": [
+      "confidence",
+      "fat woman",
+      "societal bias",
+      "fashion",
+      "body image",
+      "beauty standards",
+      "self-esteem"
+    ],
+    "intent": "question"
+  },
+  "v6/musician": {
+    "dataset": "v6",
+    "sample": "musician",
+    "transcript": "Did you know that every time musicians pick up their instruments, there are fireworks going off all over their brain? On the outside, they may look calm and focused, reading the music and making the precise and practice movements required. But inside their brains, there's a party going on.",
+    "summary": "Using the metaphors of fireworks and a party, the speaker vividly illustrates the intense and widespread brain activity that occurs when musicians play instruments.",
+    "sentiment": "positive",
+    "keywords": [
+      "musicians",
+      "brain activity",
+      "fireworks",
+      "instruments",
+      "neuroscience"
+    ],
+    "intent": "describe"
+  },
+  "v6/question": {
+    "dataset": "v6",
+    "sample": "question",
+    "transcript": "this antifat bias has become so integral, so ingrained to how we value ourselves and each other, that we rarely question why we have such contempt for people of size and where that disdain comes from. but we must question it, because the enormous value we place on how we look affects every one of us.",
+    "summary": "The speaker urges questioning the deep-rooted antifat bias and its harmful impact on societal values.",
+    "sentiment": "negative",
+    "keywords": [
+      "antifat bias",
+      "contempt",
+      "body size",
+      "societal values",
+      "self-worth",
+      "appearance",
+      "discrimination"
+    ],
+    "intent": "question"
+  },
+  "v6/society": {
+    "dataset": "v6",
+    "sample": "society",
+    "transcript": "And do we really want to live in a society where people deny their basic humanity if they don't subscribe to some arbitrary form of acceptable? so when i was 6 years old, my sister used to teach ballet to twenty little girls in our garage.",
+    "summary": "The speaker questions a society that denies humanity based on arbitrary standards, then begins a personal childhood anecdote.",
+    "sentiment": "negative",
+    "keywords": [
+      "society",
+      "humanity",
+      "arbitrary standards",
+      "acceptance",
+      "childhood",
+      "ballet",
+      "conformity"
+    ],
+    "intent": "question"
+  }
+}

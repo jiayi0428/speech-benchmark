@@ -1,0 +1,24 @@
+{
+  "experiment_id": "human_speech_v2",
+  "description": "Ten as-recorded human English speech samples with supplied annotations.",
+  "condition": "as_recorded",
+  "sample_rate": 16000,
+  "samples": [
+    "butter",
+    "centry",
+    "childhood",
+    "fire",
+    "justice",
+    "literature",
+    "objects",
+    "pictures",
+    "revolution",
+    "table"
+  ],
+  "tasks": [
+    "summarization",
+    "sentiment",
+    "keywords",
+    "intent"
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "attention": {
+    "transcript": "so why is it so hard to pay attention? will study show that even when were really trying to pay attention to something like maybe this talk, at some point about half of us will drift off into a daydream or have this urge to check our Twitter feed. so whats going on here? it turns out that were fighting one of the most evolutionarily conserve learning processes currently known in science.",
+    "summary": "The speaker explains why paying attention is difficult, noting that about half of people will daydream or check social media during a talk, and attributes this to an evolutionarily conserved learning process.",
+    "sentiment": "neutral",
+    "keywords": [
+      "attention",
+      "daydream",
+      "Twitter",
+      "evolution",
+      "learning process",
+      "science",
+      "focus"
+    ],
+    "intent": "question"
+  },
+  "chocolate": {
+    "transcript": "you can use this for more than just remembering where food is. you know, next time you feel bad, why dont you try eating something good so youre better? we think our brains for the great idea. try this and quickly learn that if we eat chocolate or ice cream when were matter said we feel better.",
+    "summary": "The speaker discusses how eating something good like chocolate or ice cream when feeling bad can make us feel better, illustrating a learned reward-based behavior.",
+    "sentiment": "neutral",
+    "keywords": [
+      "chocolate",
+      "ice cream",
+      "reward",
+      "brain",
+      "feel better",
+      "food",
+      "learning"
+    ],
+    "intent": "question"
+  },
+  "smoking": {
+    "transcript": "We instead tapped into this natural reward-based learning process... but added a twist. What if instead we just got really curious about what was happening in our momentary experience? I'll give you an example. In my lab we studied whether mindfulness training could help people quit smoking. Now, just like trying to force myself to pay attention to my breath, they could try to force themselves to quit smoking.",
+    "summary": "The speaker introduces a novel approach to breaking habits by combining reward-based learning with curiosity and mindfulness, using a smoking cessation study as an example.",
+    "sentiment": "positive",
+    "keywords": [
+      "mindfulness",
+      "curiosity",
+      "quit smoking",
+      "momentary experience",
+      "research",
+      "habits",
+      "training"
+    ],
+    "intent": "inform"
+  },
+  "tiger": {
+    "transcript": "Hey look, the tiger's in a cage. You know what a cage is?They can't escape from a cage. It's okay to calm down. It's a feedback loop that can help keep the response in check. The hippocampus is also involved. It provides context, saying things like, Hey, we've seen tigers in cages before. We're in a zoo. You are extra safe.",
+    "summary": "This section explains how the brain's hippocampus uses contextual information to create a feedback loop that suppresses the fear response and promotes calmness.",
+    "sentiment": "positive",
+    "keywords": [
+      "hippocampus",
+      "feedback loop",
+      "fear response",
+      "context",
+      "brain function",
+      "calming down",
+      "safety"
+    ],
+    "intent": "describe"
+  },
+  "comparison": {
+    "transcript": "You know that phrase, comparison is the thief of joy? It's it's it's it's a it's a beautiful phrase, but my actor friend, he's kind of intense, he got it tattooed on his arm, one line. Comparison is the thief of joy. Just in case he forgets. And I'm really thinking about getting the same tattoo but bigger.",
+    "summary": "A comedian jokes about an intense friend who got a famous quote tattooed on his arm, and the ironic desire to get the exact same tattoo but larger.",
+    "sentiment": "neutral",
+    "keywords": [
+      "comparison",
+      "thief of joy",
+      "tattoo",
+      "actor friend",
+      "irony",
+      "standup comedy"
+    ],
+    "intent": "entertain"
+  },
+  "gay": {
+    "transcript": "I don't know what it is about me, but I post pictures of myself online. People accuse me of gay baiting. And like, you can't blame the worm for the kind of fish that it catches. And let me tell you, let me tell you, it rubs some people the wrong way that I won't rub them the right way.",
+    "summary": "The speaker addresses online accusations of \"gay baiting\" using a clever fishing metaphor and a pun about rubbing people the wrong way.",
+    "sentiment": "neutral",
+    "keywords": [
+      "gay baiting",
+      "online pictures",
+      "worm and fish",
+      "metaphor",
+      "accusations",
+      "humor"
+    ],
+    "intent": "entertain"
+  },
+  "healthcare": {
+    "transcript": "Did you know that Canadian healthcare uh uh covers taking your own life? We have that in America too, by the way. We just call it not giving people healthcare. It's kind of a delayed release euthanasia. If you want something more fast acting you gotta become a healthcare CEO.",
+    "summary": "A piece of dark satire comparing Canada's medical assistance policies to America's lack of universal healthcare, framing the latter as delayed euthanasia.",
+    "sentiment": "neutral",
+    "keywords": [
+      "Canadian healthcare",
+      "American healthcare",
+      "euthanasia",
+      "satire",
+      "delayed release",
+      "CEO"
+    ],
+    "intent": "entertain"
+  },
+  "her": {
+    "transcript": "the specific boxes society has laid out. Like I still do events where, you know, maybe I have a name tag and they want me to put my pronouns. And I always put he/him. But I don't always like the feeling of meeting someone for the first time and being like, Gianmarco Soresi, he/him. I think it'd be more accurate to be like, Gianmarco Soresi, he/him, but I'll smile if you call me girl.",
+    "summary": "Comedian Gianmarco Soresi discusses his relationship with societal pronoun boxes, expressing a lighthearted appreciation for being playfully misgendered.",
+    "sentiment": "positive",
+    "keywords": [
+      "pronouns",
+      "he/him",
+      "gender boxes",
+      "name tag",
+      "Gianmarco Soresi",
+      "identity"
+    ],
+    "intent": "entertain"
+  },
+  "kill": {
+    "transcript": "You'll go to hell! I understood religion more as I get older every day. You know, sometimes you need to believe that there's something worse than staying alive. Listen, some of these jokes are gonna be disrespectful to people who have actually taken their own lives, but none of them are here tonight. So I want you to just enjoy it, okay? Cause listen, my friend is-",
+    "summary": "The comedian delivers dark jokes about religion, hell, and suicide, breaking the tension by pointing out that the subjects of his edgy jokes are not in the audience.",
+    "sentiment": "positive",
+    "keywords": [
+      "religion",
+      "hell",
+      "dark humor",
+      "suicide jokes",
+      "disrespectful",
+      "standup"
+    ],
+    "intent": "entertain"
+  }
+}

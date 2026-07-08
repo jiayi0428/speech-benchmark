@@ -23,7 +23,11 @@ MODEL_ID = os.getenv(
     "QWEN_MODEL_PATH",
     "Qwen/Qwen2-Audio-7B-Instruct",
 )
-PROMPT_VERSION = "qwen_user_task_v2"
+USER_PROMPT_VERSION = "qwen_user_task_v2"
+SYSTEM_PROMPT_VERSION = "qwen_system_task_v1"
+PROMPT_VERSION = SYSTEM_PROMPT_VERSION
+DEFAULT_PROMPT_MODE = "system"
+SYSTEM_USER_INSTRUCTION = "Please respond with ONLY the answer, no extra text."
 
 SYSTEM_PROMPTS: dict[str, str] = {
     "transcription": (
@@ -59,11 +63,74 @@ SYSTEM_PROMPTS: dict[str, str] = {
     ),
 }
 
+SYSTEM_TURN_PROMPTS: dict[str, str] = {
+    "transcription": SYSTEM_PROMPTS["transcription"],
+    "summarization": (
+        "Listen to the audio and summarize it in 3-5 sentences. "
+        "Be concise and capture the main points. "
+        "Return ONLY the summary, no preamble."
+    ),
+    "sentiment": (
+        "Listen to the audio and classify the speaker's sentiment "
+        "as exactly one of: positive, negative, or neutral. "
+        "Consider tone of voice, pace, and word choice. "
+        'Return JSON: {"sentiment": "<label>", "confidence": <float>}'
+    ),
+    "keywords": (
+        "Listen to the audio and extract 5-10 most important "
+        "keywords or key phrases. Consider emphasis and repetition. "
+        'Return JSON list: ["keyword1", "keyword2", ...]'
+    ),
+    "intent": (
+        "Listen to the audio and identify the speaker's primary "
+        "communicative intent. Choose exactly one of: inform, persuade, "
+        "entertain, question, describe. Consider tone and structure. "
+        'Return JSON: {"intent": "<label>", "confidence": <float>}'
+    ),
+}
+
+
+def build_conversation(
+    task: str, prompt_mode: str = DEFAULT_PROMPT_MODE
+) -> list[dict[str, Any]]:
+    """Build a Qwen2-Audio conversation without loading the model."""
+    task_prompt = SYSTEM_PROMPTS.get(task, SYSTEM_PROMPTS["summarization"])
+    if prompt_mode == "user":
+        return [
+            {
+                "role": "user",
+                "content": [
+                    {"type": "audio", "audio_url": None},
+                    {"type": "text", "text": task_prompt},
+                ],
+            },
+        ]
+    if prompt_mode == "system":
+        return [
+            {
+                "role": "system",
+                "content": SYSTEM_TURN_PROMPTS.get(
+                    task, SYSTEM_TURN_PROMPTS["summarization"]
+                ),
+            },
+            {
+                "role": "user",
+                "content": [
+                    {"type": "audio", "audio_url": None},
+                    {"type": "text", "text": SYSTEM_USER_INSTRUCTION},
+                ],
+            },
+        ]
+    raise ValueError(f"Unsupported prompt mode: {prompt_mode}")
+
 
 class QwenAudioPipeline:
     """Local Qwen2-Audio pipeline for end-to-end speech understanding."""
 
-    def __init__(self) -> None:
+    def __init__(self, *, prompt_mode: str = DEFAULT_PROMPT_MODE) -> None:
+        if prompt_mode not in {"user", "system"}:
+            raise ValueError(f"Unsupported prompt mode: {prompt_mode}")
+        self.prompt_mode = prompt_mode
         print(f"Loading {MODEL_ID} (INT4, this may take a few minutes)...")
 
         self.processor = AutoProcessor.from_pretrained(MODEL_ID, trust_remote_code=True)
@@ -108,21 +175,11 @@ class QwenAudioPipeline:
         # Load and resample audio to model's expected rate
         audio, _ = librosa.load(audio_path, sr=self.sample_rate)
 
-        system_prompt = SYSTEM_PROMPTS.get(task, SYSTEM_PROMPTS["summarization"])
-
-        # Qwen2-Audio follows task instructions reliably when they are included
-        # in the user turn alongside the audio. A task-specific system message
-        # was ignored by the model and caused every structured task to degrade
-        # into a generic audio description.
-        conversation = [
-            {
-                "role": "user",
-                "content": [
-                    {"type": "audio", "audio_url": None},
-                    {"type": "text", "text": system_prompt},
-                ],
-            },
-        ]
+        # System-turn prompting intentionally lets Qwen produce a free-form
+        # analysis for structured tasks; DeepSeek performs the final schema
+        # conversion. User-turn prompting remains available for reproducing
+        # the original experiment.
+        conversation = build_conversation(task, self.prompt_mode)
 
         text = self.processor.apply_chat_template(
             conversation, add_generation_prompt=True

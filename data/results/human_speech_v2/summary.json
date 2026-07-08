@@ -1,0 +1,240 @@
+{
+  "experiment_id": "human_speech_v2",
+  "sample_count": 10,
+  "means": {
+    "C_qwen_transcript": {
+      "summarization": 0.15919000478417789,
+      "sentiment": 0.6,
+      "keywords": 0.4011263736263736,
+      "intent": 0.6
+    },
+    "D_qwen_direct": {
+      "summarization": 0.1726091480691737,
+      "sentiment": 0.2,
+      "keywords": 0.3782051282051282,
+      "intent": 0.4
+    }
+  },
+  "C_minus_D": {
+    "summarization": {
+      "mean_difference_C_minus_D": -0.013419143284995832,
+      "paired_bootstrap_95_ci": [
+        -0.05978846597356635,
+        0.032118528496292854
+      ],
+      "C_wins": 5,
+      "D_wins": 5,
+      "ties": 0
+    },
+    "sentiment": {
+      "mean_difference_C_minus_D": 0.4,
+      "paired_bootstrap_95_ci": [
+        0.1,
+        0.7
+      ],
+      "C_wins": 4,
+      "D_wins": 0,
+      "ties": 6
+    },
+    "keywords": {
+      "mean_difference_C_minus_D": 0.022921245421245434,
+      "paired_bootstrap_95_ci": [
+        -0.12149267399267397,
+        0.18217239010988992
+      ],
+      "C_wins": 4,
+      "D_wins": 6,
+      "ties": 0
+    },
+    "intent": {
+      "mean_difference_C_minus_D": 0.2,
+      "paired_bootstrap_95_ci": [
+        -0.3,
+        0.6
+      ],
+      "C_wins": 4,
+      "D_wins": 2,
+      "ties": 4
+    }
+  },
+  "qwen_transcription": {
+    "mean_normalized_wer": 0.03514957264957265,
+    "by_sample": {
+      "butter": 0.0,
+      "centry": 0.14285714285714285,
+      "childhood": 0.125,
+      "fire": 0.0,
+      "justice": 0.0,
+      "literature": 0.044444444444444446,
+      "objects": 0.0,
+      "pictures": 0.023809523809523808,
+      "revolution": 0.015384615384615385,
+      "table": 0.0
+    }
+  },
+  "api": {
+    "C_successful_calls": 40,
+    "D_successful_calls": 30,
+    "successful_calls_total": 70,
+    "C_usage": {
+      "prompt_tokens": 4558,
+      "completion_tokens": 1270,
+      "total_tokens": 5828
+    },
+    "D_usage": {
+      "prompt_tokens": 2338,
+      "completion_tokens": 661,
+      "total_tokens": 2999
+    },
+    "estimated_cost_usd_at_0.0005_per_call": 0.035
+  },
+  "sample_scores": {
+    "butter": {
+      "C_qwen_transcript": {
+        "summarization": 0.11764705882352938,
+        "sentiment": 1.0,
+        "keywords": 0.5,
+        "intent": 1.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.125,
+        "sentiment": 0.0,
+        "keywords": 0.4615384615384615,
+        "intent": 0.0
+      }
+    },
+    "centry": {
+      "C_qwen_transcript": {
+        "summarization": 0.12121212121212122,
+        "sentiment": 0.0,
+        "keywords": 0.28571428571428575,
+        "intent": 0.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.1904761904761905,
+        "sentiment": 0.0,
+        "keywords": 0.30769230769230765,
+        "intent": 1.0
+      }
+    },
+    "childhood": {
+      "C_qwen_transcript": {
+        "summarization": 0.2909090909090909,
+        "sentiment": 1.0,
+        "keywords": 0.37499999999999994,
+        "intent": 1.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.22580645161290322,
+        "sentiment": 0.0,
+        "keywords": 0.5,
+        "intent": 1.0
+      }
+    },
+    "fire": {
+      "C_qwen_transcript": {
+        "summarization": 0.12244897959183675,
+        "sentiment": 1.0,
+        "keywords": 0.7142857142857143,
+        "intent": 1.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.28125,
+        "sentiment": 0.0,
+        "keywords": 0.6153846153846153,
+        "intent": 0.0
+      }
+    },
+    "justice": {
+      "C_qwen_transcript": {
+        "summarization": 0.1311475409836066,
+        "sentiment": 1.0,
+        "keywords": 0.37499999999999994,
+        "intent": 1.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.19444444444444448,
+        "sentiment": 1.0,
+        "keywords": 0.4615384615384615,
+        "intent": 0.0
+      }
+    },
+    "literature": {
+      "C_qwen_transcript": {
+        "summarization": 0.2535211267605634,
+        "sentiment": 1.0,
+        "keywords": 0.625,
+        "intent": 0.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.15,
+        "sentiment": 0.0,
+        "keywords": 0.15384615384615383,
+        "intent": 1.0
+      }
+    },
+    "objects": {
+      "C_qwen_transcript": {
+        "summarization": 0.13698630136986303,
+        "sentiment": 1.0,
+        "keywords": 0.13333333333333333,
+        "intent": 1.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.12765957446808512,
+        "sentiment": 1.0,
+        "keywords": 0.15384615384615383,
+        "intent": 0.0
+      }
+    },
+    "pictures": {
+      "C_qwen_transcript": {
+        "summarization": 0.16666666666666669,
+        "sentiment": 0.0,
+        "keywords": 0.30769230769230765,
+        "intent": 0.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.15686274509803924,
+        "sentiment": 0.0,
+        "keywords": 0.6666666666666666,
+        "intent": 0.0
+      }
+    },
+    "revolution": {
+      "C_qwen_transcript": {
+        "summarization": 0.07894736842105263,
+        "sentiment": 0.0,
+        "keywords": 0.26666666666666666,
+        "intent": 0.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.15151515151515152,
+        "sentiment": 0.0,
+        "keywords": 0.4615384615384615,
+        "intent": 0.0
+      }
+    },
+    "table": {
+      "C_qwen_transcript": {
+        "summarization": 0.17241379310344826,
+        "sentiment": 0.0,
+        "keywords": 0.42857142857142855,
+        "intent": 1.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.12307692307692308,
+        "sentiment": 0.0,
+        "keywords": 0.0,
+        "intent": 1.0
+      }
+    }
+  },
+  "caveats": [
+    "N=10 supports descriptive trends only, not statistical significance.",
+    "Sentiment and intent labels are imbalanced.",
+    "D structured tasks include DeepSeek formatting.",
+    "The recordings are not content-matched to the TTS datasets.",
+    "Latency is not compared across separately executed paths."
+  ]
+}

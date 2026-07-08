@@ -79,6 +79,8 @@ def rouge_l(reference: str, hypothesis: str) -> float:
                 current.append(max(current[-1], previous[index]))
         previous = current
     lcs = previous[-1]
+    if lcs == 0:
+        return 0.0
     precision = lcs / len(hyp)
     recall = lcs / len(ref)
     return 2 * precision * recall / (precision + recall)

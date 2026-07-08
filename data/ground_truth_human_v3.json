@@ -1,0 +1,116 @@
+{
+  "beast": {
+    "transcript": "The people is a beast of muddy brain, that knows not its own force and therefore stands loaded with wood and stone, the powerless hands of a mere child, guided with bit and rein. One kick would be enough to break the chain, but the beast fears, and what the child demands it does, nor its own terror understands, confused and stupefied by bugbears vain.",
+    "summary": "A metaphorical description of the masses as a powerful but ignorant beast, easily controlled by a much weaker force due to its own blind fear and confusion.",
+    "sentiment": "negative",
+    "keywords": [
+      "people",
+      "beast",
+      "force",
+      "chain",
+      "fear",
+      "control",
+      "child"
+    ],
+    "intent": "describe"
+  },
+  "body": {
+    "transcript": "The second part is divided into two. For in the first, I speak of her as regards the nobleness of her soul, relating some of her virtues proceeding from her soul. In the second, I speak of her as regards the nobleness of her body, narrating some of her beauties. Here, love saith concerning her...",
+    "summary": "The speaker outlines the structural division of a text, explaining that the first section focuses on a woman's noble soul, while the second praises her physical beauty.",
+    "sentiment": "positive",
+    "keywords": [
+      "nobleness",
+      "soul",
+      "virtues",
+      "body",
+      "beauties",
+      "love"
+    ],
+    "intent": "inform"
+  },
+  "creature": {
+    "transcript": "You don't know what it is to be used to seeing a pretty creature, always nicely dressed, always about the room, thinking so much of you, and so little of herself, and then to be left alone as I am left, out in the dark.",
+    "summary": "A sorrowful reflection on the profound loneliness experienced after losing the constant, selfless companionship of a beautiful and caring presence.",
+    "sentiment": "negative",
+    "keywords": [
+      "creature",
+      "dressed",
+      "thinking",
+      "alone",
+      "dark",
+      "companionship"
+    ],
+    "intent": "describe"
+  },
+  "discomfort": {
+    "transcript": "Whereby other ladies who were about the room, becoming aware of my discomfort by reason of the moan that she made, who, indeed, was of my very near kindred, led her away from where I was, and then set themselves to awaken me, thinking that I dreamed, and saying, 'Sleep no longer, and be not disquieted.'",
+    "summary": "The narrator recalls a distressing moment where surrounding ladies, mistaking physical or emotional discomfort for a bad dream, attempt to wake and comfort them.",
+    "sentiment": "negative",
+    "keywords": [
+      "ladies",
+      "discomfort",
+      "moan",
+      "kindred",
+      "awaken",
+      "dreamed"
+    ],
+    "intent": "describe"
+  },
+  "farm": {
+    "transcript": "He had little enough to break or bite, and once, when there was a great famine in the land, he could hardly procure even his daily bread. And as he lay thinking in his bed one night, he sighed and said to his wife, 'What will become of us?'",
+    "summary": "A bleak account of a poor man struggling to feed his family during a severe famine, expressing deep anxiety about their future to his wife.",
+    "sentiment": "negative",
+    "keywords": [
+      "famine",
+      "land",
+      "procure",
+      "bread",
+      "thinking",
+      "wife"
+    ],
+    "intent": "describe"
+  },
+  "often": {
+    "transcript": "Often would he avail himself of any special grace of his own idiom and epoch, if only his will belonged to him. Often would some cadence serve him, but for his author's structure; some structure, but for his author's cadence. Often the beautiful turn of a stanza must be weakened to adopt some rhyme which will tally, and he sees the poet reveling in abundance of language where himself is scantily supplied.",
+    "summary": "An analysis of the linguistic constraints a translator faces when trying to balance the original author's structure and cadence with the limitations of their own language's rhyme and idiom.",
+    "sentiment": "neutral",
+    "keywords": [
+      "idiom",
+      "cadence",
+      "structure",
+      "stanza",
+      "rhyme",
+      "language",
+      "translator"
+    ],
+    "intent": "inform"
+  },
+  "prospect": {
+    "transcript": "This violent and triumphant revolution in his prospects and his fortunes, was hardly yet completely comprehended by our friend Ferdinand Armine; and when he had left a note for the generous Mirabel, whose slumbers he would not disturb at this early hour, even with good news, he strolled along up Charles Street, and to the park, in one of those wild and joyous reveries...",
+    "summary": "Ferdinand Armine takes a joyous morning walk, happily overwhelmed and deep in thought as he processes a sudden, triumphant improvement in his fortunes.",
+    "sentiment": "positive",
+    "keywords": [
+      "revolution",
+      "prospects",
+      "fortunes",
+      "note",
+      "strolled",
+      "joyous"
+    ],
+    "intent": "describe"
+  },
+  "work": {
+    "transcript": "In exactly ten minutes, it is in the power of every man, to free himself from all the tumult of the world; the pangs of love, the throbs of ambition, the wear and tear of play, the recriminating boudoir, the conspiring club, the rattling hell; and find himself in a sublime sylvan solitude.",
+    "summary": "The speaker passionately claims that anyone can escape the exhausting chaos, emotional turmoil, and ambitious drives of society to find peace in nature in just ten minutes.",
+    "sentiment": "positive",
+    "keywords": [
+      "minutes",
+      "power",
+      "tumult",
+      "ambition",
+      "solitude",
+      "sylvan"
+    ],
+    "intent": "persuade"
+  }
+}

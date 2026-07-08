@@ -343,6 +343,88 @@ the paths were run with different timing boundaries.
 
 ---
 
+### 4.11 D Rerun and Three-Repetition Summary Stability
+
+The complete D path was rerun into a separate result directory. All 48 final
+outputs and all 48 scores exactly matched the original TTS12 D experiment,
+including its low intent accuracy. This confirms that the observed D result is
+reproducible under the current deterministic Qwen decoding and DeepSeek
+temperature-zero workflow; it is not a one-off generation accident.
+
+The C and D summary paths were then regenerated three times per sample. C
+regenerated its Qwen transcript before each DeepSeek summary, while D
+regenerated the summary directly from audio.
+
+![TTS12 C/D summary stability](figures/tts12_summary_stability.png)
+
+*Figure 11: Aggregate and sample-level C/D summary direction over three repetitions.*
+
+| Repetition | C mean | D mean | C - D | C wins | D wins | Paired bootstrap 95% interval |
+|---:|---:|---:|---:|---:|---:|---|
+| 1 | 0.3497 | 0.3324 | +0.0173 | 7 | 5 | [-0.0405, 0.0740] |
+| 2 | 0.3467 | 0.3324 | +0.0143 | 7 | 5 | [-0.0353, 0.0660] |
+| 3 | 0.3566 | 0.3324 | +0.0242 | 7 | 5 | [-0.0265, 0.0745] |
+
+C had the higher mean in all three repetitions. More importantly, all 12
+samples retained the same winner across the three runs: C consistently won
+seven and D consistently won five. This supports the stability of the
+observed direction under this exact workflow. It does not establish a general
+C advantage because every interval crossed zero and the three repetitions are
+not 36 independent samples; the experimental unit remains N=12.
+
+Qwen's three C transcripts were identical for all 12 samples, and D's three
+summaries were also identical for all samples. C's final summaries were
+identical for only 5/12 samples, indicating that its limited variation came
+from DeepSeek rather than Qwen transcription. Qwen uses `do_sample=False`, so
+this experiment measures operational reproducibility, not stochastic decoding
+sensitivity.
+
+The D rerun used 36 paid calls. C required 36 canonical summary calls, but a
+checkpoint-key defect caused 12 duplicate calls before detection. The defect
+was fixed, all 48 C calls were retained in an audit, and only the first success
+per key was scored. Actual API use was therefore 84 calls and 10,845 tokens,
+historically estimated at USD 0.042.
+
+---
+
+### 4.12 C/D Comparison on 10 Additional Human Recordings
+
+Ten additional as-recorded human English clips were evaluated through C
+(Qwen transcription -> DeepSeek tasks) and D (Qwen direct understanding ->
+DeepSeek structured formatting). The original 44.1 kHz stereo files were
+converted to 16 kHz mono without denoising or peak normalization.
+
+![Human speech V2 C/D comparison](figures/human_speech_v2_cd.png)
+
+*Figure 12: C/D task means on the additional human-speech set (N=10).*
+
+| Path | Summary ROUGE-L | Sentiment accuracy | Keyword F1 | Intent accuracy |
+|---|---:|---:|---:|---:|
+| C: Qwen transcript | 0.1592 | 60% | 0.4011 | 60% |
+| D: Qwen direct | **0.1726** | 20% | 0.3782 | 40% |
+
+D had the higher summary mean by 0.0134, but each path won five samples and
+the paired interval crossed zero. C had higher means on all three structured
+tasks. The sentiment difference was 40 percentage points; its bootstrap
+interval did not cross zero in this run, but N=10 and severe class imbalance
+do not support a general significance claim.
+
+Both paths showed label bias. Of ten ground-truth sentiment labels, seven were
+neutral, two negative, and one positive. C predicted six negative labels,
+whereas D predicted six positive labels. Intent ground truth contained five
+describe, four inform, and one persuade sample; C predicted eight inform
+labels, while D predicted six persuade labels. These tendencies are more
+informative than the aggregate accuracy alone.
+
+Qwen mean normalized WER was 0.0351: higher than the clean TTS sets but lower
+than the earlier uncontrolled human-speech pilot. Because the recordings do
+not use the same texts as the TTS data, this cannot isolate a causal
+human-versus-TTS effect. The 70 successful DeepSeek calls used 8,827 tokens,
+historically estimated at USD 0.035. Latency is not compared across separately
+executed paths.
+
+---
+
 ## 5. Error Analysis
 
 ### Case 1: Cascade Structured Output, Direct Misses Format
@@ -465,7 +547,7 @@ We are transparent about this study's boundaries:
 
 ## 7. Conclusion
 
-This preliminary benchmark finds no universally dominant architecture for speech understanding. In the original TTS experiment, Direct achieved higher open-ended summarization ROUGE-L (0.448 vs 0.402), while Cascade led the structured tasks. In the white-noise summarization extension, Direct retained the higher mean and won 5 of 8 samples at every level, while Cascade stayed closer to its clean baseline. In the separate as-recorded human-speech pilot, Cascade produced higher means on all four tasks. The B/C/D ablation then showed that Qwen transcription had higher WER than Whisper but identical sentiment and intent correctness after the same DeepSeek task stage; Qwen-transcript C also exceeded Qwen-direct D on summary and intent. The additional N=12 four-path experiment found near-matched A/B/C results on clean TTS, while D remained competitive on summary and keywords but failed strongly on intent. This weakens simple explanations based only on WER or on the presence of a transcript, while identifying Direct intent classification as a concrete replication target. Most paired intervals crossed zero; the few non-crossing intervals require replication because the datasets remain small and multiple comparisons are present. These are descriptive, dataset-specific trends rather than general architecture effects. Local Direct inference avoids a speech-model API charge, but its structured evaluation still uses paid DeepSeek post-processing. **Rather than replacing cascade architectures, current end-to-end speech LLMs complement them under different deployment constraints --and the most promising direction may lie not in choosing one over the other, but in identifying which perception and reasoning component produces each difference.** The implementation, experiment manifests, raw outputs, paired score files, API audit, and automated checks provide a foundation for larger controlled benchmarks.
+This preliminary benchmark finds no universally dominant architecture for speech understanding. In the original TTS experiment, Direct achieved higher open-ended summarization ROUGE-L (0.448 vs 0.402), while Cascade led the structured tasks. In the white-noise summarization extension, Direct retained the higher mean and won 5 of 8 samples at every level, while Cascade stayed closer to its clean baseline. In the separate as-recorded human-speech pilot, Cascade produced higher means on all four tasks. The B/C/D ablation then showed that Qwen transcription had higher WER than Whisper but identical sentiment and intent correctness after the same DeepSeek task stage; Qwen-transcript C also exceeded Qwen-direct D on summary and intent. The additional N=12 four-path experiment found near-matched A/B/C results on clean TTS, while D remained competitive on summary and keywords but failed strongly on intent. A complete D rerun reproduced every output and score, and three summary repetitions preserved the same 7--5 C/D split, showing that these observations are operationally reproducible under the deterministic workflow. This weakens simple explanations based only on WER or on the presence of a transcript, while identifying Direct intent classification as a concrete replication target. Most paired intervals crossed zero; the few non-crossing intervals require replication because the datasets remain small and multiple comparisons are present. These are descriptive, dataset-specific trends rather than general architecture effects. Local Direct inference avoids a speech-model API charge, but its structured evaluation still uses paid DeepSeek post-processing. **Rather than replacing cascade architectures, current end-to-end speech LLMs complement them under different deployment constraints --and the most promising direction may lie not in choosing one over the other, but in identifying which perception and reasoning component produces each difference.** The implementation, experiment manifests, raw outputs, paired score files, API audit, and automated checks provide a foundation for larger controlled benchmarks.
 
 ---
 

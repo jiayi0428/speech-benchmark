@@ -1,0 +1,21 @@
+{
+  "experiment_id": "human_speech_v6",
+  "description": "Seven as-recorded human English speech samples",
+  "sample_rate": 16000,
+  "samples": [
+    "arts",
+    "believe",
+    "brain",
+    "fat",
+    "musician",
+    "question",
+    "society"
+  ],
+  "tasks": [
+    "summarization",
+    "sentiment",
+    "keywords",
+    "intent"
+  ],
+  "condition": "as_recorded"
+}

@@ -1,4 +1,4 @@
-"""Run local Qwen stages for the 12-sample TTS C/D experiment."""
+"""Run local Qwen stages for human_speech_v2 paths C and D."""
 from __future__ import annotations
 
 import argparse
@@ -9,8 +9,9 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parent
-INDEX = ROOT / "data" / "processed" / "tts12_cd_v1" / "index.json"
-RESULT_DIR = ROOT / "data" / "results" / "tts12_cd_v1"
+CONFIG = ROOT / "experiments" / "human_speech_v2.json"
+MANIFEST = ROOT / "data" / "processed" / "human_speech_v2" / "audio_manifest.json"
+RESULT_DIR = ROOT / "data" / "results" / "human_speech_v2"
 TASKS = ["summarization", "sentiment", "keywords", "intent"]
 
 
@@ -37,48 +38,44 @@ def main() -> None:
         "--stage", required=True, choices=["transcription", "direct"]
     )
     parser.add_argument("--model-path", type=Path)
-    parser.add_argument(
-        "--prompt-mode", choices=["user", "system"], default="system"
-    )
-    parser.add_argument("--result-dir", type=Path, default=RESULT_DIR)
-    parser.add_argument("--experiment-id", default="tts12_cd_v1")
     parser.add_argument("--max-items", type=int)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-
-    entries = json.loads(INDEX.read_text(encoding="utf-8"))
-    if len(entries) != 12 or len({entry["topic"] for entry in entries}) != 12:
-        raise ValueError("Expected exactly 12 unique prepared TTS samples")
-    result_dir = args.result_dir.resolve()
-    output = result_dir / (
+    config = json.loads(CONFIG.read_text(encoding="utf-8"))
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    records = {record["sample"]: record for record in manifest["records"]}
+    samples = list(config["samples"])
+    if set(records) != set(samples) or len(samples) != 10:
+        raise ValueError("Expected 10 matching human-speech-v2 records")
+    output = RESULT_DIR / (
         "qwen_transcription_raw.jsonl"
         if args.stage == "transcription"
         else "direct_raw.jsonl"
     )
-    existing = [
+    successful = [
         record for record in read_jsonl(output)
         if record.get("status") == "success"
     ]
     if args.stage == "transcription":
-        completed = {record["sample"] for record in existing}
+        completed = {record["sample"] for record in successful}
         pending = [
-            (entry, "transcription")
-            for entry in entries
-            if entry["topic"] not in completed
+            (sample, "transcription")
+            for sample in samples
+            if sample not in completed
         ]
     else:
-        completed = {(record["sample"], record["task"]) for record in existing}
+        completed = {(record["sample"], record["task"]) for record in successful}
         pending = [
-            (entry, task)
-            for entry in entries
+            (sample, task)
+            for sample in samples
             for task in TASKS
-            if (entry["topic"], task) not in completed
+            if (sample, task) not in completed
         ]
-    if len(completed) != len(existing):
-        raise ValueError(f"Duplicate successful {args.stage} records detected")
+    if len(completed) != len(successful):
+        raise ValueError(f"Duplicate successful {args.stage} records")
     print(
-        f"TTS12 {args.stage}: total="
-        f"{12 if args.stage == 'transcription' else 48}; "
+        f"human_speech_v2 {args.stage}: total="
+        f"{10 if args.stage == 'transcription' else 40}; "
         f"completed={len(completed)}; pending={len(pending)}"
     )
     if args.dry_run:
@@ -91,49 +88,38 @@ def main() -> None:
         os.environ["QWEN_MODEL_PATH"] = str(model_path)
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
-    from src.direct_qwen import (
-        MODEL_ID,
-        SYSTEM_PROMPT_VERSION,
-        USER_PROMPT_VERSION,
-        QwenAudioPipeline,
-    )
+    from src.direct_qwen import MODEL_ID, PROMPT_VERSION, QwenAudioPipeline
 
-    effective_prompt_mode = (
-        "user" if args.stage == "transcription" else args.prompt_mode
+    pipeline = QwenAudioPipeline(
+        prompt_mode="user" if args.stage == "transcription" else "system"
     )
-    pipeline = QwenAudioPipeline(prompt_mode=effective_prompt_mode)
     written = 0
-    for entry, task in pending:
+    for sample, task in pending:
         if args.max_items is not None and written >= args.max_items:
             break
-        sample = entry["topic"]
-        audio_path = ROOT / entry["audio_path"]
+        audio_record = records[sample]
         base = {
-            "experiment_id": args.experiment_id,
+            "experiment_id": config["experiment_id"],
             "pipeline": (
                 "qwen_transcription"
-                if args.stage == "transcription"
+                if task == "transcription"
                 else "qwen_direct"
             ),
             "sample": sample,
-            "condition": "clean",
+            "condition": config["condition"],
             "task": task,
-            "audio_path": entry["audio_path"],
-            "audio_sha256": entry["audio_sha256"],
+            "audio_path": audio_record["audio_path"],
+            "audio_sha256": audio_record["output_sha256"],
+            "source_sha256": audio_record["source_sha256"],
             "speech_model": MODEL_ID,
             "prompt_version": (
                 "qwen_verbatim_transcription_v1"
                 if task == "transcription"
-                else (
-                    SYSTEM_PROMPT_VERSION
-                    if args.prompt_mode == "system"
-                    else USER_PROMPT_VERSION
-                )
+                else PROMPT_VERSION
             ),
-            "prompt_mode": effective_prompt_mode,
         }
         try:
-            result = pipeline.run(str(audio_path), task)
+            result = pipeline.run(str(ROOT / audio_record["audio_path"]), task)
             record = {
                 **base,
                 "status": "success",

@@ -77,7 +77,7 @@ def main() -> None:
 
     from src.direct_qwen import MODEL_ID, QwenAudioPipeline
 
-    pipeline = QwenAudioPipeline()
+    pipeline = QwenAudioPipeline(prompt_mode="user")
     written = 0
     for sample in pending:
         if args.max_items is not None and written >= args.max_items:
@@ -120,4 +120,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

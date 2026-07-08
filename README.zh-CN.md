@@ -162,6 +162,11 @@ A/B/C 的结果接近；D 的摘要和关键词仍接近前三条路径，但出
 分类失败。N=12 仍只能作描述性分析。详见
 [`experiments/TTS12_CD_V1.md`](experiments/TTS12_CD_V1.md)。
 
+独立 D 复现逐字、逐分重现了全部 48 个结果。三次新 C/D 摘要重复中，
+C 每次都是 7 胜、D 每次都是 5 胜，而且每条样本的胜负方向都保持不变；
+但所有区间仍跨过 0。详见
+[`experiments/TTS12_REPEAT_STABILITY_V1.md`](experiments/TTS12_REPEAT_STABILITY_V1.md)。
+
 ---
 
 ## 原始 TTS 实验结果摘要

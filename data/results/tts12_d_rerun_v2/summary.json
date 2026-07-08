@@ -1,0 +1,31 @@
+{
+  "experiment_id": "tts12_d_rerun_v2",
+  "sample_count": 12,
+  "means": {
+    "original": {
+      "summarization": 0.3323512254872047,
+      "sentiment": 0.4166666666666667,
+      "keywords": 0.42857142857142855,
+      "intent": 0.16666666666666666
+    },
+    "rerun": {
+      "summarization": 0.3323512254872047,
+      "sentiment": 0.4166666666666667,
+      "keywords": 0.42857142857142855,
+      "intent": 0.16666666666666666
+    }
+  },
+  "exact_final_output_matches": 48,
+  "equal_score_rows": 48,
+  "row_count": 48,
+  "api": {
+    "successful_calls": 36,
+    "usage": {
+      "prompt_tokens": 2876,
+      "completion_tokens": 777,
+      "total_tokens": 3653
+    },
+    "estimated_cost_usd_at_0.0005_per_call": 0.018000000000000002
+  },
+  "interpretation": "The complete D rerun exactly reproduced all 48 final outputs and scores under deterministic Qwen decoding and DeepSeek temperature zero."
+}

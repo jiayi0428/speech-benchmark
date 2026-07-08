@@ -1,0 +1,99 @@
+{
+  "fat": {
+    "transcript": "You may have been thinking, where does she get her confidence from? Because a confident fat woman is almost unthinkable. the fashion conscious members of the audience may have been thinking, how fabulous I look in this bethdid dress.",
+    "summary": "The speaker reflects on societal shock at confident fat women and the fashion industry's narrow beauty standards.",
+    "sentiment": "negative",
+    "keywords": [
+      "confidence",
+      "fat woman",
+      "societal bias",
+      "fashion",
+      "body image",
+      "beauty standards",
+      "self-esteem"
+    ],
+    "intent": "question"
+  },
+  "question": {
+    "transcript": "this antifat bias has become so integral, so ingrained to how we value ourselves and each other, that we rarely question why we have such contempt for people of size and where that disdain comes from. but we must question it, because the enormous value we place on how we look affects every one of us.",
+    "summary": "The speaker urges questioning the deep-rooted antifat bias and its harmful impact on societal values.",
+    "sentiment": "negative",
+    "keywords": [
+      "antifat bias",
+      "contempt",
+      "body size",
+      "societal values",
+      "self-worth",
+      "appearance",
+      "discrimination"
+    ],
+    "intent": "question"
+  },
+  "society": {
+    "transcript": "And do we really want to live in a society where people deny their basic humanity if they don't subscribe to some arbitrary form of acceptable? so when i was 6 years old, my sister used to teach ballet to twenty little girls in our garage.",
+    "summary": "The speaker questions a society that denies humanity based on arbitrary standards, then begins a personal childhood anecdote.",
+    "sentiment": "negative",
+    "keywords": [
+      "society",
+      "humanity",
+      "arbitrary standards",
+      "acceptance",
+      "childhood",
+      "ballet",
+      "conformity"
+    ],
+    "intent": "question"
+  },
+  "arts": {
+    "transcript": "So how do we know that all these benefits are unique to music, as opposed to say, sports or painting? Or could it be that people who go into music were already smarter to begin with? Neuroscientists have explored these issues, but so far they have found that the artistic and aesthetic aspects of learning to play a musical instrument are different from any other activity studied, including other arts.",
+    "summary": "The speaker questions whether the cognitive benefits of playing music are unique and explains that neuroscientists have found learning an instrument differs from all other activities.",
+    "sentiment": "neutral",
+    "keywords": [
+      "music benefits",
+      "neuroscience",
+      "musical instrument",
+      "artistic aspects",
+      "cognitive development"
+    ],
+    "intent": "question"
+  },
+  "believe": {
+    "transcript": "had one of his editors said to me, hey, Have you ever considered writing a book? I said funny you should ask. And I pulled out the exact same proposal that I had showed his boss a year earlier. Within two weeks I had a contract and within two years the book had sold over a million copies around the world.",
+    "summary": "The speaker shares a personal success story about pitching an old proposal to an editor, which quickly resulted in a contract and a million-copy bestseller.",
+    "sentiment": "positive",
+    "keywords": [
+      "book proposal",
+      "publishing contract",
+      "million copies",
+      "editor",
+      "success story"
+    ],
+    "intent": "entertain"
+  },
+  "brain": {
+    "transcript": "How do we know this? Well, in the last few decades, neuroscientists have made enormous breakthroughs in understanding how our brains work by monitoring them in real time with instruments like fMRI and PET scanners. When people are hooked up to these machines, tasks such as reading or doing math problems each have corresponding areas of the brain where activity can be observed.",
+    "summary": "The speaker details how advancements in fMRI and PET scanners have allowed neuroscientists to monitor real-time brain activity during specific tasks.",
+    "sentiment": "neutral",
+    "keywords": [
+      "neuroscientists",
+      "brain activity",
+      "fMRI scanners",
+      "PET scanners",
+      "real-time monitoring"
+    ],
+    "intent": "inform"
+  },
+  "musician": {
+    "transcript": "Did you know that every time musicians pick up their instruments, there are fireworks going off all over their brain? On the outside, they may look calm and focused, reading the music and making the precise and practice movements required. But inside their brains, there's a party going on.",
+    "summary": "Using the metaphors of fireworks and a party, the speaker vividly illustrates the intense and widespread brain activity that occurs when musicians play instruments.",
+    "sentiment": "positive",
+    "keywords": [
+      "musicians",
+      "brain activity",
+      "fireworks",
+      "instruments",
+      "neuroscience"
+    ],
+    "intent": "describe"
+  }
+}

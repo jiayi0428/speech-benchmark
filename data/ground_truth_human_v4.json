@@ -1,0 +1,360 @@
+{
+  "avenue": {
+    "transcript": "This avenue was straight and of moderate length, running between a double row of very ancient horse chestnuts, planted alternately with sycamores, which rose to such huge heights, and nourished so luxuriously, that their boughs completely overarched the broad road beneath.",
+    "summary": "A straight avenue of moderate length is lined with towering ancient horse chestnuts and sycamores whose lush branches form a complete canopy over the road below.",
+    "sentiment": "positive",
+    "keywords": [
+      "avenue",
+      "horse chestnut",
+      "sycamore",
+      "canopy",
+      "road",
+      "ancient",
+      "luxuriant"
+    ],
+    "intent": "describe"
+  },
+  "American": {
+    "transcript": "It is well known that the American Indian had somehow developed a cold power, and although in the latter days there have been many impostures, and allowing for the vanity and weakness of human nature, it is fair to assume that there must have been some even in the old days, yet there are well attested instances of remarkable prophecies, another mystic practice.",
+    "summary": "The passage discusses the American Indian's reputed mystical powers, acknowledging historical impostures while affirming documented instances of genuine prophecy and mystic practices.",
+    "sentiment": "neutral",
+    "keywords": [
+      "American Indian",
+      "mystic",
+      "prophecy",
+      "imposture",
+      "human nature",
+      "power",
+      "history"
+    ],
+    "intent": "inform"
+  },
+  "battlefield": {
+    "transcript": "I had heard and read of battlefields, seen pictures of battlefields, of horses and men, of cannon wagons, all jumbled together, while the ground was strewn with dead, and dying, and wounded, but I must confess that I never realized the pomp and circumstance of the thing called glorious war until I saw this.",
+    "summary": "The narrator reflects on how witnessing a real battlefield firsthand revealed the true horror and irony of glorifying war, far beyond what books and pictures could convey.",
+    "sentiment": "negative",
+    "keywords": [
+      "battlefield",
+      "war",
+      "death",
+      "glory",
+      "horror",
+      "pomp",
+      "reality"
+    ],
+    "intent": "describe"
+  },
+  "chemistry": {
+    "transcript": "It seemed evident that a mysterious and probably a cult science, which was to surgery what alchemy was to chemistry, had chiselled his flesh, evidently at a very tender age, and manufactured his compliance with premeditation.",
+    "summary": "A mysterious cult-like science, compared to alchemy's relationship with chemistry, appears to have surgically altered someone from a young age to control or manufacture their behavior.",
+    "sentiment": "negative",
+    "keywords": [
+      "alchemy",
+      "chemistry",
+      "surgery",
+      "cult",
+      "mystery",
+      "flesh",
+      "premeditation"
+    ],
+    "intent": "describe"
+  },
+  "constructed": {
+    "transcript": "This fortune had allowed Ursus, who was the administrator of Gwynplaine's success, to have the chariot of his dreams constructed, that is to say, a car of an enormous size large enough to carry a theater, and to show science and art in the highways.",
+    "summary": "Ursus used Gwynplaine's earnings to build an enormous traveling theater chariot designed to bring science and art performances to the public roads.",
+    "sentiment": "positive",
+    "keywords": [
+      "Ursus",
+      "Gwynplaine",
+      "chariot",
+      "theater",
+      "fortune",
+      "art",
+      "highways"
+    ],
+    "intent": "describe"
+  },
+  "cousin": {
+    "transcript": "The remoter degrees of kinship were fully recognized, and that not as a matter of form only. First cousins were known as brothers and sisters. The name of cousin constituted a binding claim, and a rigid morality forbade marriage between cousins in any known degree, or in other words, within the clan.",
+    "summary": "A society recognized extended kinship deeply, treating cousins as siblings and enforcing strict moral prohibitions against any marriage within the clan.",
+    "sentiment": "neutral",
+    "keywords": [
+      "kinship",
+      "cousin",
+      "marriage",
+      "clan",
+      "morality",
+      "family",
+      "society"
+    ],
+    "intent": "inform"
+  },
+  "fairy": {
+    "transcript": "One of the young fairies, overhearing her, and fancying she might work some mischief to the little baby, went and hid herself behind the hangings in the hall, so as to be able to have the last word and undo any harm the old fairy might wish to work.",
+    "summary": "A young fairy hides in the hall to protect a baby, preparing to use her own magic to undo any malicious spell an older fairy might cast.",
+    "sentiment": "neutral",
+    "keywords": [
+      "young fairy",
+      "mischief",
+      "little baby",
+      "hide",
+      "undo harm",
+      "old fairy"
+    ],
+    "intent": "entertain"
+  },
+  "flowers": {
+    "transcript": "Making a sort of eddying circuit round the garden, he knocked over the convolvulus pole, tore the strips from the stick that held up the white lily, loosed all the carnation flowers from their fastenings, broke the rose tree down, and leveled the sweet peas to the ground.",
+    "summary": "A destructive force sweeps through a garden, violently breaking down and tearing apart various plants, including lilies, carnations, and rose trees.",
+    "sentiment": "negative",
+    "keywords": [
+      "eddying circuit",
+      "garden",
+      "convolvulus",
+      "white lily",
+      "carnations",
+      "rose tree",
+      "sweet peas"
+    ],
+    "intent": "describe"
+  },
+  "house": {
+    "transcript": "At the time Mary had noted nothing of these things; now she saw them all, as for the first time, in minute detail, while slowly she went up the stair and through the narrowed ways, and heard the same wind that raved alike about the new grave and the old house, into which latter, for all the bales banked against the walls, it found many a chink of entrance.",
+    "summary": "Mary ascends the stairs of an old house, deeply observant of its minute details and the howling wind blowing through its cracks and over a recent grave.",
+    "sentiment": "negative",
+    "keywords": [
+      "minute detail",
+      "narrowed ways",
+      "raving wind",
+      "new grave",
+      "old house",
+      "chink of entrance",
+      "observation"
+    ],
+    "intent": "describe"
+  },
+  "intellegent": {
+    "transcript": "Yet the physiognomy of the people, when more closely examined, was far from exhibiting the indifference of stupidity. Their features were rough, but remarkably intelligent; grave, but the very reverse of stupid; and from among the young women, an artist might have chosen more than one model, whose features and form resembled those of Minerva.",
+    "summary": "Despite rough appearances, the people displayed remarkable intelligence and dignity, with some young women possessing the noble, Minerva-like beauty worthy of artistic representation.",
+    "sentiment": "positive",
+    "keywords": [
+      "physiognomy",
+      "intelligent",
+      "Minerva",
+      "beauty",
+      "artist",
+      "dignity",
+      "people"
+    ],
+    "intent": "describe"
+  },
+  "love": {
+    "transcript": "When our left man or woman or child, ye are right, then will doubt no longer need that I tell thee how God and his Christ would not be content with each other alone in the glories even of the eternal original love, because they could create more love.",
+    "summary": "The speaker asserts that when humanity is righteous, it becomes self-evident how God and Christ sought to expand their eternal love by creating more love in the world.",
+    "sentiment": "positive",
+    "keywords": [
+      "love",
+      "God",
+      "Christ",
+      "eternal",
+      "creation",
+      "righteousness",
+      "divine"
+    ],
+    "intent": "persuade"
+  },
+  "magic": {
+    "transcript": "Besides, we must remember that they had in those times means of putting patience to sleep and of suppressing all suffering. Only then it was called magic. Well, now it is called anesthesia.",
+    "summary": "The speaker draws a parallel between ancient magic that suppressed pain and suffering and modern anesthesia, reframing historical mysticism as early medical practice.",
+    "sentiment": "neutral",
+    "keywords": [
+      "magic",
+      "anesthesia",
+      "suffering",
+      "sleep",
+      "medicine",
+      "history",
+      "pain"
+    ],
+    "intent": "inform"
+  },
+  "mystery": {
+    "transcript": "At the solemn hour of sunrise, Orsung said, he took up his position overlooking the glories of earth and facing the great mystery, and there he remained, naked, erect, silent and motionless, exposed to the elements and forces of Asarming, for a night and a day to two days and nights, but rarely longer.",
+    "summary": "Orsung describes a spiritual figure who stands naked and motionless before the great mystery, exposed to the elements for extended periods of ritual endurance.",
+    "sentiment": "neutral",
+    "keywords": [
+      "mystery",
+      "sunrise",
+      "ritual",
+      "elements",
+      "endurance",
+      "spiritual",
+      "Asarming"
+    ],
+    "intent": "describe"
+  },
+  "rainbow": {
+    "transcript": "Whenever in the course of the daily hunt, the red hunter comes upon a scene that is strikingly beautiful or sublime—a black thundercloud with a rainbow glowing arch above the mountain, a white waterfall in the heart of the green gorge, a vast prairie tinged with the blood red of sunset—he pauses for an instant in the attitude of worship.",
+    "summary": "The Native American hunter pauses in reverent worship whenever he encounters sublime natural beauty, such as rainbows, waterfalls, or blood-red sunsets.",
+    "sentiment": "positive",
+    "keywords": [
+      "rainbow",
+      "hunter",
+      "worship",
+      "nature",
+      "sublime",
+      "sunset",
+      "waterfall"
+    ],
+    "intent": "describe"
+  },
+  "reality": {
+    "transcript": "Some believed it to be natural, others declared it to be artificial, and as conjecture was added to reality everywhere, at every crossroad on the journey, in all the grounds of fairs, the crowd ran after Gwynplaine.",
+    "summary": "Public debate over whether Gwynplaine's appearance is natural or artificial fuels widespread curiosity, causing crowds to chase him at every crossroad and fairground.",
+    "sentiment": "neutral",
+    "keywords": [
+      "Gwynplaine",
+      "crowd",
+      "natural",
+      "artificial",
+      "conjecture",
+      "reality",
+      "fame"
+    ],
+    "intent": "describe"
+  },
+  "skill": {
+    "transcript": "The men appeared robust, but heavy, fair haired, like Germans, but of pensive, mean exiles of a higher scale in the ladder of humanity than the Eskimos, but I thought much more unhappy, since with superior perceptions, they are compelled to live within the limits of the polar circle.",
+    "summary": "A group of fair-haired, robust people are described as intellectually superior to Eskimos yet tragically confined to the harsh polar circle, making them deeply unhappy despite their advanced perceptions.",
+    "sentiment": "negative",
+    "keywords": [
+      "polar circle",
+      "Eskimos",
+      "humanity",
+      "unhappiness",
+      "perception",
+      "exile",
+      "confinement"
+    ],
+    "intent": "describe"
+  },
+  "soldier": {
+    "transcript": "Those old soldiers had long, long ago forgotten about that old law of the long gone past, but Jim's treasure did up in his memory law these many years, and he thought it would serve him now, as it had no doubt frequently done in the past.",
+    "summary": "While old soldiers had forgotten an ancient law, Jim's treasured memory of it resurfaces, and he believes it will once again prove useful as it had in the past.",
+    "sentiment": "neutral",
+    "keywords": [
+      "soldier",
+      "law",
+      "memory",
+      "treasure",
+      "past",
+      "Jim",
+      "survival"
+    ],
+    "intent": "describe"
+  },
+  "violin": {
+    "transcript": "One wet evening, work was over for the day, Joseph locked the door of his smithy, washed himself well, put on clean clothes, and taking his violin, set out for Testbridge. Mary was expecting him to tea.",
+    "summary": "After finishing work at his smithy, Joseph cleans up, takes his violin, and sets out through the wet evening to join Mary for tea at Testbridge.",
+    "sentiment": "positive",
+    "keywords": [
+      "violin",
+      "smithy",
+      "Joseph",
+      "Mary",
+      "evening",
+      "tea",
+      "journey"
+    ],
+    "intent": "describe"
+  },
+  "woman": {
+    "transcript": "As a special mark of respect, the body of a young woman or a warrior was sometimes laid out in state in a new teepee, with the usual household articles, and even with a dish of food left beside it. Not that they supposed the spirit could use the implements or eat the food, but merely, as a last tribute.",
+    "summary": "Native American funeral customs involved laying out the honored dead in a new teepee with household items and food as a final tribute, not because spirits needed them, but as a mark of respect.",
+    "sentiment": "neutral",
+    "keywords": [
+      "funeral",
+      "teepee",
+      "warrior",
+      "tribute",
+      "spirit",
+      "custom",
+      "respect"
+    ],
+    "intent": "inform"
+  },
+  "castle": {
+    "transcript": "One said it was an enchanted castle. Another that witches lived there. But most believed that it was occupied by a great ogre, which carried thither all the children he could catch and ate them up one at a time. For nobody could get at him through the wood.",
+    "summary": "This storytelling excerpt describes various local rumors about a mysterious location, with the most popular belief being that an unreachable, child-eating ogre lives there.",
+    "sentiment": "negative",
+    "keywords": [
+      "enchanted castle",
+      "witches",
+      "great ogre",
+      "rumors",
+      "folklore",
+      "children"
+    ],
+    "intent": "entertain"
+  },
+  "lily": {
+    "transcript": "Then the wind took another fall around the garden, and made up to the large white Lily, and to whose refined ear he whispered a doubt as to the necessity or advantage of her thick powerful stem, being propped up against a stupid ugly stick.",
+    "summary": "The wind approaches a white lily in the garden and whispers a doubt about whether her strong stem truly needs to be propped up by an ugly stick.",
+    "sentiment": "neutral",
+    "keywords": [
+      "wind",
+      "lily",
+      "garden",
+      "stem",
+      "support",
+      "doubt",
+      "nature"
+    ],
+    "intent": "describe"
+  },
+  "lovely": {
+    "transcript": "Did that lovely creature suppose that nature, who had done so much for her, that the fame of her beauty extended throughout the world, had yet left her so weak and feeble, that she could not support herself in the position most calculated to give her ease in pleasure?",
+    "summary": "The speaker rhetorically questions whether a beautiful creature truly believes nature made her too frail to support herself in her most comfortable position.",
+    "sentiment": "negative",
+    "keywords": [
+      "nature",
+      "beauty",
+      "weakness",
+      "creature",
+      "support",
+      "pleasure",
+      "world"
+    ],
+    "intent": "persuade"
+  },
+  "mountain": {
+    "transcript": "Going down the mountain, said Mercury, and as you go, cast the bones of your mother over your shoulders behind you. And with these words he leaped into the air, and was seen no more.",
+    "summary": "Mercury instructs someone to cast their mother's bones over their shoulders while descending the mountain, then leaps into the air and disappears.",
+    "sentiment": "neutral",
+    "keywords": [
+      "Mercury",
+      "mountain",
+      "bones",
+      "mother",
+      "myth",
+      "instruction",
+      "disappear"
+    ],
+    "intent": "describe"
+  },
+  "princess": {
+    "transcript": "Now 15 years after the princess was born, she was with the king and Queen, in one of their castles, and as she was running about by herself she came to a little chamber at the top of a tower, and there sat an honest old woman spinning, but she had never heard of the king's decree.",
+    "summary": "Fifteen years after her birth, the princess discovers an old woman spinning in a tower chamber, unaware of the royal prohibition.",
+    "sentiment": "neutral",
+    "keywords": [
+      "princess",
+      "tower",
+      "spinning",
+      "old woman",
+      "king",
+      "decree",
+      "fairy tale"
+    ],
+    "intent": "describe"
+  }
+}

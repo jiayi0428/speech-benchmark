@@ -1,0 +1,22 @@
+{
+  "experiment_id": "human_speech_v3",
+  "description": "Eight-sample as-recorded human-speech four-path benchmark",
+  "sample_rate": 16000,
+  "samples": [
+    "beast",
+    "body",
+    "creature",
+    "discomfort",
+    "farm",
+    "often",
+    "prospect",
+    "work"
+  ],
+  "tasks": [
+    "summarization",
+    "sentiment",
+    "keywords",
+    "intent"
+  ],
+  "condition": "as_recorded"
+}

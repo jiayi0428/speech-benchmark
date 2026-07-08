@@ -1,4 +1,4 @@
-"""Run paid DeepSeek stages for TTS12 path C or D."""
+"""Run DeepSeek stages for human_speech_v2 paths C and D."""
 from __future__ import annotations
 
 import argparse
@@ -7,29 +7,13 @@ import time
 from pathlib import Path
 from typing import Any
 
+from postprocess_tts12_cd import D_PROMPTS
 from src.transcription_utils import strip_transcription_wrapper
 
 
 ROOT = Path(__file__).resolve().parent
-RESULT_DIR = ROOT / "data" / "results" / "tts12_cd_v1"
+RESULT_DIR = ROOT / "data" / "results" / "human_speech_v2"
 TASKS = ["summarization", "sentiment", "keywords", "intent"]
-D_PROMPTS = {
-    "sentiment": (
-        "Below is an AI analysis of an audio clip. Based on this analysis, "
-        "classify the speaker sentiment as exactly one of: positive, negative, neutral. "
-        'Return ONLY JSON: {"sentiment": "<label>", "confidence": <float>}'
-    ),
-    "keywords": (
-        "Below is an AI analysis of an audio clip. Based on this analysis, "
-        "extract 5-7 key phrases. Return ONLY JSON list: "
-        '["keyword1", "keyword2", ...]'
-    ),
-    "intent": (
-        "Below is an AI analysis of an audio clip. Based on this analysis, "
-        "classify the speaker intent as: inform, persuade, entertain, question, "
-        'describe. Return ONLY JSON: {"intent": "<label>", "confidence": <float>}'
-    ),
-}
 
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -52,15 +36,13 @@ def append_jsonl(path: Path, record: dict[str, Any]) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--stage", required=True, choices=["c", "d"])
-    parser.add_argument("--result-dir", type=Path, default=RESULT_DIR)
     parser.add_argument("--max-items", type=int)
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
-    result_dir = args.result_dir.resolve()
-    input_path = result_dir / (
+    input_path = RESULT_DIR / (
         "qwen_transcription_raw.jsonl" if args.stage == "c" else "direct_raw.jsonl"
     )
-    output_path = result_dir / (
+    output_path = RESULT_DIR / (
         "c_tasks_raw.jsonl" if args.stage == "c" else "direct_postprocessed.jsonl"
     )
     source = [
@@ -68,15 +50,13 @@ def main() -> None:
         if record.get("status") == "success"
     ]
     if args.stage == "c":
-        if len(source) != 12:
-            raise ValueError("Path C requires 12 successful Qwen transcripts")
-        pending_source = [
-            (record, task) for record in source for task in TASKS
-        ]
+        if len(source) != 10:
+            raise ValueError("Path C requires 10 successful transcripts")
+        scope = [(record, task) for record in source for task in TASKS]
     else:
-        if len(source) != 48:
-            raise ValueError("Path D requires 48 successful direct task records")
-        pending_source = [
+        if len(source) != 40:
+            raise ValueError("Path D requires 40 successful task results")
+        scope = [
             (record, record["task"])
             for record in source
             if record["task"] in D_PROMPTS
@@ -94,12 +74,12 @@ def main() -> None:
         raise ValueError(f"Duplicate successful path {args.stage.upper()} records")
     pending = [
         (record, task)
-        for record, task in pending_source
+        for record, task in scope
         if (record["sample"], task) not in completed
     ]
-    total = 48 if args.stage == "c" else 36
+    total = 40 if args.stage == "c" else 30
     print(
-        f"TTS12 paid stage {args.stage.upper()}: total={total}; "
+        f"human_speech_v2 paid {args.stage.upper()}: total={total}; "
         f"completed={len(completed)}; pending={len(pending)}"
     )
     if args.dry_run:
@@ -115,7 +95,7 @@ def main() -> None:
     )
 
     if TEXT_LLM_PROVIDER != "deepseek" or not TEXT_LLM_API_KEY:
-        raise RuntimeError("This experiment requires DEEPSEEK_API_KEY")
+        raise RuntimeError("human_speech_v2 requires DEEPSEEK_API_KEY")
     client = OpenAI(api_key=TEXT_LLM_API_KEY, base_url=TEXT_LLM_BASE_URL)
     written = 0
     for source_record, task in pending:
@@ -148,10 +128,7 @@ def main() -> None:
                     ),
                 }
             ]
-            base = {
-                **source_record,
-                "raw_output": source_record["output"],
-            }
+            base = {**source_record, "raw_output": source_record["output"]}
         try:
             response = client.chat.completions.create(
                 model=TEXT_LLM_MODEL,
@@ -160,19 +137,18 @@ def main() -> None:
             )
             usage = response.usage
             latency = time.perf_counter() - started
+            usage_payload = {
+                "prompt_tokens": getattr(usage, "prompt_tokens", None),
+                "completion_tokens": getattr(usage, "completion_tokens", None),
+                "total_tokens": getattr(usage, "total_tokens", None),
+            }
             if args.stage == "c":
                 record = {
                     **base,
                     "status": "success",
                     "output": response.choices[0].message.content,
                     "llm_latency_seconds": round(latency, 3),
-                    "usage": {
-                        "prompt_tokens": getattr(usage, "prompt_tokens", None),
-                        "completion_tokens": getattr(
-                            usage, "completion_tokens", None
-                        ),
-                        "total_tokens": getattr(usage, "total_tokens", None),
-                    },
+                    "usage": usage_payload,
                 }
             else:
                 record = {
@@ -180,13 +156,7 @@ def main() -> None:
                     "output": response.choices[0].message.content,
                     "postprocess_status": "success",
                     "postprocess_latency_seconds": round(latency, 3),
-                    "usage": {
-                        "prompt_tokens": getattr(usage, "prompt_tokens", None),
-                        "completion_tokens": getattr(
-                            usage, "completion_tokens", None
-                        ),
-                        "total_tokens": getattr(usage, "total_tokens", None),
-                    },
+                    "usage": usage_payload,
                 }
             print(f"[OK] path {args.stage.upper()} {source_record['sample']} {task}")
         except Exception as exc:
