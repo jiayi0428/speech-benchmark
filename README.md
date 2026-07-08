@@ -202,14 +202,14 @@ cd app && python gradio_app.py
 
 Full limitations and future work in [report/report.md 5.3.4](report/report.md#53-limitations).
 
-The paired human-speech results are reported separately in
-[`report/human_speech_v1_report.md`](report/human_speech_v1_report.md).
+The paired human-speech results have been consolidated into the main report:
+[`report/report.md`](report/report.md).
 
 ---
 
 ## Authors
 
-**Jiayi Li · Liu Luofei (刘洛菲) · Zhang Yuchen (张予辰)**
+**Jiayi Li (李佳宜) · Liu Luofei (刘洛菲) · Zhang Yuchen (张予辰)**
 Undergraduate Summer Research, 2026
 
 Built with Python 3.14, faster-whisper, DeepSeek API, Qwen2-Audio-7B, PyTorch, Gradio, and Matplotlib.

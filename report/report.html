@@ -1,386 +1,357 @@
-<meta charset=utf-8><style>body{max-width:800px;margin:40px auto;font-family:Georgia,serif;font-size:16px;line-height:1.7;color:#222}table{border-collapse:collapse;width:100%}td,th{border:1px solid #ddd;padding:8px}th{background:#f5f5f5}img{max-width:100%}</style><h1>A Preliminary Benchmark of Cascade and End-to-End Speech Understanding Architectures</h1>
-<p><strong>Authors:</strong> Jiayi Li&#65288;&#26446;&#20339;&#23452;&#65289;, Liu Luofei&#65288;&#21016;&#27931;&#33778;&#65289;, Zhang Yuchen&#65288;&#24352;&#20104;&#36784;&#65289;</p>
-<p><strong>Date:</strong> June-August 2026 2026  </p>
-<p><strong>Course:</strong> Undergraduate Summer Research  </p>
-<p><strong>Repository:</strong> <code>github.com/jiayi0428/speech-benchmark</code></p>
-<div style="border:2px solid #1f77b4;background:#eef6ff;padding:14px;margin:18px 0"><strong>Latest N=50 report:</strong> <a href="final_n50_report.md">English Markdown</a> / <a href="final_n50_report.zh-CN.md">Chinese Markdown</a>. Includes Human N=50 and TTS N=50 visual comparisons.</div>
-<hr />
-<h2>Abstract</h2>
-<p>Recent audio-language models (Chu et al., 2024) enable end-to-end spoken language understanding, challenging the long-standing cascade paradigm that separates automatic speech recognition from language understanding. This study presents a preliminary empirical comparison of these two paradigms. We implement a cascade pipeline using faster-whisper large-v3 with DeepSeek-chat, and a direct pipeline using Qwen2-Audio-7B (INT4 quantization) on a local NVIDIA RTX 5070 GPU. Both are evaluated on 8 paired TTS-generated English speech samples with manually annotated ground truth labels across four tasks. To isolate understanding quality from format compliance, Direct outputs are post-processed by the same text LLM for structured tasks. Our results reveal a <strong>trade-off rather than a clear winner</strong>: the cascade pipeline achieves <strong>16x lower latency</strong> (16s vs 256s) and <strong>higher accuracy on structured tasks</strong> (sentiment 88% vs 38%, intent 88% vs 62%, keywords F1 0.36 vs 0.29), while the direct pipeline achieves <strong>superior open-ended summarization quality</strong> (ROUGE-L 0.448 vs 0.402, winning 5 of 8 samples) and <strong>zero marginal cost</strong>. An independent LLM judge rated both systems equally on content quality (8.6 vs 8.6 out of 10). A deterministic white-noise extension (20, 10, and 0 dB SNR) found no monotonic degradation across Qwen's four tasks. In the matched summarization comparison, Direct retained higher mean ROUGE-L and won 5 of 8 samples at every noise level, while Cascade showed smaller deviations from its clean baseline. The paired bootstrap intervals nevertheless crossed zero because N=8. We conclude that architecture selection depends on deployment constraints --cascade for speed and structured data extraction, direct for zero-cost open-ended understanding.</p>
-<hr />
-<h2>1. Introduction</h2>
-<p>Speech understanding --extracting semantic meaning from spoken language --has traditionally relied on a two-stage cascade: first transcribing speech to text via automatic speech recognition (ASR), then processing that text with a language model. Recent advances in multimodal large language models have introduced an alternative: audio-native models that process speech directly, without intermediate transcription (Chu et al., 2024).</p>
-<p>This paradigm shift raises a central research question: <strong>Does removing the transcription bottleneck improve understanding, or does the text-based cascade remain competitive?</strong> We investigate two specific questions:</p>
-<ol>
-<li>
-<p>How do cascade and end-to-end architectures compare on speech understanding tasks with ground truth evaluation-</p>
-</li>
-<li>
-<p>Under what deployment constraints --speed, cost, output structure --might one approach be preferable?</p>
-</li>
-</ol>
-<p>This work adapts the benchmarking methodology of Allauzen et al. (2025) for an undergraduate-accessible experimental setup with reproducible, open-source implementation.</p>
-<hr />
-<h2>2. Related Work</h2>
-<h3>2.1 Speech Understanding Benchmarks</h3>
-<p>The Massive Sound Embedding Benchmark (MSEB; Allauzen et al., 2025) evaluates LLMs on eight speech understanding capabilities using audio embeddings, providing a standardized evaluation framework. Existing benchmarks primarily focus on evaluating individual models rather than comparing architectural paradigms.</p>
-<h3>2.2 Cascade Speech Understanding</h3>
-<p>Cascade pipelines (ASR --text LLM) are the de facto production approach. faster-whisper (Radford et al., 2023) provides efficient local transcription, while API-based text LLMs (DeepSeek-AI, 2025) offer reliable instruction-following for downstream tasks. The robustness of this paradigm comes from modular optimization --ASR and text comprehension are developed independently.</p>
-<h3>2.3 Audio-Native Language Models</h3>
-<p>Qwen2-Audio (Chu et al., 2024) represents the emerging class of models that process audio directly, without intermediate transcription. These models promise to preserve paralinguistic information (prosody, emotion, tone) that is lost in text-only pipelines, but their instruction-following and structured output capabilities remain less mature than text LLMs.</p>
-<p><strong>Existing work focuses primarily on within-paradigm benchmarking. Few studies directly compare the two architectural paradigms under controlled conditions with ground truth evaluation --which is the contribution of this work.</strong></p>
-<hr />
-<h2>3. Methodology</h2>
-<h3>3.1 Architectures</h3>
-<p><strong>Cascade Pipeline:</strong> Audio is transcribed by faster-whisper large-v3 running locally on an NVIDIA RTX 5070 (8GB VRAM). The transcript is then processed by DeepSeek-chat (via API) for each task. Approximate cost: $0.0005 per task call.</p>
-<p><strong>Direct Pipeline:</strong> Audio is fed directly into Qwen2-Audio-7B-Instruct, running locally with 4-bit quantization (BitsAndBytes INT4) on the same GPU. Zero API cost.</p>
-<p><strong>Fair comparison design:</strong> A known limitation of current speech LLMs is poor instruction-following for structured output formats. To isolate <em>understanding quality</em> from <em>format compliance</em>, Direct outputs for sentiment, keywords, and intent are post-processed by DeepSeek-chat: the model receives Qwen2-Audio's free-form analysis and converts it to the required JSON format. Both pipelines thus use the same text LLM for the final structured output step; the only difference is whether the <em>understanding</em> originated from a text transcript (Cascade) or direct audio perception (Direct). Summarization requires no post-processing since it is a free-form task.</p>
-<h3>3.2 Dataset</h3>
-<p>We generated 8 English speech samples via Microsoft Edge TTS with diverse neural voices (4 U.S. English, 4 U.K. English; 5 male, 3 female) across five topic categories (technology, science, business, society, personal development). Each sample is 18-23 seconds and includes a verbatim transcript. All 8 samples completed inference on both architectures, forming an N=8 paired evaluation set.</p>
-<p><strong>Ground truth labels</strong> were manually annotated by the author. Each label was reviewed at least twice after initial annotation to ensure consistency:</p>
-<ul>
-<li>
-<p>Summaries: 1-2 sentence reference summaries</p>
-</li>
-<li>
-<p>Sentiment: positive / negative / neutral</p>
-</li>
-<li>
-<p>Keywords: 5-7 key phrases per sample</p>
-</li>
-<li>
-<p>Intent: inform / persuade / entertain / question / describe</p>
-</li>
-</ul>
-<h3>3.3 Tasks and Metrics</h3>
-<p>| Task | Metric | Description |</p>
-<p>|------|--------|-------------|</p>
-<p>| <strong>Summarization</strong> | ROUGE-L | Quality of generated summary vs ground truth |</p>
-<p>| <strong>Sentiment Analysis</strong> | Accuracy | Correct classification (positive/negative/neutral) |</p>
-<p>| <strong>Keyword Extraction</strong> | Precision, Recall, F1 | Overlap with ground truth keywords |</p>
-<p>| <strong>Intent Recognition</strong> | Accuracy | Correct intent classification |</p>
-<h3>3.4 Statistical Analysis</h3>
-<p>Paired t-tests with Cohen's d effect sizes compare latency distributions. With N=8 paired samples, results are indicative rather than conclusive.</p>
-<h3>3.5 White-Noise Robustness Extension</h3>
-<p>We additionally evaluated the Direct Qwen2-Audio pipeline under deterministic white noise at 20 dB, 10 dB, and 0 dB signal-to-noise ratio (SNR), using the clean audio as the no-noise baseline. The same 8 samples and four tasks produced 128 evaluated outputs in total (8 samples x 4 conditions x 4 tasks). Noise generation used a fixed random seed of 42, verified the achieved SNR, and prevented waveform clipping.</p>
-<p>This extension was run locally on an NVIDIA GeForce RTX 5060 Laptop GPU. To match the original Direct evaluation, Qwen's free-form outputs for sentiment, keywords, and intent were post-processed by DeepSeek-chat using the same prompts, 500-character input limit, and temperature of 0.0 as <code>postprocess_direct.py</code>. All four conditions received identical treatment, and strict JSON compliance after post-processing was 100%. Summarization was evaluated directly without post-processing. This makes clean-versus-noise comparisons internally consistent across all four tasks.</p>
-<p>A separately supplied Cascade result file contains 32 summarization outputs for the same 8 samples and four conditions. These were compared with the 32 Direct summaries using the same ground-truth references and ROUGE-L implementation. The Cascade file does not include sentiment, keywords, intent, transcripts, hardware metadata, or model-loading details. Therefore, the cross-path noise comparison is limited to summarization quality. Recorded latency is shown descriptively but is not treated as a controlled architecture-level comparison.</p>
-<hr />
-<h2>4. Results</h2>
-<h3>4.1 Task Performance (Ground Truth Evaluation)</h3>
-<p><img alt="Radar Chart" src="figures/radar_chart.png" /></p>
-<p><em>Figure 1: Radar chart comparing Cascade and Direct architectures across four tasks (N=8). Direct outperforms Cascade on open-ended summarization; Cascade leads on structured tasks.</em></p>
-<p>| Task | Metric | Cascade | Direct | Winner |</p>
-<p>|------|--------|---------|--------|--------|</p>
-<p>| Summarization | ROUGE-L | 0.402 | <strong>0.448</strong> | Direct (5/8) |</p>
-<p>| Sentiment | Accuracy | <strong>88%</strong> | 38% | Cascade |</p>
-<p>| Keywords | F1 | <strong>0.36</strong> | 0.29 | Cascade |</p>
-<p>| Intent | Accuracy | <strong>88%</strong> | 62% | Cascade |</p>
-<p>The most striking result is <strong>summarization</strong>: Direct achieves a higher ROUGE-L score and wins 5 of 8 head-to-head comparisons, demonstrating that audio-native models can achieve superior content understanding on open-ended tasks. On structured tasks, Cascade maintains a lead --even after post-processing, Direct's sentiment and intent accuracy fall short, suggesting that some nuance is lost when the audio-native understanding is converted to structured labels.</p>
-<h3>4.2 Latency Analysis</h3>
-<p><img alt="Latency Comparison" src="figures/latency_comparison.png" /></p>
-<p><em>Figure 2: Average inference latency for summarization (N=8). Cascade is 16x faster (15.7s vs 255.8s).</em></p>
-<p><strong>Latency breakdown (Cascade):</strong> Approximately 10s for faster-whisper transcription + 6s for DeepSeek API inference.</p>
-<p><strong>Why is Direct slower-</strong> The 256s mean latency reflects three hardware constraints: (1) INT4 quantization adds computation overhead; (2) 8GB VRAM is barely sufficient for the 7B-parameter model, occasionally triggering CPU offloading; (3) autoregressive decoding generates tokens sequentially. This is a hardware limitation, not an architectural one --on a GPU with --6GB VRAM, inference would be substantially faster. <strong>Therefore, these latency results should not be interpreted as intrinsic architectural limits of the direct approach.</strong></p>
-<h3>4.3 Cost Analysis</h3>
-<p><img alt="Cost Comparison" src="figures/cost_comparison.png" /></p>
-<p><em>Figure 3: Per-task API cost. Cascade uses DeepSeek API (~$0.0005/task). Direct uses local inference at zero additional cost.</em></p>
-<h3>4.4 LLM-as-Judge Evaluation</h3>
-<p>To independently assess output quality, we used DeepSeek-chat as a blind judge. Outputs were anonymized (labeled "System A" and "System B") and presented in random order for each evaluation to reduce positional bias. The LLM was shown the ground truth and both systems' outputs, and asked to rate each on accuracy, completeness, and conciseness (1--0 scale).</p>
-<p>| Task (N=5 subset) | Cascade Score | Direct Score | Direct Wins |</p>
-<p>|-------------------|---------------|--------------|-------------|</p>
-<p>| Summarization | 8.6 | <strong>8.6</strong> | 2/5 |</p>
-<p>| Sentiment | <strong>10.0</strong> | 3.4 | 0/5 |</p>
-<p>| Keywords | <strong>7.6</strong> | 7.2 | 2/5 |</p>
-<p>| Intent | <strong>8.2</strong> | 1.4 | 0/5 |</p>
-<p>On summarization, the LLM judge rated Cascade and Direct identically (8.6 vs 8.6), corroborating the close ROUGE-L scores. Direct's winning summaries were judged "more accurate and complete, closely matching the ground truth's phrasing."</p>
-<h3>4.5 Qwen2-Audio Robustness to White Noise</h3>
-<p><img alt="Qwen White-Noise Robustness" src="figures/qwen_white_noise_robustness.png" /></p>
-<p><em>Figure 4: Qwen2-Audio task performance under deterministic white noise (N=8). Structured tasks use the same DeepSeek post-processing at every noise level.</em></p>
-<table>
-<thead>
-<tr>
-<th>Task / Metric</th>
-<th style="text-align: right;">Clean</th>
-<th style="text-align: right;">White 20 dB</th>
-<th style="text-align: right;">Change</th>
-<th style="text-align: right;">White 10 dB</th>
-<th style="text-align: right;">Change</th>
-<th style="text-align: right;">White 0 dB</th>
-<th style="text-align: right;">Change</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Summarization / ROUGE-L</td>
-<td style="text-align: right;">0.4600</td>
-<td style="text-align: right;">0.4422</td>
-<td style="text-align: right;">-0.0178</td>
-<td style="text-align: right;">0.4380</td>
-<td style="text-align: right;">-0.0220</td>
-<td style="text-align: right;">0.4536</td>
-<td style="text-align: right;">-0.0065</td>
-</tr>
-<tr>
-<td>Sentiment / Accuracy</td>
-<td style="text-align: right;">62.5%</td>
-<td style="text-align: right;">50.0%</td>
-<td style="text-align: right;">-12.5 pp</td>
-<td style="text-align: right;">62.5%</td>
-<td style="text-align: right;">0.0 pp</td>
-<td style="text-align: right;">87.5%</td>
-<td style="text-align: right;">+25.0 pp</td>
-</tr>
-<tr>
-<td>Keywords / Exact-Phrase F1</td>
-<td style="text-align: right;">0.3378</td>
-<td style="text-align: right;">0.3650</td>
-<td style="text-align: right;">+0.0272</td>
-<td style="text-align: right;">0.3757</td>
-<td style="text-align: right;">+0.0379</td>
-<td style="text-align: right;">0.3223</td>
-<td style="text-align: right;">-0.0154</td>
-</tr>
-<tr>
-<td>Intent / Accuracy</td>
-<td style="text-align: right;">87.5%</td>
-<td style="text-align: right;">87.5%</td>
-<td style="text-align: right;">0.0 pp</td>
-<td style="text-align: right;">100.0%</td>
-<td style="text-align: right;">+12.5 pp</td>
-<td style="text-align: right;">100.0%</td>
-<td style="text-align: right;">+12.5 pp</td>
-</tr>
-</tbody>
-</table>
-<p>Summarization was robust in this small test: at 0 dB, where signal and noise have equal power, ROUGE-L decreased by only 0.0065. Keyword F1 also changed little at 0 dB (-0.0154). Sentiment and intent were non-monotonic and sometimes scored higher under stronger noise. This must <strong>not</strong> be interpreted as evidence that noise improves understanding: each classification error changes accuracy by 12.5 percentage points at N=8, and DeepSeek converts Qwen's free-form analysis into the final label. The defensible conclusion is that this experiment did not detect a consistent white-noise degradation pattern.</p>
-<p><img alt="Original Direct Baseline vs White Noise" src="figures/qwen_original_vs_white_noise.png" /></p>
-<p><em>Figure 5: Horizontal comparison of the original report's Direct clean result with the new same-method clean baseline and three white-noise conditions.</em></p>
-<p>The following table relates the extension to the report's original Direct results:</p>
-<table>
-<thead>
-<tr>
-<th>Metric</th>
-<th style="text-align: right;">Original Direct Clean</th>
-<th style="text-align: right;">New Same-Method Clean</th>
-<th style="text-align: right;">White 20 dB</th>
-<th style="text-align: right;">White 10 dB</th>
-<th style="text-align: right;">White 0 dB</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Summary ROUGE-L</td>
-<td style="text-align: right;">0.448</td>
-<td style="text-align: right;">0.460</td>
-<td style="text-align: right;">0.442</td>
-<td style="text-align: right;">0.438</td>
-<td style="text-align: right;">0.454</td>
-</tr>
-<tr>
-<td>Sentiment Accuracy</td>
-<td style="text-align: right;">38%</td>
-<td style="text-align: right;">62.5%</td>
-<td style="text-align: right;">50.0%</td>
-<td style="text-align: right;">62.5%</td>
-<td style="text-align: right;">87.5%</td>
-</tr>
-<tr>
-<td>Keyword F1</td>
-<td style="text-align: right;">0.29</td>
-<td style="text-align: right;">0.338</td>
-<td style="text-align: right;">0.365</td>
-<td style="text-align: right;">0.376</td>
-<td style="text-align: right;">0.322</td>
-</tr>
-<tr>
-<td>Intent Accuracy</td>
-<td style="text-align: right;">62%</td>
-<td style="text-align: right;">87.5%</td>
-<td style="text-align: right;">87.5%</td>
-<td style="text-align: right;">100.0%</td>
-<td style="text-align: right;">100.0%</td>
-</tr>
-</tbody>
-</table>
-<p>All columns now use the same Qwen-to-DeepSeek evaluation architecture, so the metrics can be displayed on one scale. However, the original clean column came from an earlier run, whereas the remaining four columns were produced together in the controlled white-noise experiment. For estimating the effect of noise, <strong>New Same-Method Clean</strong> is therefore the primary baseline; differences between the two clean columns reflect run-to-run and implementation variation, not noise.</p>
-<h3>4.6 Cascade vs Direct White-Noise Summarization</h3>
-<p><img alt="Cascade vs Direct White Noise" src="figures/cascade_vs_direct_white_noise.png" /></p>
-<p><em>Figure 6: Mean summarization ROUGE-L and recorded latency for Cascade and Direct across four white-noise conditions (N=8 paired samples). Latency values come from separate runs and are not a controlled hardware comparison.</em></p>
-<table>
-<thead>
-<tr>
-<th>Condition</th>
-<th style="text-align: right;">Cascade ROUGE-L</th>
-<th style="text-align: right;">Direct ROUGE-L</th>
-<th style="text-align: right;">Direct - Cascade</th>
-<th style="text-align: right;">Direct Wins</th>
-<th style="text-align: right;">Cascade Change vs Clean</th>
-<th style="text-align: right;">Direct Change vs Clean</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Clean</td>
-<td style="text-align: right;">0.3971</td>
-<td style="text-align: right;">0.4600</td>
-<td style="text-align: right;">+0.0629</td>
-<td style="text-align: right;">5/8</td>
-<td style="text-align: right;">--</td>
-<td style="text-align: right;">--</td>
-</tr>
-<tr>
-<td>White 20 dB</td>
-<td style="text-align: right;">0.3947</td>
-<td style="text-align: right;">0.4422</td>
-<td style="text-align: right;">+0.0475</td>
-<td style="text-align: right;">5/8</td>
-<td style="text-align: right;">-0.0024</td>
-<td style="text-align: right;">-0.0178</td>
-</tr>
-<tr>
-<td>White 10 dB</td>
-<td style="text-align: right;">0.3923</td>
-<td style="text-align: right;">0.4380</td>
-<td style="text-align: right;">+0.0457</td>
-<td style="text-align: right;">5/8</td>
-<td style="text-align: right;">-0.0047</td>
-<td style="text-align: right;">-0.0220</td>
-</tr>
-<tr>
-<td>White 0 dB</td>
-<td style="text-align: right;">0.4032</td>
-<td style="text-align: right;">0.4536</td>
-<td style="text-align: right;">+0.0503</td>
-<td style="text-align: right;">5/8</td>
-<td style="text-align: right;">+0.0061</td>
-<td style="text-align: right;">-0.0065</td>
-</tr>
-</tbody>
-</table>
-<p>Direct achieved the higher mean ROUGE-L at every noise level and won 5 of 8 paired samples in every condition. Its mean advantage ranged from 0.0457 to 0.0629. Cascade was more stable relative to its own clean baseline: its largest absolute change was 0.0061, compared with 0.0220 for Direct. Thus, this pilot suggests a trade-off between <strong>higher Direct quality</strong> and <strong>flatter Cascade degradation</strong>, rather than a single robustness winner.</p>
-<p>The 95% paired bootstrap intervals for Direct minus Cascade were [-0.0103, 0.1365] on clean audio, [-0.0235, 0.1188] at 20 dB, [-0.0146, 0.1127] at 10 dB, and [-0.0323, 0.1351] at 0 dB. Every interval crosses zero, so the observed Direct advantage is not statistically conclusive with eight samples.</p>
-<p>Recorded mean latency ranged from 16.1 to 18.2 seconds for Cascade and 2.9 to 3.6 seconds for Direct in these files. This reverses the main benchmark's latency ordering, but the runs lack matched hardware and timing-boundary metadata. It should be interpreted as a reproducibility warning, not evidence that Direct is intrinsically faster.</p>
-<hr />
-<h2>5. Error Analysis</h2>
-<h3>Case 1: Cascade Structured Output, Direct Misses Format</h3>
-<p><strong>Sample:</strong> <code>science_crispr</code> --CRISPR gene editing, balanced pros and cons.</p>
-<blockquote>
-<p><strong>Ground Truth Sentiment:</strong> <code>neutral</code></p>
-<p><strong>Cascade:</strong> <code>{"sentiment": "neutral", "confidence": 0.85}</code> -- </p>
-<p><strong>Direct (raw):</strong> <code>Enormous potential for treating genetic diseases, developing drought-resistant crops...</code> (unstructured)</p>
-</blockquote>
-<p><strong>Analysis:</strong> Cascade's text LLM reliably follows structured output instructions. Direct produces relevant content but in free-form text. This motivates the post-processing step in our evaluation --without it, Direct's sentiment accuracy would be 0% not because it misunderstands the content, but because it does not comply with the output format.</p>
-<h3>Case 2: Direct Wins on Summarization Quality</h3>
-<p><strong>Sample:</strong> <code>science_brain</code> --The human brain's 86 billion neurons.</p>
-<blockquote>
-<p><strong>Ground Truth Summary:</strong> "The human brain contains 86 billion neurons forming a network of immense complexity, yet we are only beginning to understand how it generates consciousness, memory, and emotion."</p>
-<p><strong>Cascade ROUGE-L:</strong> 0.448  </p>
-<p><strong>Direct ROUGE-L:</strong> 0.677</p>
-</blockquote>
-<p><strong>Analysis:</strong> Cascade produces a competent summary but introduces phrasing not in the original ("the speaker explains that..." --a conversational framing). Direct's output is tighter and closer to the ground truth vocabulary. This pattern --Direct matching ground truth phrasing more faithfully --is consistent across the 5 samples where Direct won.</p>
-<h3>5.3 Error Taxonomy</h3>
-<p>Beyond individual cases, we categorize all observed errors across the 8 samples to identify systematic failure patterns. Error categories were manually assigned by the author after reviewing all predictions against ground truth labels. Note that error categories are <strong>not mutually exclusive</strong> --one sample may contribute to multiple categories (e.g., a summary exhibiting both keyword omission and paraphrase distortion):</p>
-<p>| Error Type | Cascade | Direct | Description |</p>
-<p>|-----------|---------|--------|-------------|</p>
-<p>| Sentiment mismatch | 1 | 5 | System assigned wrong sentiment label |</p>
-<p>| Intent misclassification | 1 | 3 | System misidentified speaker intent |</p>
-<p>| Keyword omission | 4 | 6 | Key phrases missing from output |</p>
-<p>| Paraphrase distortion | 5 | 1 | System over-rewrote, drifting from ground truth |</p>
-<p>The most revealing asymmetry is <strong>paraphrase distortion</strong>: Cascade distorts 5 samples through excessive rewording, while Direct distorts only 1. This explains Direct's summarization advantage --it stays closer to the original content. However, <strong>Cascade compensates with better instruction-following</strong>: it produces valid JSON 100% of the time, while Direct requires post-processing.</p>
-<h3>5.4 When Does Cascade Fail- --ASR as an Information Bottleneck</h3>
-<p>The patterns above reveal a deeper structural insight: <strong>ASR transcription acts as an information bottleneck in the cascade pipeline</strong>. We identify three specific mechanisms:</p>
-<ol>
-<li>
-<p><strong>Prosodic information loss:</strong> In <code>science_climate</code>, the speaker's concerned British intonation conveys urgency. Cascade reads only the words and classifies the text as <em>persuade</em>; Direct classifies it as <em>negative</em>, which more closely matches the urgency conveyed by the speaker's tone. This observation <strong>suggests</strong> that the direct pipeline may better preserve prosodic cues --a hypothesis that requires dedicated emotion benchmarking to confirm. <strong>ASR strips the acoustic channel of paralinguistic information.</strong></p>
-</li>
-<li>
-<p><strong>Lexical ambiguity without acoustic disambiguation:</strong> In <code>tech_blockchain</code>, the phrase "trust without authority" triggers a <em>positive</em> sentiment classification by Cascade (the word "trust" dominates the text signal), while Direct assigns <em>neutral</em>, matching the explanatory tone. This may indicate that <strong>text-only models are susceptible to surface-level lexical bias that acoustic models can partially offset</strong> --though confirming this would require controlled acoustic manipulation experiments.</p>
-</li>
-<li>
-<p><strong>Paraphrase drift in summarization:</strong> Cascade introduces conversational framing ("The speaker explains that...") and synonym substitutions not present in the original. Direct stays closer to the source vocabulary. For applications requiring high fidelity to source material (meeting minutes, legal transcription), <strong>transcription-to-summary pipelines introduce a compounding distortion: ASR errors --LLM paraphrasing errors --final output drift</strong>.</p>
-</li>
-</ol>
-<p>Cascade's advantage <strong>appears consistent with</strong> the architectural decomposition hypothesis: by decomposing speech understanding into transcription + text comprehension, each module benefits from decades of independent optimization. Direct pipelines must learn both perception and reasoning jointly --a harder optimization problem that current-generation models have not fully solved. The bottleneck is not permanent: as speech LLMs improve their instruction-following and structured output capabilities, the performance gap on structured tasks should narrow. <strong>However, our experiment tests only a single representative implementation of each paradigm (Whisper + DeepSeek vs Qwen2-Audio) and cannot conclusively establish causation at the architectural level --these findings should be interpreted as suggestive patterns, not definitive proof.</strong></p>
-<hr />
-<h2>6. Discussion</h2>
-<h3>6.1 A Trade-off, Not a Winner</h3>
-<p>Our results do not support declaring one architecture superior. Instead, they reveal domain-specific trade-offs:</p>
-<p>| Constraint | Favored Architecture | Evidence |</p>
-<p>|-----------|---------------------|----------|</p>
-<p>| <strong>Low latency</strong> | Cascade | 16x faster (16s vs 256s) |</p>
-<p>| <strong>Zero API cost</strong> | Direct | Fully local execution |</p>
-<p>| <strong>Structured output</strong> | Cascade | 88% sentiment, 88% intent, F1 0.36 |</p>
-<p>| <strong>Open-ended quality</strong> | Direct | ROUGE-L 0.448 vs 0.402, wins 5/8 |</p>
-<p>| <strong>Content quality (LLM judge)</strong> | Tie | Both 8.6/10 on summarization |</p>
-<h3>6.2 Deployment Implications</h3>
-<ol>
-<li>
-<p><strong>Production pipelines requiring structured data</strong> (call center analytics, meeting summarization with labeled fields) should default to cascade --it is faster and more reliable at producing valid structured output.</p>
-</li>
-<li>
-<p><strong>Open-ended understanding tasks</strong> (generating meeting notes, lecture summaries) may benefit from a direct pipeline's higher content quality.</p>
-</li>
-<li>
-<p><strong>Cost-sensitive, high-volume deployments</strong> should consider the direct pipeline's zero marginal cost, accepting higher latency as a trade-off --especially when inference hardware improves.</p>
-</li>
-<li>
-<p><strong>Hybrid architectures</strong> --using cascade for structured data extraction and direct for open-ended content generation --merit exploration.</p>
-</li>
-</ol>
-<p><strong>These trade-offs are not permanent.</strong> As speech LLMs improve in efficiency, instruction-following, and structured output quality, the current advantages of the cascade pipeline may narrow. The Qwen2-Audio-7B model used here was released in late 2024; next-generation models may shift the balance substantially.</p>
-<h3>6.3 Limitations</h3>
-<p>We are transparent about this study's boundaries:</p>
-<ol>
-<li>
-<p><strong>Sample size (N=8).</strong> This is a pilot study. Statistical tests are indicative, not conclusive.</p>
-</li>
-<li>
-<p><strong>Synthetic speech only.</strong> Edge-TTS produces clean, well-articulated speech that lacks the disfluencies, hesitations, and natural prosody of human conversation.</p>
-</li>
-<li>
-<p><strong>Single model per paradigm.</strong> Results may not generalize to other speech LLMs or text LLMs.</p>
-</li>
-<li>
-<p><strong>White noise only; Cascade summary only.</strong> The robustness extension evaluates both paths for summarization at 20, 10, and 0 dB SNR, but only Direct has results for sentiment, keywords, and intent. Babble noise, reverberation, and real environmental noise remain untested.</p>
-</li>
-<li>
-<p><strong>No human evaluation of quality.</strong> Automated metrics capture content overlap but not perceptual quality, coherence, or factual accuracy.</p>
-</li>
-<li>
-<p><strong>Dataset accessibility.</strong> Network restrictions prevented downloading TED-LIUM v3, leading to TTS-generated speech as a pragmatic alternative.</p>
-</li>
-</ol>
-<h3>6.4 Future Work</h3>
-<ol>
-<li>
-<p><strong>Benchmarking failure cases.</strong> The ASR bottleneck hypothesis (Section 5.4) predicts specific scenarios where cascade pipelines should systematically underperform: emotion detection (sarcasm, speaker confidence, hesitation), prosody-dependent intent recognition, and acoustic ambiguity. A targeted benchmark of these failure modes --with controlled acoustic manipulation --would directly test whether the patterns observed in this pilot study generalize.</p>
-</li>
-<li>
-<p><strong>Real human speech.</strong> TTS-generated speech lacks natural disfluencies, hesitations, and prosodic variability. Scaling to 50+ real speech samples would substantially strengthen generalizability.</p>
-</li>
-<li>
-<p><strong>Streaming and conversational speech.</strong> Both paradigms need evaluation under incremental understanding constraints, where latency and partial-input comprehension matter as much as final output quality.</p>
-</li>
-</ol>
-<hr />
-<h2>7. Conclusion</h2>
-<p>This preliminary benchmark finds no dominant architecture for speech understanding. The cascade approach (faster-whisper + DeepSeek) excels at speed and structured output reliability, while the end-to-end approach (Qwen2-Audio-7B) offers zero-cost deployment and superior open-ended summarization quality --winning 5 of 8 head-to-head comparisons with a ROUGE-L of 0.448 vs 0.402. On structured tasks, the gap narrows substantially when Direct outputs are post-processed (sentiment 38% vs 88%, intent 62% vs 88%), but Cascade retains a clear advantage. In the white-noise extension, Direct maintained higher mean summarization ROUGE-L and won 5 of 8 samples at every level, while Cascade stayed closer to its own clean baseline. Because all paired bootstrap intervals crossed zero, these are descriptive trends rather than statistically conclusive architecture differences. Architecture selection depends on deployment constraints: cascade for speed and structured data extraction, direct for zero-cost open-ended understanding. <strong>Rather than replacing cascade architectures, current end-to-end speech LLMs complement them under different deployment constraints --and the most promising direction may lie not in choosing one over the other, but in understanding when to use each.</strong> Our open-source implementation, with 31 passing tests, a Gradio interactive demo, and a one-click reproduction script (<code>run_all.py</code>), provides a foundation for continued benchmarking as both architectures evolve.</p>
-<hr />
-<h2>References</h2>
-<ol>
-<li>
-<p>Allauzen, C., Bagby, T., Heigold, G., Variani, E., &amp; Wu, K. (2025). <em>Benchmarking LLMs on the Massive Sound Embedding Benchmark (MSEB).</em> arXiv:2605.04556.</p>
-</li>
-<li>
-<p>Radford, A., Kim, J. W., Xu, T., Brockman, G., McLeavey, C., &amp; Sutskever, I. (2023). <em>Robust Speech Recognition via Large-Scale Weak Supervision.</em> ICML 2023.</p>
-</li>
-<li>
-<p>Chu, Y., et al. (2024). <em>Qwen2-Audio: Advancing Universal Audio Understanding via Unified Large-Scale Audio-Language Models.</em> arXiv:2409.13959.</p>
-</li>
-<li>
-<p>DeepSeek-AI. (2025). <em>DeepSeek-V3 Technical Report.</em> arXiv:2412.19437.</p>
-</li>
-</ol>
-<hr />
-<p><em>Preliminary benchmark results. Code and data at speech-benchmark/. Updated 2026-07-01.</em></p>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cascade vs End-to-End Speech Understanding: N=50 TTS + N=50 Real Human Speech</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #64748b;
+      --line: #dbe3ef;
+      --soft: #f6f8fb;
+      --blue: #1d4ed8;
+      --green: #047857;
+      --orange: #b45309;
+      --red: #b91c1c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #eef2f7;
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.65;
+    }
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 22px 70px;
+      background: #ffffff;
+      box-shadow: 0 0 36px rgba(15, 23, 42, 0.08);
+    }
+    .hero {
+      padding: 34px 36px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 58%, #0891b2 100%);
+      color: white;
+      margin-bottom: 28px;
+    }
+    h1 { font-size: 34px; line-height: 1.18; margin: 0 0 14px; }
+    h2 { font-size: 24px; margin-top: 44px; padding-top: 18px; border-top: 2px solid var(--line); }
+    h3 { margin-top: 26px; font-size: 19px; }
+    .subtitle { font-size: 18px; opacity: 0.94; max-width: 980px; }
+    .meta { margin-top: 18px; font-size: 14px; opacity: 0.9; }
+    .lang-grid, .card-grid, .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .lang-box, .card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px 20px;
+      background: #fff;
+    }
+    .lang-box h3, .card h3 { margin-top: 0; }
+    .card strong { font-size: 28px; display: block; margin-bottom: 6px; }
+    .cascade { border-top: 5px solid var(--blue); }
+    .direct { border-top: 5px solid var(--orange); }
+    .oracle { border-top: 5px solid var(--green); }
+    .caution { border-top: 5px solid var(--red); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 22px;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 9px 10px;
+      vertical-align: top;
+    }
+    th { background: var(--soft); text-align: left; }
+    td span { color: var(--muted); font-size: 13px; }
+    table.compact { max-width: 520px; }
+    figure {
+      margin: 24px 0;
+      padding: 14px;
+      background: #fbfdff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+    figure img {
+      display: block;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 12px;
+    }
+    figcaption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+    .note {
+      border-left: 5px solid var(--blue);
+      background: #eff6ff;
+      padding: 14px 18px;
+      border-radius: 12px;
+      margin: 18px 0;
+    }
+    .warning {
+      border-left-color: var(--orange);
+      background: #fff7ed;
+    }
+    .toc a { color: var(--blue); text-decoration: none; margin-right: 14px; white-space: nowrap; }
+    code { background: var(--soft); padding: 2px 5px; border-radius: 6px; }
+    @media (max-width: 820px) {
+      .lang-grid, .card-grid, .two-col { grid-template-columns: 1fr; }
+      main { padding: 18px 12px 50px; }
+      .hero { padding: 24px 20px; }
+      h1 { font-size: 27px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <h1>Cascade vs End-to-End Speech Understanding</h1>
+    <p class="subtitle">A bilingual dual-study benchmark with N=50 TTS speech and N=50 real-human speech.<br>级联式与端到端语音理解：N=50 TTS 与 N=50 真实人声双实验基准。</p>
+    <p class="meta"><strong>Authors / 作者：</strong> Jiayi Li（李佳宜）, Liu Luofei（刘洛菲）, Zhang Yuchen（张予辰）<br>
+    <strong>Date / 日期：</strong> June–August 2026　<strong>Course / 课程：</strong> Undergraduate Summer Research, Zhejiang University</p>
+  </section>
+
+  <nav class="toc">
+    <a href="#abstract">Abstract / 摘要</a>
+    <a href="#methods">Methods / 方法</a>
+    <a href="#overall">Overall results / 总体结果</a>
+    <a href="#intent">Intent analysis / 分意图分析</a>
+    <a href="#evidence">Evidence strength / 证据强度</a>
+    <a href="#conclusion">Conclusion / 结论</a>
+  </nav>
+
+  <section id="abstract">
+    <h2>1. Abstract / 摘要</h2>
+    <div class="lang-grid">
+      <div class="lang-box">
+        <h3>English</h3>
+        <p>This report compares cascade speech understanding, where audio is first transcribed and then analyzed by a text LLM, with end-to-end audio understanding, where Qwen2-Audio analyzes the waveform directly before structured post-processing. The comparison uses two equally sized benchmarks: 50 controlled TTS clips and 50 noisy real-human clips.</p>
+        <p>The central conclusion is clear: cascade paths remain stronger for general semantic tasks, especially intent and keyword extraction. Direct understanding is not a universal winner, but it shows a meaningful local advantage in entertainment-style human speech sentiment, where delivery and tone carry information that transcripts can lose.</p>
+      </div>
+      <div class="lang-box">
+        <h3>中文</h3>
+        <p>本报告比较两类语音理解架构：级联式路径先把音频转写成文本，再交给文本大模型分析；端到端路径则由 Qwen2-Audio 直接听音频，再做结构化整理。实验采用两个等规模数据集：50 条受控 TTS 音频和 50 条带真实噪声、观众声、录音差异的人声音频。</p>
+        <p>核心结论很明确：级联路径在通用语义任务上仍然更强，尤其是意图识别和关键词提取。Direct 不是整体最优，但在“娱乐/脱口秀/表演性人声”的情感判断中出现了局部优势，因为语气、停顿、讽刺和现场反应可能不会完整保留在转写文本里。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. Main findings / 核心发现</h2>
+    <div class="card-grid">
+      <div class="card cascade">
+        <strong>B</strong>
+        <h3>Cascade is the strongest default / 级联是当前最稳的通用路径</h3>
+        <p>TTS: B reaches 78.0% sentiment and 98.0% intent. Human speech: B reaches 68.0% sentiment and 64.0% intent, and has the best human summarization score.</p>
+        <p>在 TTS 中，B 的情感准确率为 78.0%，意图准确率为 98.0%；在人声中，B 的摘要得分最高，情感和意图也保持较稳。</p>
+      </div>
+      <div class="card direct">
+        <strong>D</strong>
+        <h3>Direct has a narrow but real signal / Direct 优势窄，但不是没有</h3>
+        <p>On human <code>entertain</code> sentiment, D reaches 50.0%, while B reaches 25.0% and C reaches 37.5%. This is the clearest place where audio-native understanding helps.</p>
+        <p>在人声 <code>entertain</code> 子集的情感任务中，D 为 50.0%，B 为 25.0%，C 为 37.5%。这是 Direct 最清楚的局部优势。</p>
+      </div>
+      <div class="card oracle">
+        <strong>A</strong>
+        <h3>Oracle separates transcript quality from reasoning / Oracle 用来拆分误差来源</h3>
+        <p>Oracle is not an architecture for raw audio; it is a control path. Its role is to show how much of the error comes from transcription rather than downstream reasoning.</p>
+        <p>Oracle 不是音频处理方案，而是控制组。它帮助判断错误到底来自转写阶段，还是来自后续文本推理阶段。</p>
+      </div>
+      <div class="card caution">
+        <strong>TTS ≠ human</strong>
+        <h3>TTS overstates real-world ease / TTS 会低估真实人声难度</h3>
+        <p>From TTS to human speech, B sentiment drops by 10 pp and B intent drops by 34 pp. D summarization drops from 0.325 to 0.185.</p>
+        <p>从 TTS 到真实人声，B 的情感下降 10 个百分点，意图下降 34 个百分点；D 的摘要 ROUGE-L 从 0.325 降到 0.185。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="methods">
+    <h2>3. Methods / 实验方法</h2>
+    <div class="lang-grid">
+      <div class="lang-box">
+        <h3>English</h3>
+        <p>All four paths are evaluated on the same four tasks: summarization, sentiment classification, keyword extraction, and intent classification. A/B/C share the same DeepSeek text reasoning stage; only the transcript source differs. D uses Qwen2-Audio direct audio analysis followed by DeepSeek formatting for structured outputs.</p>
+      </div>
+      <div class="lang-box">
+        <h3>中文</h3>
+        <p>四条路径都在同样四项任务上评估：摘要、情感分类、关键词提取、意图分类。A/B/C 使用同一套 DeepSeek 文本推理流程，只改变输入文本来源；D 先由 Qwen2-Audio 直接理解音频，再由 DeepSeek 做结构化整理。</p>
+      </div>
+    </div>
+    <table><thead><tr><th>Path / 路径</th><th>Input source / 输入来源</th><th>Reasoning stage / 推理阶段</th></tr></thead><tbody>
+<tr><td>A Oracle</td><td>Ground-truth transcript / 人工真值转写</td><td>DeepSeek-chat</td></tr>
+<tr><td>B Whisper Cascade</td><td>faster-whisper large-v3 transcript / Whisper 转写</td><td>DeepSeek-chat</td></tr>
+<tr><td>C Qwen-ASR Cascade</td><td>Qwen2-Audio transcript / Qwen 转写</td><td>DeepSeek-chat</td></tr>
+<tr><td>D Qwen-Direct</td><td>Qwen2-Audio direct audio analysis / 直接音频理解</td><td>DeepSeek structured post-processing / 结构化后处理</td></tr>
+</tbody></table>
+    <div class="two-col">
+      <div>
+        <h3>TTS intent distribution / TTS 意图分布</h3>
+        <table class="compact"><thead><tr><th>Intent / 意图</th><th>N</th></tr></thead><tbody>
+<tr><td>describe</td><td>8</td></tr>
+<tr><td>entertain</td><td>8</td></tr>
+<tr><td>inform</td><td>19</td></tr>
+<tr><td>persuade</td><td>9</td></tr>
+<tr><td>question</td><td>6</td></tr>
+</tbody></table>
+      </div>
+      <div>
+        <h3>Human intent distribution / 人声意图分布</h3>
+        <table class="compact"><thead><tr><th>Intent / 意图</th><th>N</th></tr></thead><tbody>
+<tr><td>describe</td><td>15</td></tr>
+<tr><td>entertain</td><td>8</td></tr>
+<tr><td>inform</td><td>17</td></tr>
+<tr><td>persuade</td><td>4</td></tr>
+<tr><td>question</td><td>6</td></tr>
+</tbody></table>
+      </div>
+    </div>
+    <p class="note warning">Bootstrap confidence intervals are paired descriptive intervals over the current N=50 samples. They are useful for judging whether a direction is stable in this sample, but they should not be read as a broad population guarantee. 分组后的 <code>entertain</code> 与 <code>persuade</code> 样本量较小，相关结论应理解为明确趋势和后续验证重点。</p>
+  </section>
+
+  <section id="overall">
+    <h2>4. Overall results / 总体结果</h2>
+    <h3>4.1 TTS benchmark, N=50 / TTS 基准</h3>
+    <table><thead><tr><th>Path / 路径</th><th>Summary</th><th>Sentiment</th><th>Keywords</th><th>Intent</th></tr></thead><tbody>
+<tr><td><strong>A Oracle</strong><br><span>人工真值转写 → DeepSeek</span></td><td>0.3291</td><td>72.0%</td><td>0.3079</td><td>98.0%</td></tr>
+<tr><td><strong>B Whisper Cascade</strong><br><span>Whisper 转写 → DeepSeek</span></td><td>0.3160</td><td>78.0%</td><td>0.3188</td><td>98.0%</td></tr>
+<tr><td><strong>C Qwen-ASR Cascade</strong><br><span>Qwen2-Audio 转写 → DeepSeek</span></td><td>0.3299</td><td>68.0%</td><td>0.2978</td><td>94.0%</td></tr>
+<tr><td><strong>D Qwen-Direct</strong><br><span>Qwen2-Audio 音频理解 → DeepSeek 结构化</span></td><td>0.3251</td><td>72.0%</td><td>0.3124</td><td>80.0%</td></tr>
+</tbody></table>
+    <p>On clean TTS, B is strongest on sentiment and ties A on intent. D remains close on summary and keywords, but its intent accuracy is 18 pp below B. This shows that clean synthetic audio does not automatically favor direct audio understanding.</p>
+    <p>在干净 TTS 中，B 的情感最好，意图与 A 并列最高。D 的摘要和关键词接近前几条路径，但意图准确率比 B 低 18 个百分点，说明“直接听音频”在干净合成语音上并不会天然占优。</p>
+    <table class="compact"><thead><tr><th>Task / 任务</th><th>D - B</th><th>D - C</th></tr></thead><tbody>
+<tr><td>Summary ROUGE-L / 摘要</td><td>0.0091</td><td>-0.0048</td></tr>
+<tr><td>Sentiment accuracy / 情感</td><td>-0.0600</td><td>0.0400</td></tr>
+<tr><td>Keyword F1 / 关键词</td><td>-0.0064</td><td>0.0146</td></tr>
+<tr><td>Intent accuracy / 意图</td><td>-0.1800</td><td>-0.1400</td></tr>
+</tbody></table>
+    <figure><img src="figures/final_n50_tts_metrics.png" alt="Figure 1. TTS N=50 four-path task scores / TTS 四路径总览"><figcaption>Figure 1. TTS N=50 four-path task scores / TTS 四路径总览</figcaption></figure>
+
+    <h3>4.2 Real-human benchmark, N=50 / 真实人声基准</h3>
+    <table><thead><tr><th>Path / 路径</th><th>Summary</th><th>Sentiment</th><th>Keywords</th><th>Intent</th></tr></thead><tbody>
+<tr><td><strong>A Oracle</strong><br><span>人工真值转写 → DeepSeek</span></td><td>0.2601</td><td>74.0%</td><td>0.3914</td><td>64.0%</td></tr>
+<tr><td><strong>B Whisper Cascade</strong><br><span>Whisper 转写 → DeepSeek</span></td><td>0.2621</td><td>68.0%</td><td>0.3325</td><td>64.0%</td></tr>
+<tr><td><strong>C Qwen-ASR Cascade</strong><br><span>Qwen2-Audio 转写 → DeepSeek</span></td><td>0.2564</td><td>72.0%</td><td>0.3421</td><td>54.0%</td></tr>
+<tr><td><strong>D Qwen-Direct</strong><br><span>Qwen2-Audio 音频理解 → DeepSeek 结构化</span></td><td>0.1854</td><td>62.0%</td><td>0.2765</td><td>50.0%</td></tr>
+</tbody></table>
+    <p>On real-human speech, A/B/C are still stronger overall. D is weakest on mean summary, keywords, and intent. The largest human-speech gap is summary: B is 0.077 ROUGE-L above D, and C is 0.071 above D.</p>
+    <p>在真实人声中，A/B/C 总体仍强于 D。D 在平均摘要、关键词和意图上都落后。最明显的差距出现在摘要：B 比 D 高 0.077 ROUGE-L，C 比 D 高 0.071。</p>
+    <table class="compact"><thead><tr><th>Task / 任务</th><th>D - B</th><th>D - C</th></tr></thead><tbody>
+<tr><td>Summary ROUGE-L / 摘要</td><td>-0.0767</td><td>-0.0710</td></tr>
+<tr><td>Sentiment accuracy / 情感</td><td>-0.0600</td><td>-0.1000</td></tr>
+<tr><td>Keyword F1 / 关键词</td><td>-0.0559</td><td>-0.0656</td></tr>
+<tr><td>Intent accuracy / 意图</td><td>-0.1400</td><td>-0.0400</td></tr>
+</tbody></table>
+    <figure><img src="figures/final_n50_human_metrics.png" alt="Figure 2. Real-human N=50 four-path task scores / 真实人声四路径总览"><figcaption>Figure 2. Real-human N=50 four-path task scores / 真实人声四路径总览</figcaption></figure>
+    <figure><img src="figures/final_n50_direct_deltas.png" alt="Figure 3. Direct minus cascade baselines / Direct 相对转写路径的差值"><figcaption>Figure 3. Direct minus cascade baselines / Direct 相对转写路径的差值</figcaption></figure>
+  </section>
+
+  <section id="intent">
+    <h2>5. Per-intent analysis / 按意图分析</h2>
+    <div class="lang-grid">
+      <div class="lang-box">
+        <h3>English</h3>
+        <p>The most important subgroup result is not that Direct wins everywhere. It does not. The important result is that Direct wins where we would theoretically expect an audio-native model to help: sentiment in entertainment-style speech. On human <code>entertain</code>, D exceeds B by 25 pp. On TTS <code>entertain</code>, D exceeds B by 12.5 pp.</p>
+      </div>
+      <div class="lang-box">
+        <h3>中文</h3>
+        <p>分组结果最重要的点不是 Direct 全面胜出——它并没有。真正重要的是：Direct 胜出的地方正好符合端到端音频模型的理论优势，即娱乐/表演性语音中的情感判断。人声 <code>entertain</code> 上 D 比 B 高 25 个百分点；TTS <code>entertain</code> 上 D 比 B 高 12.5 个百分点。</p>
+      </div>
+    </div>
+    <h3>TTS sentiment by intent / TTS 分意图情感准确率</h3>
+    <table><thead><tr><th>Intent / 意图</th><th>N</th><th>B sentiment</th><th>C sentiment</th><th>D sentiment</th><th>D - B</th></tr></thead><tbody>
+<tr><td>describe</td><td>8</td><td>75.0%</td><td>75.0%</td><td>75.0%</td><td>+0.0 pp</td></tr>
+<tr><td>entertain</td><td>8</td><td>50.0%</td><td>50.0%</td><td>62.5%</td><td>+12.5 pp</td></tr>
+<tr><td>inform</td><td>19</td><td>89.5%</td><td>68.4%</td><td>78.9%</td><td>-10.5 pp</td></tr>
+<tr><td>persuade</td><td>9</td><td>100.0%</td><td>88.9%</td><td>66.7%</td><td>-33.3 pp</td></tr>
+<tr><td>question</td><td>6</td><td>50.0%</td><td>50.0%</td><td>66.7%</td><td>+16.7 pp</td></tr>
+</tbody></table>
+    <h3>Human sentiment by intent / 人声分意图情感准确率</h3>
+    <table><thead><tr><th>Intent / 意图</th><th>N</th><th>B sentiment</th><th>C sentiment</th><th>D sentiment</th><th>D - B</th></tr></thead><tbody>
+<tr><td>describe</td><td>15</td><td>80.0%</td><td>86.7%</td><td>73.3%</td><td>-6.7 pp</td></tr>
+<tr><td>entertain</td><td>8</td><td>25.0%</td><td>37.5%</td><td>50.0%</td><td>+25.0 pp</td></tr>
+<tr><td>inform</td><td>17</td><td>76.5%</td><td>82.4%</td><td>70.6%</td><td>-5.9 pp</td></tr>
+<tr><td>persuade</td><td>4</td><td>75.0%</td><td>75.0%</td><td>50.0%</td><td>-25.0 pp</td></tr>
+<tr><td>question</td><td>6</td><td>66.7%</td><td>50.0%</td><td>33.3%</td><td>-33.3 pp</td></tr>
+</tbody></table>
+    <figure><img src="figures/final_n50_human_sentiment_by_intent.png" alt="Figure 4. Human sentiment accuracy by intent / 人声按意图的情感准确率"><figcaption>Figure 4. Human sentiment accuracy by intent / 人声按意图的情感准确率</figcaption></figure>
+    <figure><img src="figures/final_n50_tts_sentiment_by_intent.png" alt="Figure 5. TTS sentiment accuracy by intent / TTS 按意图的情感准确率"><figcaption>Figure 5. TTS sentiment accuracy by intent / TTS 按意图的情感准确率</figcaption></figure>
+    <figure><img src="figures/final_n50_human_intent_heatmap.png" alt="Figure 6. Human Direct signal by intent and task / 人声 Direct 分意图热力图"><figcaption>Figure 6. Human Direct signal by intent and task / 人声 Direct 分意图热力图</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>6. TTS vs real human speech / TTS 与真实人声差异</h2>
+    <p>Both architectures degrade when moving from TTS to real human speech, but they degrade differently. Cascade loses most on intent, while Direct loses most on summarization. This means TTS is useful as a controlled benchmark, but it cannot replace real recordings with environmental noise, audience reaction, room acoustics, pauses, and natural delivery.</p>
+    <p>从 TTS 到真实人声，两类架构都会下降，但下降方式不同：级联路径主要在意图识别上下降，Direct 主要在摘要上下降。这说明 TTS 适合作为受控实验，但不能替代包含环境噪声、观众反应、房间声学、停顿和自然表达的人声数据。</p>
+    <figure><img src="figures/final_n50_cross_benchmark_drop.png" alt="Figure 7. Human minus TTS performance shift / 人声相对 TTS 的性能变化"><figcaption>Figure 7. Human minus TTS performance shift / 人声相对 TTS 的性能变化</figcaption></figure>
+  </section>
+
+  <section id="evidence">
+    <h2>7. Evidence strength and contradictions / 证据强度与表面矛盾</h2>
+    <table><thead><tr><th>Comparison / 对比</th><th>Mean difference / 均值差</th><th>Bootstrap 95% CI</th><th>Reading / 解读</th></tr></thead><tbody>
+<tr><td>TTS: B Cascade - C Qwen-ASR sentiment</td><td>+10.0 pp</td><td>[+2.0, +20.0] pp</td><td>direction stable in this sample / 本样本方向稳定</td></tr>
+<tr><td>TTS: B Cascade - D Direct intent</td><td>+18.0 pp</td><td>[+8.0, +30.0] pp</td><td>direction stable in this sample / 本样本方向稳定</td></tr>
+<tr><td>Human: B Cascade - D Direct summary</td><td>+0.077</td><td>[+0.045, +0.111]</td><td>direction stable in this sample / 本样本方向稳定</td></tr>
+<tr><td>Human: C Qwen-ASR - D Direct keywords</td><td>+0.066</td><td>[+0.004, +0.126]</td><td>direction stable in this sample / 本样本方向稳定</td></tr>
+<tr><td>Human: A Oracle - B Cascade sentiment</td><td>+6.0 pp</td><td>[+0.0, +14.0] pp</td><td>borderline; do not overstate / 边界结果，不宜夸大</td></tr>
+<tr><td>TTS: A Oracle - B Cascade sentiment</td><td>-6.0 pp</td><td>[-14.0, +0.0] pp</td><td>borderline; do not overstate / 边界结果，不宜夸大</td></tr>
+</tbody></table>
+    <div class="lang-grid">
+      <div class="lang-box">
+        <h3>English</h3>
+        <p>The apparent Oracle paradox is real in the table but should be interpreted carefully: on TTS, A sentiment is 6 pp below B, while on human speech, A is 6 pp above B. This suggests that clean TTS transcripts and noisy human transcripts behave differently; it does not prove that ASR errors are generally beneficial.</p>
+        <p>The biggest non-contradiction is Direct itself: D is weaker overall, yet locally stronger on entertainment sentiment. These two statements are compatible because the aggregate table averages over many content-driven samples where textual semantics dominate.</p>
+      </div>
+      <div class="lang-box">
+        <h3>中文</h3>
+        <p>所谓 Oracle paradox 在表格中确实存在，但需要谨慎解释：TTS 中 A 的情感比 B 低 6 个百分点，而人声中 A 比 B 高 6 个百分点。这说明干净 TTS 文本与带噪真实人声转写的作用不同，但不能推出“ASR 错误普遍有益”。</p>
+        <p>另一个容易误读的地方是 Direct：D 总体较弱，但在娱乐类情感上局部更强。这两句话并不冲突，因为总体均值包含大量内容驱动样本，而这些样本更依赖文本语义。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>8. Limitations / 局限性</h2>
+    <ul>
+      <li><strong>Model scope / 模型范围：</strong> only Whisper large-v3, Qwen2-Audio-7B, and DeepSeek-chat are tested.</li>
+      <li><strong>Annotation scope / 标注范围：</strong> human annotations are used as ground truth, but formal inter-annotator agreement is not measured.</li>
+      <li><strong>Subgroup size / 子组样本量：</strong> human <code>entertain</code> has 8 samples and human <code>persuade</code> has 4 samples, so per-intent findings need further expansion.</li>
+      <li><strong>Metric scope / 指标范围：</strong> summary is evaluated by ROUGE-L, which cannot fully capture factuality, coherence, or human preference.</li>
+      <li><strong>Environment / 运行环境：</strong> latency or runtime differences should not be interpreted as architecture speed differences because runs came from different hardware/software conditions.</li>
+    </ul>
+  </section>
+
+  <section id="conclusion">
+    <h2>9. Conclusion / 结论</h2>
+    <div class="lang-grid">
+      <div class="lang-box">
+        <h3>English</h3>
+        <p>For the current four tasks, cascade is the stronger general architecture. Whisper Cascade is especially strong on TTS sentiment and intent, and it remains competitive on real-human speech. Qwen2-Audio transcription followed by DeepSeek is close on several content tasks but weaker on human intent.</p>
+        <p>Direct understanding is not broadly superior, but it preserves information that transcripts can lose. Its clearest advantage appears in entertainment-style sentiment, where vocal delivery changes the meaning of the words. The correct interpretation is therefore architectural complementarity: cascade is stronger for content semantics; direct audio understanding is valuable when paralinguistic cues are central to the label.</p>
+      </div>
+      <div class="lang-box">
+        <h3>中文</h3>
+        <p>在当前四项任务下，级联路径是更强的通用架构。Whisper Cascade 在 TTS 的情感和意图上尤其强，在真实人声中也保持竞争力。Qwen2-Audio 转写后接 DeepSeek 在若干内容任务上接近，但在人声意图上较弱。</p>
+        <p>Direct 并不是整体更优，但它能保留转写文本可能丢失的信息。它最清楚的优势出现在娱乐/表演性语音的情感判断中，因为说话方式会改变文字本身的含义。因此，最合理的研究结论是架构互补：内容语义优先看级联；当语气、讽刺、节奏、现场反应等副语言线索决定标签时，端到端音频理解有独立价值。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="meta">Generated from <code>data/results/human_speech_final_n50/summary.json</code> and <code>data/results/tts_speech_final_n50/summary.json</code>. Figures are stored in <code>report/figures/</code>.</p>
+  </footer>
+</main>
+</body>
+</html>

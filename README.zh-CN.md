@@ -124,7 +124,7 @@ Cascade 在四项指标上的均值都更高，但 N=8 下所有配对 bootstrap
 工作流、配对结果、API 用量和局限性见：
 
 - [`experiments/HUMAN_SPEECH_V1.md`](experiments/HUMAN_SPEECH_V1.md)
-- [`report/human_speech_v1_report.zh-CN.md`](report/human_speech_v1_report.zh-CN.md)
+- [`report/report.zh-CN.md`](report/report.zh-CN.md)
 
 B/C/D 消融发现，Qwen 转写的规范化 WER 高于 Whisper（0.0696 对
 0.0338），但两条“转写 → DeepSeek”路径的情感和意图准确率完全相同。
@@ -201,13 +201,13 @@ cd app && python gradio_app.py
 
 完整局限性与未来工作见[中文研究报告](report/report.zh-CN.md#63-局限性)。
 
-真实人声配对结果另见[中文专项报告](report/human_speech_v1_report.zh-CN.md)。
+真实人声配对结果已合并进[中文主报告](report/report.zh-CN.md)。
 
 ---
 
 ## 作者
 
-**Jiayi Li · Liu Luofei（刘洛菲）· Zhang Yuchen（张予辰）**
+**Jiayi Li（李佳宜）· Liu Luofei（刘洛菲）· Zhang Yuchen（张予辰）**
 2026 年本科暑期研究
 
 项目使用 Python 3.14、faster-whisper、DeepSeek API、Qwen2-Audio-7B、PyTorch、Gradio 和 Matplotlib 构建。
