@@ -1,107 +1,912 @@
 [
   {
-    "audio_path": "data\\processed\\tts_samples\\science_brain.wav",
-    "transcript": "The human brain contains approximately eighty-six billion neurons, each connected to thousands of others, forming a network of unimaginable complexity. Despite decades of research, we are only beginning to understand how this three-pound organ generates consciousness, memory, and emotion.",
-    "speaker": "en-US-ChristopherNeural",
-    "duration": 18.144,
-    "topic": "science_brain"
-  },
-  {
-    "audio_path": "data\\processed\\tts_samples\\science_climate.wav",
-    "transcript": "Climate change is the defining challenge of our generation. Global temperatures have risen by approximately one point two degrees Celsius since pre-industrial times, and we are already seeing the effects: more frequent extreme weather events, rising sea levels, and disrupted ecosystems. The scientific consensus is clear \u2014 we must act now.",
-    "speaker": "en-GB-RyanNeural",
-    "duration": 21.672,
-    "topic": "science_climate"
-  },
-  {
-    "audio_path": "data\\processed\\tts_samples\\science_crispr.wav",
-    "transcript": "CRISPR gene editing technology gives scientists the ability to modify DNA with unprecedented precision. This breakthrough has enormous potential for treating genetic diseases, developing drought-resistant crops, and even fighting cancer. But it also raises profound ethical questions about designer babies and genetic inequality.",
-    "speaker": "en-GB-LibbyNeural",
-    "duration": 23.208,
-    "topic": "science_crispr"
-  },
-  {
-    "audio_path": "data\\processed\\tts_samples\\science_space.wav",
-    "transcript": "Space exploration has entered a new golden age. Private companies are developing reusable rockets that dramatically reduce the cost of reaching orbit, while NASA plans to return humans to the moon and eventually send them to Mars. The James Webb Space Telescope is already revealing secrets of the early universe.",
-    "speaker": "en-US-EricNeural",
-    "duration": 19.968,
-    "topic": "science_space"
-  },
-  {
-    "audio_path": "data\\processed\\tts_samples\\tech_ai_healthcare.wav",
-    "transcript": "AI is transforming healthcare through faster diagnosis and personalized treatment plans. Machine learning models can now detect diseases from medical images with accuracy rivaling human doctors, potentially saving millions of lives each year. However, we must ensure these systems are trained on diverse data to avoid bias.",
-    "speaker": "en-US-AriaNeural",
-    "duration": 21.72,
-    "topic": "tech_ai_healthcare"
-  },
-  {
-    "audio_path": "data\\processed\\tts_samples\\tech_blockchain.wav",
-    "transcript": "Blockchain technology extends far beyond cryptocurrency. Its ability to create tamper-proof, decentralized records has applications in supply chain management, digital identity verification, and even voting systems. The key innovation is trust without a central authority.",
-    "speaker": "en-US-JennyNeural",
-    "duration": 18.432,
-    "topic": "tech_blockchain"
-  },
-  {
-    "audio_path": "data\\processed\\tts_samples\\tech_education.wav",
-    "transcript": "The future of education lies in personalized learning powered by artificial intelligence. Every student learns differently \u2014 some are visual learners, others prefer reading, and some learn best through hands-on practice. AI tutors can adapt to each students unique learning style in real time.",
-    "speaker": "en-GB-SoniaNeural",
-    "duration": 18.288,
-    "topic": "tech_education"
-  },
-  {
-    "audio_path": "data\\processed\\tts_samples\\tech_quantum.wav",
-    "transcript": "Quantum computing represents a fundamental shift in how we process information. Unlike classical bits that are either zero or one, quantum bits can exist in multiple states simultaneously. This property, called superposition, allows quantum computers to solve certain problems exponentially faster than any classical computer ever could.",
-    "speaker": "en-US-GuyNeural",
-    "duration": 21.048,
-    "topic": "tech_quantum"
-  },
-  {
-    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\memory_formation.wav",
-    "transcript": "Memories are not stored like files in a computer. Each time we recall a memory, we reconstruct it from scattered neural traces, and in the process, the memory itself can be subtly altered. This phenomenon, known as reconsolidation, explains why eyewitness testimony can be unreliable and why traumatic memories can either fade or intensify over time.",
-    "speaker": "en-US-AriaNeural",
-    "duration": 23.712,
-    "topic": "memory_formation"
-  },
-  {
-    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\urban_biodiversity.wav",
-    "transcript": "Cities are not biological deserts. Urban environments can support surprising biodiversity when designed intentionally. Green roofs, pocket parks, and wildlife corridors transform concrete landscapes into habitats for birds, insects, and native plants. The challenge is integrating ecological thinking into the earliest stages of urban planning.",
-    "speaker": "en-US-GuyNeural",
-    "duration": 22.128,
-    "topic": "urban_biodiversity"
-  },
-  {
-    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\nuclear_fusion.wav",
-    "transcript": "Nuclear fusion promises virtually unlimited clean energy by replicating the process that powers the sun. Recent breakthroughs have achieved net energy gain for the first time, meaning more energy was produced than was used to initiate the reaction. However, the engineering challenge of building commercially viable fusion power plants remains enormous.",
-    "speaker": "en-US-JennyNeural",
-    "duration": 21.576,
-    "topic": "nuclear_fusion"
-  },
-  {
-    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\microbiome.wav",
-    "transcript": "The human gut contains trillions of microorganisms that influence not just digestion, but also immune function, mental health, and even personality traits. Recent research has identified specific bacterial strains linked to reduced anxiety and improved cognitive performance, opening new avenues for treating mental health conditions through dietary interventions.",
-    "speaker": "en-US-ChristopherNeural",
-    "duration": 22.08,
-    "topic": "microbiome"
-  },
-  {
     "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\deep_sea.wav",
     "transcript": "More than eighty percent of the ocean floor remains unexplored and unmapped. The deep sea is Earth's largest habitat, hosting creatures adapted to extreme pressure, complete darkness, and near-freezing temperatures. Every deep-sea expedition discovers new species, reminding us that we know more about the surface of Mars than about our own planet's deepest waters.",
     "speaker": "en-US-EricNeural",
     "duration": 23.208,
-    "topic": "deep_sea"
+    "topic": "deep_sea",
+    "summary": "Over eighty percent of the ocean floor is unexplored, making the deep sea Earth's largest habitat and a source of constant biological discovery.",
+    "sentiment": "neutral",
+    "keywords": [
+      "deep sea",
+      "ocean exploration",
+      "marine biology",
+      "undiscovered species",
+      "extreme environments",
+      "ocean floor",
+      "biodiversity"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\describe_aurora.wav",
+    "transcript": "The Northern Lights appear without warning. One moment the Arctic sky is black and silent. The next, a ribbon of green unfurls across the horizon like a curtain being drawn by invisible hands. It pulses, it breathes, it shifts from emerald to violet. The cold is forgotten. The world shrinks to just you and this impossibly beautiful phenomenon that humans have been staring at in wonder for thousands of years.",
+    "speaker": "en-GB-SoniaNeural",
+    "duration": 26.352,
+    "topic": "describe_aurora",
+    "intent": "describe",
+    "sentiment_hint": "positive",
+    "summary": "The Northern Lights appear as ribbons of green unfurling across the Arctic sky, pulsing and shifting from emerald to violet, a phenomenon that has captivated humans for thousands of years.",
+    "sentiment": "positive",
+    "keywords": [
+      "Northern Lights",
+      "aurora",
+      "Arctic",
+      "green ribbon",
+      "emerald",
+      "violet",
+      "sky"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\describe_bakery.wav",
+    "transcript": "The smell of a bakery at five in the morning is the most comforting thing in the world. Warm yeast, caramelizing sugar, toasted nuts, and fresh butter create an invisible cloud that wraps around you the moment you walk in. The baker, dusted in flour, pulls a tray of croissants from the oven ！ they're golden, flaky, exhaling steam. You buy one and it's still too hot to eat, but you don't care.",
+    "speaker": "en-GB-MaisieNeural",
+    "duration": 27.528,
+    "topic": "describe_bakery",
+    "intent": "describe",
+    "sentiment_hint": "positive",
+    "summary": "A bakery at five in the morning smells of warm yeast and caramelizing sugar, where a flour-dusted baker pulls golden croissants from the oven that are too hot to eat but impossible to resist.",
+    "sentiment": "positive",
+    "keywords": [
+      "bakery",
+      "croissants",
+      "yeast",
+      "baker",
+      "morning",
+      "fresh bread",
+      "aroma"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\describe_bamboo.wav",
+    "transcript": "Walking through a dense bamboo forest in Kyoto is like entering another dimension. The stalks rise thirty, forty feet on either side, filtering sunlight into pale green stripes. The only sound is the hollow knock of bamboo swaying against bamboo ！ a wooden wind chime played by nature. The path ahead curves and disappears. You walk slowly, because rushing would somehow be disrespectful to the centuries of stillness here.",
+    "speaker": "en-US-EricNeural",
+    "duration": 28.632,
+    "topic": "describe_bamboo",
+    "intent": "describe",
+    "sentiment_hint": "neutral",
+    "summary": "Walking through a dense bamboo forest in Kyoto feels like entering another dimension, with forty-foot stalks filtering sunlight into pale green stripes accompanied by the hollow knocking sound of bamboo swaying.",
+    "sentiment": "neutral",
+    "keywords": [
+      "bamboo forest",
+      "Kyoto",
+      "sunlight",
+      "stillness",
+      "nature",
+      "Japan",
+      "zen"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\describe_grandcanyon.wav",
+    "transcript": "Picture the Grand Canyon at sunrise. The first light hits the top of the rim, turning the red rock to molten gold. Layer after layer of geological history ！ two billion years of Earth's memory ！ stacked in bands of crimson, ochre, and pale limestone. A river, impossibly small from this height, snakes through the bottom, still carving, still patient. The air is cool and thin. A hawk circles below you, not above.",
+    "speaker": "en-US-ChristopherNeural",
+    "duration": 30.696,
+    "topic": "describe_grandcanyon",
+    "intent": "describe",
+    "sentiment_hint": "neutral",
+    "summary": "At sunrise, the Grand Canyon's red rock turns molten gold, revealing two billion years of geological layers while a hawk circles below and the Colorado River continues carving through time.",
+    "sentiment": "neutral",
+    "keywords": [
+      "Grand Canyon",
+      "sunrise",
+      "geological layers",
+      "Colorado River",
+      "hawk",
+      "limestone"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\describe_mango.wav",
+    "transcript": "The taste of a perfectly ripe mango is unlike anything else in nature. You bite through the golden flesh and it's simultaneously sweet and tart, with a floral fragrance that fills your entire head. The texture is silky, almost custard-like. Juice runs down your chin and you don't care. It tastes like sunshine condensed into fruit form. You close your eyes involuntarily. That's how good it is.",
+    "speaker": "en-US-AriaNeural",
+    "duration": 27.264,
+    "topic": "describe_mango",
+    "intent": "describe",
+    "sentiment_hint": "positive",
+    "summary": "A perfectly ripe mango delivers a silky, custard-like texture with a sweet-tart floral flavor so intense it makes you close your eyes involuntarily, like sunshine condensed into fruit form.",
+    "sentiment": "positive",
+    "keywords": [
+      "mango",
+      "ripe fruit",
+      "sweet",
+      "tart",
+      "floral",
+      "juicy",
+      "tropical"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\describe_olivetree.wav",
+    "transcript": "An ancient olive tree stands alone on a hill in Tuscany. Its trunk is so gnarled and twisted it looks more like stone than wood ！ each groove telling a story of drought survived, of centuries endured. The leaves are silver-green, shimmering when a breeze passes. Underneath, the shade is dappled and cool. This tree was here before cars, before electricity, before the country it stands in even had a name.",
+    "speaker": "en-US-AriaNeural",
+    "duration": 26.832,
+    "topic": "describe_olivetree",
+    "intent": "describe",
+    "sentiment_hint": "positive",
+    "summary": "An ancient olive tree in Tuscany has a trunk so gnarled it resembles stone, with silver-green leaves shimmering in the breeze, having stood on that hill since before the country had a name.",
+    "sentiment": "positive",
+    "keywords": [
+      "olive tree",
+      "Tuscany",
+      "ancient",
+      "trunk",
+      "silver-green",
+      "centuries",
+      "Italy"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\describe_thunderstorm.wav",
+    "transcript": "A thunderstorm approaches from the west. First the air changes ！ it gets heavy, charged, smelling of ozone and wet earth. The wind picks up, whipping leaves into spirals. Then the sky darkens, not gradually but like a dimmer switch being turned down fast. The first fat raindrops hit the pavement with audible splats. A flash of lightning illuminates the clouds from within, and seven seconds later, the thunder rolls through your chest.",
+    "speaker": "en-US-ChristopherNeural",
+    "duration": 30.12,
+    "topic": "describe_thunderstorm",
+    "intent": "describe",
+    "sentiment_hint": "neutral",
+    "summary": "A thunderstorm approaches with heavy ozone-scented air and darkening sky, followed by fat raindrops, lightning illuminating clouds from within, and thunder rolling through the chest seven seconds later.",
+    "sentiment": "neutral",
+    "keywords": [
+      "thunderstorm",
+      "lightning",
+      "thunder",
+      "rain",
+      "ozone",
+      "storm",
+      "atmosphere"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\describe_travel.wav",
+    "transcript": "The moment you step off a plane in a foreign country, there's a sensory overload that's both exhilarating and disorienting. The air smells different ！ maybe of spices you can't name, or tropical flowers, or diesel and street food. The announcements are in a language you barely understand. The money looks like colorful monopoly bills. Everything is unfamiliar, which means everything is an adventure waiting to happen.",
+    "speaker": "en-US-AriaNeural",
+    "duration": 27.096,
+    "topic": "describe_travel",
+    "intent": "describe",
+    "sentiment_hint": "neutral",
+    "summary": "Stepping off a plane in a foreign country triggers a sensory explosion of unfamiliar smells, incomprehensible language, strange currency, and the exhilarating realization that everything is an adventure.",
+    "sentiment": "positive",
+    "keywords": [
+      "travel",
+      "foreign country",
+      "sensory overload",
+      "adventure",
+      "culture shock",
+      "exploration"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\entertain_adulthood.wav",
+    "transcript": "I've discovered that adulthood is mostly just Googling things you feel like you should already know. How long to boil an egg. What's the difference between a deduction and a credit. Is it normal for a plant to turn yellow. Nobody actually knows anything. We're all just pretending and hoping nobody notices. The secret is out.",
+    "speaker": "en-US-AriaNeural",
+    "duration": 23.064,
+    "topic": "entertain_adulthood",
+    "intent": "entertain",
+    "sentiment_hint": "negative",
+    "summary": "Adulthood is revealed to be mostly Googling basic life skills while pretending to have everything figured out, exposing the collective secret that nobody actually knows what they're doing.",
+    "sentiment": "neutral",
+    "keywords": [
+      "adulthood",
+      "Googling",
+      "pretending",
+      "life skills",
+      "imposter syndrome",
+      "humor"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\entertain_autocorrect.wav",
+    "transcript": "The autocorrect on my phone has developed a personality, and it's not a helpful one. I tried to text my boss 'I'll be there soon' and it sent 'I'll be there spoon.' I tried to tell my mother I was feeling grateful and it changed it to 'feeling regretful.' My phone is either trying to ruin my life or it knows something about my subconscious that I don't.",
+    "speaker": "en-US-AriaNeural",
+    "duration": 21.384,
+    "topic": "entertain_autocorrect",
+    "intent": "entertain",
+    "sentiment_hint": "negative",
+    "summary": "The speaker's phone autocorrect has developed an unhelpful personality, changing innocent messages into embarrassing ones and potentially revealing subconscious truths.",
+    "sentiment": "negative",
+    "keywords": [
+      "autocorrect",
+      "phone",
+      "texting",
+      "typos",
+      "embarrassment",
+      "technology"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\entertain_cats.wav",
+    "transcript": "Cats are just tiny, judgmental roommates who don't pay rent. Mine stares at me while I eat as if I've personally offended her ancestors. She knocks things off tables not because she's curious, but because she wants to remind me that gravity still works and she's in charge. Yesterday she sat in a cardboard box for four hours, ignoring a sixty-dollar cat bed. I respect her commitment to chaos.",
+    "speaker": "en-US-JennyNeural",
+    "duration": 25.632,
+    "topic": "entertain_cats",
+    "intent": "entertain",
+    "sentiment_hint": "neutral",
+    "summary": "Cats are described as tiny judgmental roommates who knock things off tables and ignore expensive beds in favor of cardboard boxes.",
+    "sentiment": "neutral",
+    "keywords": [
+      "cats",
+      "pets",
+      "judgmental",
+      "cardboard box",
+      "cat bed",
+      "humor"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\entertain_fitness.wav",
+    "transcript": "My fitness tracker has become passive-aggressive. It buzzes at ten in the morning: 'You have 250 steps. Great start!' It's not a great start. It's a judgment. At eleven it suggests I breathe mindfully. By two PM it's just showing me a sad face emoji. I did not ask for a wrist-mounted guilt machine, yet here we are.",
+    "speaker": "en-GB-MaisieNeural",
+    "duration": 26.856,
+    "topic": "entertain_fitness",
+    "intent": "entertain",
+    "sentiment_hint": "negative",
+    "summary": "The speaker's fitness tracker has become passive-aggressive, progressing from sarcastic encouragement to a sad face emoji by afternoon.",
+    "sentiment": "negative",
+    "keywords": [
+      "fitness tracker",
+      "passive-aggressive",
+      "steps",
+      "guilt",
+      "technology",
+      "wearable"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\entertain_flambe.wav",
+    "transcript": "Let me tell you about the time I tried to impress a date by cooking a fancy French dinner. I had watched exactly one YouTube video and felt confident. The recipe called for flamb└, which I now know means 'set on fire.' The kitchen did not burn down, but the smoke alarm went off, the cat hid under the sofa for three hours, and my date suggested we order pizza. We've been married for eight years now. She still doesn't let me flamb└.",
+    "speaker": "en-GB-ThomasNeural",
+    "duration": 28.2,
+    "topic": "entertain_flambe",
+    "intent": "entertain",
+    "sentiment_hint": "positive",
+    "summary": "The speaker's attempt to impress a date with flambe cooking triggered the smoke alarm and hid the cat, but they ended up married despite the kitchen disaster.",
+    "sentiment": "positive",
+    "keywords": [
+      "flambe",
+      "cooking disaster",
+      "date",
+      "smoke alarm",
+      "cat",
+      "marriage"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\entertain_grandma.wav",
+    "transcript": "My grandmother once told me she met my grandfather because he accidentally threw a sandwich at her head in a crowded cafeteria. He was trying to toss it to his friend across the room, and his aim was apparently terrible. She turned around, furious, holding a tuna sandwich. He was so embarrassed he offered to buy her dinner. Sixty-two years of marriage started with airborne seafood.",
+    "speaker": "en-US-AriaNeural",
+    "duration": 24.984,
+    "topic": "entertain_grandma",
+    "intent": "entertain",
+    "sentiment_hint": "positive",
+    "summary": "A grandmother met her husband when he accidentally threw a tuna sandwich at her head in a cafeteria, leading to sixty-two years of marriage.",
+    "sentiment": "positive",
+    "keywords": [
+      "grandmother",
+      "love story",
+      "sandwich",
+      "cafeteria",
+      "marriage",
+      "serendipity"
+    ]
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\entertain_ikea.wav",
+    "topic": "entertain_ikea",
+    "transcript": "",
+    "summary": "The speaker humorously describes a disastrous attempt to assemble IKEA furniture, ending up with extra screws and backward doors while the cartoon instructions remained cheerfully unhelpful.",
+    "sentiment": "neutral",
+    "keywords": [
+      "IKEA",
+      "furniture assembly",
+      "instructions",
+      "cartoon",
+      "DIY failure",
+      "humor"
+    ],
+    "intent": "entertain"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\entertain_parking.wav",
+    "transcript": "Parallel parking is the ultimate test of human character. You either emerge a hero, sliding perfectly into the spot in one smooth motion while imaginary spectators applaud, or you spend five minutes doing a seventeen-point turn while pedestrians judge you silently. There is no middle ground. Every successful parallel park deserves a certificate of achievement.",
+    "speaker": "en-US-GuyNeural",
+    "duration": 22.416,
+    "topic": "entertain_parking",
+    "intent": "entertain",
+    "sentiment_hint": "negative",
+    "summary": "Parallel parking is described as the ultimate test of human character where one either emerges a hero in one smooth motion or performs a humiliating seventeen-point turn.",
+    "sentiment": "negative",
+    "keywords": [
+      "parallel parking",
+      "driving",
+      "humiliation",
+      "pedestrians",
+      "achievement",
+      "humor"
+    ]
   },
   {
     "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\language_acquisition.wav",
     "transcript": "Children acquire language not through explicit instruction but through immersion and social interaction. By age three, the average child has a vocabulary of about one thousand words, and by age six, approximately ten thousand. This remarkable feat of implicit learning reveals the brain's specialized capacity for pattern recognition during critical developmental windows.",
     "speaker": "en-GB-SoniaNeural",
     "duration": 22.824,
-    "topic": "language_acquisition"
+    "topic": "language_acquisition",
+    "summary": "Children learn language through immersion rather than explicit instruction, demonstrating the brain's specialized pattern recognition capacity during critical developmental periods.",
+    "sentiment": "neutral",
+    "keywords": [
+      "language acquisition",
+      "child development",
+      "implicit learning",
+      "vocabulary growth",
+      "critical period",
+      "pattern recognition",
+      "social interaction"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\memory_formation.wav",
+    "transcript": "Memories are not stored like files in a computer. Each time we recall a memory, we reconstruct it from scattered neural traces, and in the process, the memory itself can be subtly altered. This phenomenon, known as reconsolidation, explains why eyewitness testimony can be unreliable and why traumatic memories can either fade or intensify over time.",
+    "speaker": "en-US-AriaNeural",
+    "duration": 23.712,
+    "topic": "memory_formation",
+    "summary": "Memories are reconstructed during recall through a process called reconsolidation, which can alter them over time and explains the unreliability of eyewitness testimony.",
+    "sentiment": "neutral",
+    "keywords": [
+      "memory",
+      "reconsolidation",
+      "neural traces",
+      "eyewitness testimony",
+      "traumatic memories",
+      "neuroscience",
+      "recall"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\microbiome.wav",
+    "transcript": "The human gut contains trillions of microorganisms that influence not just digestion, but also immune function, mental health, and even personality traits. Recent research has identified specific bacterial strains linked to reduced anxiety and improved cognitive performance, opening new avenues for treating mental health conditions through dietary interventions.",
+    "speaker": "en-US-ChristopherNeural",
+    "duration": 22.08,
+    "topic": "microbiome",
+    "summary": "Gut microorganisms influence immune function, mental health, and personality, with specific bacterial strains linked to reduced anxiety and improved cognition.",
+    "sentiment": "neutral",
+    "keywords": [
+      "gut microbiome",
+      "microorganisms",
+      "mental health",
+      "immune function",
+      "dietary intervention",
+      "bacterial strains",
+      "cognitive performance"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\nuclear_fusion.wav",
+    "transcript": "Nuclear fusion promises virtually unlimited clean energy by replicating the process that powers the sun. Recent breakthroughs have achieved net energy gain for the first time, meaning more energy was produced than was used to initiate the reaction. However, the engineering challenge of building commercially viable fusion power plants remains enormous.",
+    "speaker": "en-US-JennyNeural",
+    "duration": 21.576,
+    "topic": "nuclear_fusion",
+    "summary": "Nuclear fusion has achieved a historic net energy gain milestone, but significant engineering challenges remain before commercial fusion power becomes viable.",
+    "sentiment": "positive",
+    "keywords": [
+      "nuclear fusion",
+      "clean energy",
+      "net energy gain",
+      "engineering challenge",
+      "fusion power",
+      "plasma physics",
+      "energy breakthrough"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\ocean_currents.wav",
+    "topic": "ocean_currents",
+    "transcript": "Ocean currents act as a global conveyor belt, transporting warm water from the equator toward the poles and cold water back. This circulation system, known as thermohaline circulation, plays a critical role in regulating Earth's climate by redistributing heat around the planet.",
+    "summary": "Ocean currents function as a global conveyor belt, redistributing heat through thermohaline circulation and playing a vital role in regulating the Earth's climate.",
+    "sentiment": "neutral",
+    "keywords": [
+      "ocean currents",
+      "thermohaline circulation",
+      "climate regulation",
+      "heat distribution",
+      "global conveyor belt",
+      "oceanography"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\persuade_cooking.wav",
+    "topic": "persuade_cooking",
+    "transcript": "",
+    "summary": "Everyone should learn to cook at least five simple meals because cooking controls health, budget, and independence, unlike processed food which is addictive and nutritionally empty.",
+    "sentiment": "positive",
+    "keywords": [
+      "cooking",
+      "processed food",
+      "health",
+      "independence",
+      "life skills",
+      "nutrition"
+    ],
+    "intent": "persuade"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\persuade_fiction.wav",
+    "topic": "persuade_fiction",
+    "transcript": "",
+    "summary": "Reading literary fiction improves empathy and theory of mind, functioning as empathy training through understanding diverse characters.",
+    "sentiment": "positive",
+    "keywords": [
+      "fiction",
+      "reading",
+      "empathy",
+      "theory of mind",
+      "literary fiction",
+      "novels"
+    ],
+    "intent": "persuade"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\persuade_language.wav",
+    "topic": "persuade_language",
+    "transcript": "",
+    "summary": "Learning a second language provides significant cognitive benefits including delayed dementia and improved executive function, and even fifteen minutes a day makes a difference.",
+    "sentiment": "positive",
+    "keywords": [
+      "language learning",
+      "bilingualism",
+      "dementia",
+      "cognitive benefits",
+      "neuroscience",
+      "executive function"
+    ],
+    "intent": "persuade"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\persuade_libraries.wav",
+    "topic": "persuade_libraries",
+    "transcript": "",
+    "summary": "Public libraries provide free access to knowledge and community spaces but are chronically underfunded, and citizens should support local library funding.",
+    "sentiment": "positive",
+    "keywords": [
+      "public libraries",
+      "funding",
+      "knowledge",
+      "community",
+      "democratic spaces",
+      "free access"
+    ],
+    "intent": "persuade"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\persuade_overmedicalize.wav",
+    "topic": "persuade_overmedicalize",
+    "transcript": "",
+    "summary": "Normal human emotions like sadness and worry are being over-medicalized into depression and anxiety, partly driven by pharmaceutical industry profits.",
+    "sentiment": "negative",
+    "keywords": [
+      "over-medicalization",
+      "emotions",
+      "pharmaceutical industry",
+      "depression",
+      "anxiety",
+      "diagnosis"
+    ],
+    "intent": "persuade"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\persuade_plastic.wav",
+    "topic": "persuade_plastic",
+    "transcript": "",
+    "summary": "Plastic bottles take 450 years to decompose and microplastics are entering human bloodstreams, so people should switch to reusable bottles immediately.",
+    "sentiment": "negative",
+    "keywords": [
+      "plastic pollution",
+      "microplastics",
+      "reusable bottle",
+      "decomposition",
+      "environment",
+      "convenience"
+    ],
+    "intent": "persuade"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\persuade_sleep.wav",
+    "topic": "persuade_sleep",
+    "transcript": "",
+    "summary": "Sleep deprivation impairs judgment as much as being drunk, and prioritizing eight hours of sleep is essential for memory, immunity, and overall health.",
+    "sentiment": "positive",
+    "keywords": [
+      "sleep",
+      "sleep deprivation",
+      "memory consolidation",
+      "immune system",
+      "judgment",
+      "health"
+    ],
+    "intent": "persuade"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\persuade_socialmedia.wav",
+    "topic": "persuade_socialmedia",
+    "transcript": "",
+    "summary": "Social media is engineered to be addictive, destroying attention spans, and people should delete unhelpful apps to reclaim their focus.",
+    "sentiment": "negative",
+    "keywords": [
+      "social media",
+      "attention span",
+      "addiction",
+      "notifications",
+      "focus",
+      "dopamine"
+    ],
+    "intent": "persuade"
   },
   {
     "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\plastic_pollution.wav",
     "transcript": "Microplastics have been found everywhere scientists have looked: in the deepest ocean trenches, in Arctic ice, in human blood, and even in placental tissue. These tiny particles carry toxic chemicals and can disrupt hormonal systems. The scale of the problem is staggering -- approximately eight million tons of plastic enter the oceans each year, breaking down into ever smaller particles that persist for centuries.",
     "speaker": "en-GB-RyanNeural",
     "duration": 24.96,
-    "topic": "plastic_pollution"
+    "topic": "plastic_pollution",
+    "summary": "Microplastics contaminate every environment on Earth including human bodies, carrying toxins that disrupt hormones, with eight million tons of plastic entering oceans annually.",
+    "sentiment": "negative",
+    "keywords": [
+      "microplastics",
+      "ocean pollution",
+      "toxic chemicals",
+      "hormonal disruption",
+      "plastic waste",
+      "environmental contamination",
+      "human health"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\question_dreams.wav",
+    "transcript": "Why do we dream? Every night, your brain constructs entire worlds, populates them with people you've never met, and tells you stories that make no logical sense ！ and you accept them completely until you wake up. Is dreaming just the brain's way of filing memories? Is it problem-solving? Is it a glimpse into our subconscious fears and desires? After thousands of years of wondering, we still don't have a definitive answer.",
+    "speaker": "en-GB-RyanNeural",
+    "duration": 27.12,
+    "topic": "question_dreams",
+    "intent": "question",
+    "sentiment_hint": "positive",
+    "summary": "Why do humans dream every night, constructing elaborate worlds that feel completely real? Despite millennia of inquiry, science still lacks a definitive explanation for dreaming.",
+    "sentiment": "neutral",
+    "keywords": [
+      "dreams",
+      "subconscious",
+      "sleep",
+      "memory",
+      "brain",
+      "neuroscience",
+      "mystery"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\question_goodlife.wav",
+    "transcript": "What does it actually mean to live a good life? Is it about achievement ！ the promotions, the awards, the things you can list on a resume? Or is it about the moments that nobody sees? The laughter with old friends, the quiet Sunday mornings, the feeling of sunlight on your face. We spend decades chasing external markers of success. But when people look back on their lives, they rarely wish they had worked more.",
+    "speaker": "en-US-GuyNeural",
+    "duration": 26.544,
+    "topic": "question_goodlife",
+    "intent": "question",
+    "sentiment_hint": "positive",
+    "summary": "What constitutes a good life ！ is it professional achievements or quiet private moments? People rarely wish they had worked more when reflecting on their lives.",
+    "sentiment": "neutral",
+    "keywords": [
+      "good life",
+      "achievement",
+      "happiness",
+      "work-life balance",
+      "meaning",
+      "reflection"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\question_lastwords.wav",
+    "transcript": "What would happen if we treated every conversation as if it might be our last? Not in a morbid way, but in a way that made us actually listen, actually pay attention, actually say the things we've been putting off. How many 'I love you's go unspoken? How many apologies never get delivered? We all know life is short, but we live as if we have infinite tomorrows. What if we didn't?",
+    "speaker": "en-GB-ThomasNeural",
+    "duration": 25.032,
+    "topic": "question_lastwords",
+    "intent": "question",
+    "sentiment_hint": "negative",
+    "summary": "What would happen if we treated every conversation as potentially our last, finally saying the things we've been postponing and delivering apologies and expressions of love?",
+    "sentiment": "negative",
+    "keywords": [
+      "last words",
+      "mortality",
+      "conversation",
+      "apology",
+      "love",
+      "regret",
+      "urgency"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\question_message.wav",
+    "transcript": "If you could send a one-sentence message to every single person on Earth, what would you say? You have seven billion listeners for exactly one moment. Do you inspire them? Warn them? Make them laugh? The terrifying thing is that most of us can't even decide what to say to our own families at dinner, let alone to the entire human species. Maybe the question itself tells us something about the limits of universal truth.",
+    "speaker": "en-US-MichelleNeural",
+    "duration": 26.784,
+    "topic": "question_message",
+    "intent": "question",
+    "sentiment_hint": "neutral",
+    "summary": "If you could send one sentence to every person on Earth, what would you say? The difficulty of answering reveals something about the limits of universal truth.",
+    "sentiment": "neutral",
+    "keywords": [
+      "message",
+      "humanity",
+      "universal truth",
+      "communication",
+      "philosophy",
+      "thought experiment"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\question_personality.wav",
+    "transcript": "How much of your personality is actually you, and how much is just the people you happened to grow up around? If you had been born in a different country, to different parents, speaking a different language ！ would you still be you? Your taste in music, your political beliefs, your sense of humor ！ how much of it is freely chosen versus absorbed from your environment? The unsettling answer might be: less than you think.",
+    "speaker": "en-US-AnaNeural",
+    "duration": 28.944,
+    "topic": "question_personality",
+    "intent": "question",
+    "sentiment_hint": "positive",
+    "summary": "How much of one's personality is truly self-determined versus absorbed from environment ！ would you still be you if born in a different country to different parents?",
+    "sentiment": "neutral",
+    "keywords": [
+      "personality",
+      "identity",
+      "nature vs nurture",
+      "culture",
+      "upbringing",
+      "free will"
+    ]
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\question_technology.wav",
+    "transcript": "Is technology bringing us closer together or pushing us further apart? We can video call someone on the other side of the planet instantly, yet we've never been lonelier as a species. We have more ways to communicate than ever before, yet the quality of our conversations seems to be deteriorating. Are we connecting, or are we just distracting ourselves from the absence of real connection?",
+    "speaker": "en-US-EricNeural",
+    "duration": 24.24,
+    "topic": "question_technology",
+    "intent": "question",
+    "sentiment_hint": "negative",
+    "summary": "Is technology bringing humanity closer together or further apart? Despite unprecedented connectivity, loneliness is epidemic and conversation quality appears to be deteriorating.",
+    "sentiment": "negative",
+    "keywords": [
+      "technology",
+      "loneliness",
+      "connection",
+      "social media",
+      "communication",
+      "isolation"
+    ]
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\remote_work.wav",
+    "topic": "remote_work",
+    "transcript": "Remote work has fundamentally altered the geography of employment. For the first time in history, a significant portion of the workforce can choose where they live independently of where their employer is located. This shift has profound implications for urban planning, real estate markets, and the economic vitality of smaller cities and rural areas.",
+    "summary": "Remote work has decoupled employment location from residence, creating major implications for urban planning, real estate, and the economic prospects of smaller communities.",
+    "sentiment": "neutral",
+    "keywords": [
+      "remote work",
+      "geography of employment",
+      "urban planning",
+      "real estate",
+      "economic vitality",
+      "workforce mobility"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\renewable_energy.wav",
+    "topic": "renewable_energy",
+    "transcript": "Solar and wind energy have reached a critical tipping point. In many parts of the world, building new renewable energy capacity is now cheaper than continuing to operate existing coal and gas plants. The challenge is no longer economic feasibility but the speed of infrastructure deployment and grid modernization needed to handle intermittent power sources.",
+    "summary": "Renewable energy has become cheaper than fossil fuels in many regions, shifting the primary challenge from cost to infrastructure deployment speed and grid modernization.",
+    "sentiment": "positive",
+    "keywords": [
+      "renewable energy",
+      "solar power",
+      "wind energy",
+      "grid modernization",
+      "infrastructure",
+      "economic feasibility",
+      "energy transition"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\science_brain.wav",
+    "transcript": "The human brain contains approximately eighty-six billion neurons, each connected to thousands of others, forming a network of unimaginable complexity. Despite decades of research, we are only beginning to understand how this three-pound organ generates consciousness, memory, and emotion.",
+    "speaker": "en-US-ChristopherNeural",
+    "duration": 18.144,
+    "topic": "science_brain",
+    "summary": "The human brain contains 86 billion neurons forming a network of immense complexity, yet we are only beginning to understand how it generates consciousness, memory, and emotion.",
+    "sentiment": "neutral",
+    "keywords": [
+      "human brain",
+      "neurons",
+      "consciousness",
+      "memory",
+      "neuroscience",
+      "emotion"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\science_climate.wav",
+    "transcript": "Climate change is the defining challenge of our generation. Global temperatures have risen by approximately one point two degrees Celsius since pre-industrial times, and we are already seeing the effects: more frequent extreme weather events, rising sea levels, and disrupted ecosystems. The scientific consensus is clear ！ we must act now.",
+    "speaker": "en-GB-RyanNeural",
+    "duration": 21.672,
+    "topic": "science_climate",
+    "summary": "Climate change has caused 1.2属C of warming since pre-industrial times, with effects including extreme weather and rising sea levels; the scientific consensus is that urgent action is needed.",
+    "sentiment": "negative",
+    "keywords": [
+      "climate change",
+      "global warming",
+      "sea levels",
+      "extreme weather",
+      "scientific consensus",
+      "urgent action"
+    ],
+    "intent": "persuade"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\science_crispr.wav",
+    "transcript": "CRISPR gene editing technology gives scientists the ability to modify DNA with unprecedented precision. This breakthrough has enormous potential for treating genetic diseases, developing drought-resistant crops, and even fighting cancer. But it also raises profound ethical questions about designer babies and genetic inequality.",
+    "speaker": "en-GB-LibbyNeural",
+    "duration": 23.208,
+    "topic": "science_crispr",
+    "summary": "CRISPR enables precise DNA modification with potential for treating genetic diseases and improving crops, but raises ethical concerns about designer babies and genetic inequality.",
+    "sentiment": "neutral",
+    "keywords": [
+      "CRISPR",
+      "gene editing",
+      "DNA modification",
+      "genetic diseases",
+      "designer babies",
+      "ethics",
+      "genetic inequality"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\science_space.wav",
+    "transcript": "Space exploration has entered a new golden age. Private companies are developing reusable rockets that dramatically reduce the cost of reaching orbit, while NASA plans to return humans to the moon and eventually send them to Mars. The James Webb Space Telescope is already revealing secrets of the early universe.",
+    "speaker": "en-US-EricNeural",
+    "duration": 19.968,
+    "topic": "science_space",
+    "summary": "Space exploration has entered a golden age with reusable rockets, planned moon and Mars missions, and discoveries from the James Webb Space Telescope revealing secrets of the early universe.",
+    "sentiment": "positive",
+    "keywords": [
+      "space exploration",
+      "reusable rockets",
+      "NASA",
+      "Mars",
+      "moon",
+      "James Webb Space Telescope"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\sleep_science.wav",
+    "topic": "sleep_science",
+    "transcript": "During sleep, the brain performs essential maintenance. Cerebrospinal fluid flows through the brain in rhythmic waves, clearing out metabolic waste products including beta-amyloid proteins associated with Alzheimer's disease. This discovery suggests that chronic sleep deprivation may have more serious long-term consequences than previously understood.",
+    "summary": "Sleep enables the brain to clear metabolic waste through cerebrospinal fluid flow, with implications for understanding Alzheimer's disease and the dangers of chronic sleep deprivation.",
+    "sentiment": "neutral",
+    "keywords": [
+      "sleep",
+      "cerebrospinal fluid",
+      "brain maintenance",
+      "Alzheimer's disease",
+      "beta-amyloid",
+      "sleep deprivation",
+      "metabolic waste"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\tech_ai_healthcare.wav",
+    "transcript": "AI is transforming healthcare through faster diagnosis and personalized treatment plans. Machine learning models can now detect diseases from medical images with accuracy rivaling human doctors, potentially saving millions of lives each year. However, we must ensure these systems are trained on diverse data to avoid bias.",
+    "speaker": "en-US-AriaNeural",
+    "duration": 21.72,
+    "topic": "tech_ai_healthcare",
+    "summary": "AI is revolutionizing healthcare through faster diagnosis and personalized treatment plans, but diverse training data is essential to avoid algorithmic bias.",
+    "sentiment": "positive",
+    "keywords": [
+      "AI",
+      "healthcare",
+      "diagnosis",
+      "machine learning",
+      "medical imaging",
+      "bias"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\tech_blockchain.wav",
+    "transcript": "Blockchain technology extends far beyond cryptocurrency. Its ability to create tamper-proof, decentralized records has applications in supply chain management, digital identity verification, and even voting systems. The key innovation is trust without a central authority.",
+    "speaker": "en-US-JennyNeural",
+    "duration": 18.432,
+    "topic": "tech_blockchain",
+    "summary": "Blockchain enables tamper-proof decentralized records with applications in supply chain, identity verification, and voting, with trust without central authority as its key innovation.",
+    "sentiment": "neutral",
+    "keywords": [
+      "blockchain",
+      "decentralized",
+      "supply chain",
+      "digital identity",
+      "voting",
+      "trust"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\tech_education.wav",
+    "transcript": "The future of education lies in personalized learning powered by artificial intelligence. Every student learns differently ！ some are visual learners, others prefer reading, and some learn best through hands-on practice. AI tutors can adapt to each students unique learning style in real time.",
+    "speaker": "en-GB-SoniaNeural",
+    "duration": 18.288,
+    "topic": "tech_education",
+    "summary": "AI-powered personalized learning adapts to individual student needs in real time, accommodating visual, reading, and hands-on learning styles.",
+    "sentiment": "positive",
+    "keywords": [
+      "personalized learning",
+      "AI",
+      "education",
+      "learning styles",
+      "AI tutors",
+      "adaptive learning"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\tech_quantum.wav",
+    "transcript": "Quantum computing represents a fundamental shift in how we process information. Unlike classical bits that are either zero or one, quantum bits can exist in multiple states simultaneously. This property, called superposition, allows quantum computers to solve certain problems exponentially faster than any classical computer ever could.",
+    "speaker": "en-US-GuyNeural",
+    "duration": 21.048,
+    "topic": "tech_quantum",
+    "summary": "Quantum computing uses qubits that can exist in multiple states through superposition, enabling exponentially faster solutions to certain problems than classical computers.",
+    "sentiment": "neutral",
+    "keywords": [
+      "quantum computing",
+      "qubits",
+      "superposition",
+      "classical bits",
+      "exponential speedup"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "D:\\speech-benchmark\\data\\processed\\tts_samples\\urban_biodiversity.wav",
+    "transcript": "Cities are not biological deserts. Urban environments can support surprising biodiversity when designed intentionally. Green roofs, pocket parks, and wildlife corridors transform concrete landscapes into habitats for birds, insects, and native plants. The challenge is integrating ecological thinking into the earliest stages of urban planning.",
+    "speaker": "en-US-GuyNeural",
+    "duration": 22.128,
+    "topic": "urban_biodiversity",
+    "summary": "Cities can support significant biodiversity through intentional design elements like green roofs and wildlife corridors, requiring ecological thinking in early urban planning stages.",
+    "sentiment": "positive",
+    "keywords": [
+      "urban biodiversity",
+      "green roofs",
+      "wildlife corridors",
+      "urban planning",
+      "ecological design",
+      "habitat",
+      "native plants"
+    ],
+    "intent": "inform"
+  },
+  {
+    "audio_path": "data\\processed\\tts_samples\\vaccine_development.wav",
+    "topic": "vaccine_development",
+    "transcript": "The development of mRNA vaccines represents one of the most significant medical breakthroughs of the twenty-first century. Unlike traditional vaccines that use weakened or inactivated viruses, mRNA vaccines teach our cells to produce a protein that triggers an immune response, dramatically accelerating the development timeline from years to months.",
+    "summary": "mRNA vaccines represent a revolutionary medical advancement by teaching cells to produce immune-triggering proteins, reducing vaccine development time from years to months.",
+    "sentiment": "positive",
+    "keywords": [
+      "mRNA vaccines",
+      "immune response",
+      "medical breakthrough",
+      "vaccine development",
+      "protein synthesis",
+      "public health"
+    ],
+    "intent": "inform"
   }
 ]

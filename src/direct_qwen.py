@@ -27,21 +27,27 @@ SYSTEM_PROMPTS: dict[str, str] = {
         "Return ONLY the summary, no preamble."
     ),
     "sentiment": (
-        "Listen to the audio and classify the speaker's sentiment "
-        "as exactly one of: positive, negative, or neutral. "
-        "Consider tone of voice, pace, and word choice. "
-        'Return JSON: {"sentiment": "<label>", "confidence": <float>}'
+        "Listen carefully to this audio. First, describe the speaker's "
+        "tone of voice, pace, emotional cues, and word choices in detail. "
+        "Note whether they sound happy, angry, worried, excited, calm, sad, "
+        "or neutral. Then, based on your observations, state the overall "
+        "sentiment as one of: positive, negative, or neutral. "
+        "Be thorough in your description before giving the final label."
     ),
     "keywords": (
-        "Listen to the audio and extract 5-10 most important "
-        "keywords or key phrases. Consider emphasis and repetition. "
-        'Return JSON list: ["keyword1", "keyword2", ...]'
+        "Listen carefully to this audio. First, write down the main topics "
+        "and concepts discussed. Note which terms are repeated or emphasized. "
+        "Then, list the 5-10 most important keywords or key phrases from the "
+        "speech. Include both specific terms and general concepts."
     ),
     "intent": (
-        "Listen to the audio and identify the speaker's primary "
-        "communicative intent. Choose exactly one of: inform, persuade, "
-        "entertain, question, describe. Consider tone and structure. "
-        'Return JSON: {"intent": "<label>", "confidence": <float>}'
+        "Listen carefully to this audio. First, describe what the speaker "
+        "is trying to achieve. Are they teaching facts? Convincing you of "
+        "something? Telling a story for amusement? Describing a scene or "
+        "experience? Asking deep questions? Note the speaker's tone, "
+        "structure, and rhetorical strategies. Then, based on your analysis, "
+        "state the primary communicative intent as one of: inform, persuade, "
+        "entertain, question, describe. Explain your reasoning."
     ),
 }
 
@@ -64,7 +70,7 @@ class QwenAudioPipeline:
             self.model = Qwen2AudioForConditionalGeneration.from_pretrained(
                 MODEL_ID,
                 quantization_config=quantization_config,
-                device_map="auto",
+                device_map={"": torch.cuda.current_device()},
                 trust_remote_code=True,
             )
 
@@ -110,7 +116,7 @@ class QwenAudioPipeline:
         with torch.no_grad():
             generated_ids = self.model.generate(
                 **inputs,
-                max_new_tokens=256,
+                max_new_tokens=512,
                 do_sample=False,
                 temperature=None,
             )
