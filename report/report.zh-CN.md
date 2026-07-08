@@ -2,7 +2,9 @@
 
 [English](report.md)
 
-**作者：** Jiayi Li、Liu Luofei（刘洛菲）、Zhang Yuchen（张予辰）
+> **最新 N=50 报告：** [人声与 TTS 四路径语音理解报告](final_n50_report.zh-CN.md)。
+
+**作者：** Jiayi Li（李佳宜）、Liu Luofei（刘洛菲）、Zhang Yuchen（张予辰）
 
 **日期：** 2026 年 6 月至 8 月  
 

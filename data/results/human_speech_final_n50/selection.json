@@ -1,0 +1,77 @@
+{
+  "kept_count": 50,
+  "removed_count": 16,
+  "removed_describe_samples": [
+    {
+      "dataset": "v1",
+      "sample": "depression"
+    },
+    {
+      "dataset": "v1",
+      "sample": "happiness"
+    },
+    {
+      "dataset": "v1",
+      "sample": "thanks"
+    },
+    {
+      "dataset": "v2",
+      "sample": "centry"
+    },
+    {
+      "dataset": "v2",
+      "sample": "childhood"
+    },
+    {
+      "dataset": "v2",
+      "sample": "pictures"
+    },
+    {
+      "dataset": "v2",
+      "sample": "revolution"
+    },
+    {
+      "dataset": "v2",
+      "sample": "table"
+    },
+    {
+      "dataset": "v3",
+      "sample": "beast"
+    },
+    {
+      "dataset": "v3",
+      "sample": "creature"
+    },
+    {
+      "dataset": "v3",
+      "sample": "discomfort"
+    },
+    {
+      "dataset": "v3",
+      "sample": "farm"
+    },
+    {
+      "dataset": "v3",
+      "sample": "prospect"
+    },
+    {
+      "dataset": "v4",
+      "sample": "avenue"
+    },
+    {
+      "dataset": "v4",
+      "sample": "battlefield"
+    },
+    {
+      "dataset": "v4",
+      "sample": "chemistry"
+    }
+  ],
+  "kept_intent_counts": {
+    "describe": 15,
+    "entertain": 8,
+    "inform": 17,
+    "persuade": 4,
+    "question": 6
+  }
+}

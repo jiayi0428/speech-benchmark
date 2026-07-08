@@ -116,6 +116,17 @@ data/results/human_speech_v2/*
 !data/results/human_speech_v2/transcription_scores.csv
 !data/results/human_speech_v2/scores.csv
 !data/results/human_speech_v2/summary.json
+!data/results/human_speech_final_n50/
+data/results/human_speech_final_n50/*
+!data/results/human_speech_final_n50/rensheng_results_external_v5.json
+!data/results/human_speech_final_n50/scores.csv
+!data/results/human_speech_final_n50/selection.json
+!data/results/human_speech_final_n50/summary.json
+!data/results/tts_speech_final_n50/
+data/results/tts_speech_final_n50/*
+!data/results/tts_speech_final_n50/TTS_50_results_external.json
+!data/results/tts_speech_final_n50/scores.csv
+!data/results/tts_speech_final_n50/summary.json
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/results/.gitkeep

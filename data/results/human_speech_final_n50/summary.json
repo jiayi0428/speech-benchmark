@@ -1,0 +1,430 @@
+{
+  "experiment_id": "human_speech_final_n50",
+  "sample_count": 50,
+  "score_row_count": 800,
+  "intent_counts": {
+    "describe": 15,
+    "entertain": 8,
+    "inform": 17,
+    "persuade": 4,
+    "question": 6
+  },
+  "means": {
+    "A_oracle": {
+      "summarization": 0.26010419158837533,
+      "sentiment": 0.74,
+      "keywords": 0.3913742637744019,
+      "intent": 0.64
+    },
+    "B_whisper_cascade": {
+      "summarization": 0.2620969894810705,
+      "sentiment": 0.68,
+      "keywords": 0.33245938174196943,
+      "intent": 0.64
+    },
+    "C_qwen_transcript": {
+      "summarization": 0.25639285860580985,
+      "sentiment": 0.72,
+      "keywords": 0.3421200041863268,
+      "intent": 0.54
+    },
+    "D_qwen_direct": {
+      "summarization": 0.18539264698492725,
+      "sentiment": 0.62,
+      "keywords": 0.2765176453198055,
+      "intent": 0.5
+    }
+  },
+  "means_by_intent": {
+    "describe": {
+      "A_oracle": {
+        "summarization": 0.32248131844794087,
+        "sentiment": 0.8666666666666667,
+        "keywords": 0.45590008888207856,
+        "intent": 0.6666666666666666
+      },
+      "B_whisper_cascade": {
+        "summarization": 0.31088655400346155,
+        "sentiment": 0.8,
+        "keywords": 0.3740128280031961,
+        "intent": 0.5333333333333333
+      },
+      "C_qwen_transcript": {
+        "summarization": 0.25986440755649043,
+        "sentiment": 0.8666666666666667,
+        "keywords": 0.4266429515775921,
+        "intent": 0.4666666666666667
+      },
+      "D_qwen_direct": {
+        "summarization": 0.19107658233534733,
+        "sentiment": 0.7333333333333333,
+        "keywords": 0.35954753065864176,
+        "intent": 0.4666666666666667
+      }
+    },
+    "entertain": {
+      "A_oracle": {
+        "summarization": 0.19039620268782506,
+        "sentiment": 0.375,
+        "keywords": 0.32556221876813707,
+        "intent": 0.5
+      },
+      "B_whisper_cascade": {
+        "summarization": 0.20031023888428612,
+        "sentiment": 0.25,
+        "keywords": 0.26792900175221246,
+        "intent": 0.625
+      },
+      "C_qwen_transcript": {
+        "summarization": 0.20619539877818993,
+        "sentiment": 0.375,
+        "keywords": 0.32323686912138855,
+        "intent": 0.25
+      },
+      "D_qwen_direct": {
+        "summarization": 0.15520238524393173,
+        "sentiment": 0.5,
+        "keywords": 0.1483233235489923,
+        "intent": 0.25
+      }
+    },
+    "inform": {
+      "A_oracle": {
+        "summarization": 0.2361782496736014,
+        "sentiment": 0.8235294117647058,
+        "keywords": 0.4106389855131011,
+        "intent": 0.9411764705882353
+      },
+      "B_whisper_cascade": {
+        "summarization": 0.2471010362627688,
+        "sentiment": 0.7647058823529411,
+        "keywords": 0.33475198324201577,
+        "intent": 0.9411764705882353
+      },
+      "C_qwen_transcript": {
+        "summarization": 0.26363296105540096,
+        "sentiment": 0.8235294117647058,
+        "keywords": 0.3276091889655903,
+        "intent": 0.9411764705882353
+      },
+      "D_qwen_direct": {
+        "summarization": 0.161775778413996,
+        "sentiment": 0.7058823529411765,
+        "keywords": 0.3275516674331424,
+        "intent": 0.8235294117647058
+      }
+    },
+    "persuade": {
+      "A_oracle": {
+        "summarization": 0.2908472653877755,
+        "sentiment": 0.75,
+        "keywords": 0.37657563025210083,
+        "intent": 0.5
+      },
+      "B_whisper_cascade": {
+        "summarization": 0.2882013538685203,
+        "sentiment": 0.75,
+        "keywords": 0.43014705882352944,
+        "intent": 0.5
+      },
+      "C_qwen_transcript": {
+        "summarization": 0.30679473798400647,
+        "sentiment": 0.75,
+        "keywords": 0.375,
+        "intent": 0.5
+      },
+      "D_qwen_direct": {
+        "summarization": 0.22618829788053652,
+        "sentiment": 0.5,
+        "keywords": 0.2582417582417582,
+        "intent": 0.25
+      }
+    },
+    "question": {
+      "A_oracle": {
+        "summarization": 0.24440014586578784,
+        "sentiment": 0.6666666666666666,
+        "keywords": 0.27309147176878296,
+        "intent": 0.0
+      },
+      "B_whisper_cascade": {
+        "summarization": 0.2475910368310274,
+        "sentiment": 0.6666666666666666,
+        "keywords": 0.2429954504374073,
+        "intent": 0.16666666666666666
+      },
+      "C_qwen_transcript": {
+        "summarization": 0.2605290561399626,
+        "sentiment": 0.5,
+        "keywords": 0.17518412837771924,
+        "intent": 0.0
+      },
+      "D_qwen_direct": {
+        "summarization": 0.2511538512841034,
+        "sentiment": 0.3333333333333333,
+        "keywords": 0.10745622306470949,
+        "intent": 0.16666666666666666
+      }
+    }
+  },
+  "pairwise": {
+    "A_oracle_minus_B_whisper_cascade": {
+      "summarization": {
+        "mean_difference": -0.0019927978926952005,
+        "paired_bootstrap_95_ci": [
+          -0.0248617676622986,
+          0.020544543513640972
+        ],
+        "left_wins": 23,
+        "right_wins": 26,
+        "ties": 1
+      },
+      "sentiment": {
+        "mean_difference": 0.06,
+        "paired_bootstrap_95_ci": [
+          0.0,
+          0.14
+        ],
+        "left_wins": 3,
+        "right_wins": 0,
+        "ties": 47
+      },
+      "keywords": {
+        "mean_difference": 0.05891488203243248,
+        "paired_bootstrap_95_ci": [
+          0.02260237726997468,
+          0.09595022630617968
+        ],
+        "left_wins": 32,
+        "right_wins": 10,
+        "ties": 8
+      },
+      "intent": {
+        "mean_difference": 0.0,
+        "paired_bootstrap_95_ci": [
+          -0.08,
+          0.08
+        ],
+        "left_wins": 2,
+        "right_wins": 2,
+        "ties": 46
+      }
+    },
+    "A_oracle_minus_C_qwen_transcript": {
+      "summarization": {
+        "mean_difference": 0.003711332982565467,
+        "paired_bootstrap_95_ci": [
+          -0.021020049938099715,
+          0.032182558728504014
+        ],
+        "left_wins": 22,
+        "right_wins": 26,
+        "ties": 2
+      },
+      "sentiment": {
+        "mean_difference": 0.02,
+        "paired_bootstrap_95_ci": [
+          0.0,
+          0.06
+        ],
+        "left_wins": 1,
+        "right_wins": 0,
+        "ties": 49
+      },
+      "keywords": {
+        "mean_difference": 0.049254259588075076,
+        "paired_bootstrap_95_ci": [
+          0.009437378954224878,
+          0.0923195358136523
+        ],
+        "left_wins": 24,
+        "right_wins": 15,
+        "ties": 11
+      },
+      "intent": {
+        "mean_difference": 0.1,
+        "paired_bootstrap_95_ci": [
+          0.02,
+          0.18
+        ],
+        "left_wins": 5,
+        "right_wins": 0,
+        "ties": 45
+      }
+    },
+    "A_oracle_minus_D_qwen_direct": {
+      "summarization": {
+        "mean_difference": 0.07471154460344809,
+        "paired_bootstrap_95_ci": [
+          0.04320874194094742,
+          0.10700793145445783
+        ],
+        "left_wins": 39,
+        "right_wins": 11,
+        "ties": 0
+      },
+      "sentiment": {
+        "mean_difference": 0.12,
+        "paired_bootstrap_95_ci": [
+          -0.04,
+          0.28
+        ],
+        "left_wins": 11,
+        "right_wins": 5,
+        "ties": 34
+      },
+      "keywords": {
+        "mean_difference": 0.11485661845459638,
+        "paired_bootstrap_95_ci": [
+          0.043964725804131834,
+          0.18249407131231313
+        ],
+        "left_wins": 37,
+        "right_wins": 11,
+        "ties": 2
+      },
+      "intent": {
+        "mean_difference": 0.14,
+        "paired_bootstrap_95_ci": [
+          0.02,
+          0.26
+        ],
+        "left_wins": 9,
+        "right_wins": 2,
+        "ties": 39
+      }
+    },
+    "B_whisper_cascade_minus_C_qwen_transcript": {
+      "summarization": {
+        "mean_difference": 0.005704130875260668,
+        "paired_bootstrap_95_ci": [
+          -0.022185012771880903,
+          0.03649478456297313
+        ],
+        "left_wins": 26,
+        "right_wins": 22,
+        "ties": 2
+      },
+      "sentiment": {
+        "mean_difference": -0.04,
+        "paired_bootstrap_95_ci": [
+          -0.12,
+          0.04
+        ],
+        "left_wins": 1,
+        "right_wins": 3,
+        "ties": 46
+      },
+      "keywords": {
+        "mean_difference": -0.009660622444357411,
+        "paired_bootstrap_95_ci": [
+          -0.04556940111045817,
+          0.026995035972498062
+        ],
+        "left_wins": 14,
+        "right_wins": 23,
+        "ties": 13
+      },
+      "intent": {
+        "mean_difference": 0.1,
+        "paired_bootstrap_95_ci": [
+          0.02,
+          0.2
+        ],
+        "left_wins": 5,
+        "right_wins": 0,
+        "ties": 45
+      }
+    },
+    "B_whisper_cascade_minus_D_qwen_direct": {
+      "summarization": {
+        "mean_difference": 0.07670434249614329,
+        "paired_bootstrap_95_ci": [
+          0.045142036529967615,
+          0.1112026344355865
+        ],
+        "left_wins": 39,
+        "right_wins": 11,
+        "ties": 0
+      },
+      "sentiment": {
+        "mean_difference": 0.06,
+        "paired_bootstrap_95_ci": [
+          -0.1,
+          0.22
+        ],
+        "left_wins": 10,
+        "right_wins": 7,
+        "ties": 33
+      },
+      "keywords": {
+        "mean_difference": 0.05594173642216389,
+        "paired_bootstrap_95_ci": [
+          -0.012318814467369212,
+          0.12228638559970946
+        ],
+        "left_wins": 29,
+        "right_wins": 15,
+        "ties": 6
+      },
+      "intent": {
+        "mean_difference": 0.14,
+        "paired_bootstrap_95_ci": [
+          0.0,
+          0.28
+        ],
+        "left_wins": 10,
+        "right_wins": 3,
+        "ties": 37
+      }
+    },
+    "C_qwen_transcript_minus_D_qwen_direct": {
+      "summarization": {
+        "mean_difference": 0.07100021162088262,
+        "paired_bootstrap_95_ci": [
+          0.04300760254582763,
+          0.09978770620959913
+        ],
+        "left_wins": 40,
+        "right_wins": 10,
+        "ties": 0
+      },
+      "sentiment": {
+        "mean_difference": 0.1,
+        "paired_bootstrap_95_ci": [
+          -0.06,
+          0.26
+        ],
+        "left_wins": 11,
+        "right_wins": 6,
+        "ties": 33
+      },
+      "keywords": {
+        "mean_difference": 0.06560235886652131,
+        "paired_bootstrap_95_ci": [
+          0.0035887937487999043,
+          0.12576901247587113
+        ],
+        "left_wins": 28,
+        "right_wins": 16,
+        "ties": 6
+      },
+      "intent": {
+        "mean_difference": 0.04,
+        "paired_bootstrap_95_ci": [
+          -0.08,
+          0.16
+        ],
+        "left_wins": 6,
+        "right_wins": 4,
+        "ties": 40
+      }
+    }
+  },
+  "source": "N=66 human combined scores; v5 replaced by rensheng_results.json; 16 non-v5 describe samples removed.",
+  "notes": [
+    "Final human report set keeps all v5 samples and uses the external v5 results as ordinary v5 scores.",
+    "Sixteen non-v5 samples with ground-truth intent=describe were removed deterministically in existing dataset order.",
+    "N=50 supports descriptive comparison; bootstrap intervals are reported but no strong statistical-significance claim is required."
+  ]
+}

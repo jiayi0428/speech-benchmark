@@ -3,7 +3,7 @@
 [English](human_speech_v1_report.md)
 
 **日期：** 2026-07-02  
-**作者：** Jiayi Li、Liu Luofei（刘洛菲）、Zhang Yuchen（张予辰）
+**作者：** Jiayi Li（李佳宜）、Liu Luofei（刘洛菲）、Zhang Yuchen（张予辰）
 **范围：** 8 个成对的真实英文人声样本，4 项任务  
 **性质：** 初步描述性先导实验
 

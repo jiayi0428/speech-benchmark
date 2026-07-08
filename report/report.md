@@ -2,7 +2,9 @@
 
 [简体中文](report.zh-CN.md)
 
-**Authors:** Jiayi Li, Liu Luofei (刘洛菲), Zhang Yuchen (张予辰)
+> **Latest N=50 report:** [Human Speech and TTS Four-Path Report](final_n50_report.md).
+
+**Authors:** Jiayi Li（李佳宜）, Liu Luofei（刘洛菲）, Zhang Yuchen（张予辰）
 
 **Date:** June-August 2026 2026  
 

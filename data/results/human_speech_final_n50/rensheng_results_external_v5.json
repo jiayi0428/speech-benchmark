@@ -1,0 +1,1294 @@
+{
+  "dataset": "rensheng_v5",
+  "description": "9 real human voice samples (standup comedy/TED)",
+  "total_samples": 9,
+  "samples": [
+    "attention",
+    "chocolate",
+    "comparison",
+    "gay",
+    "healthcare",
+    "her",
+    "kill",
+    "smoking",
+    "tiger"
+  ],
+  "summary": {
+    "sentiment": {
+      "Cascade": "1/9 = 11%",
+      "Oracle": "1/9 = 11%",
+      "Qwen_ASR": "1/9 = 11%",
+      "Qwen_Direct": "4/9 = 44%"
+    },
+    "intent": {
+      "Cascade": "5/9 = 56%",
+      "Oracle": "5/9 = 56%",
+      "Qwen_ASR": "3/9 = 33%",
+      "Qwen_Direct": "3/9 = 33%"
+    },
+    "keywords_f1": {
+      "Cascade": 0.25,
+      "Oracle": 0.3,
+      "Qwen_ASR": 0.27,
+      "Qwen_Direct": 0.2
+    },
+    "summarization_rouge_l": {
+      "Cascade": 0.205,
+      "Oracle": 0.192,
+      "Qwen_ASR": 0.226,
+      "Qwen_Direct": 0.212
+    }
+  },
+  "per_sample": {
+    "attention": {
+      "ground_truth": {
+        "transcript": "so why is it so hard to pay attention? well study show that even when were really trying to pay attention to something like maybe this talk, at some point about half of us will drift off into a daydream or have this urge to check our Twitter feed. so whats going on here? it turns out that were fighting one of the most evolutionarily conserve learning processes currently known in science.",
+        "summary": "The speaker explains why paying attention is difficult, noting that about half of people will daydream or check social media during a talk, and attributes this to an evolutionarily conserved learning process.",
+        "sentiment": "neutral",
+        "keywords": [
+          "attention",
+          "daydream",
+          "Twitter",
+          "evolution",
+          "learning process",
+          "science",
+          "focus"
+        ],
+        "intent": "question"
+      },
+      "paths": {
+        "Cascade": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.9,
+            "correct": true
+          },
+          "intent": {
+            "predicted": "inform",
+            "confidence": 0.95,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "pay attention",
+              "daydream",
+              "Twitter feed",
+              "evolutionarily conserved learning processes",
+              "attention",
+              "studies",
+              "drift off",
+              "urge to check"
+            ],
+            "precision": 0.25,
+            "recall": 0.286
+          },
+          "summarization": {
+            "rouge_l": 0.375,
+            "output": "Paying attention is difficult because even when we try to focus, about half of us will drift into daydreams or check social media. This struggle stems from an evolutionarily conserved learning process in the brain. The challenge is rooted in deep biological mechanisms that make sustained attention h"
+          }
+        },
+        "Oracle": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.9,
+            "correct": true
+          },
+          "intent": {
+            "predicted": "inform",
+            "confidence": 0.95,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "attention",
+              "daydream",
+              "Twitter feed",
+              "evolutionarily conserved learning processes",
+              "paying attention",
+              "distraction",
+              "brain",
+              "focus",
+              "learning"
+            ],
+            "precision": 0.333,
+            "recall": 0.429
+          },
+          "summarization": {
+            "rouge_l": 0.196,
+            "output": "Paying attention is difficult because our brains are wired to constantly scan for new information, a deeply ingrained evolutionary survival mechanism. Even when we try to focus, we often drift into daydreams or distractions like checking social media. This struggle stems from a fundamental conflict "
+          }
+        },
+        "Qwen_ASR": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.9,
+            "correct": true
+          },
+          "intent": {
+            "predicted": "inform",
+            "confidence": 0.95,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "pay attention",
+              "daydream",
+              "Twitter feed",
+              "evolutionarily conserved learning processes",
+              "attention",
+              "studies",
+              "drift off",
+              "urge to check"
+            ],
+            "precision": 0.25,
+            "recall": 0.286
+          },
+          "summarization": {
+            "rouge_l": 0.324,
+            "output": "Paying attention is difficult because we are fighting an evolutionarily conserved learning process. Studies show that even when trying to focus, about half of us will drift into daydreams or check social media. This struggle is rooted in a fundamental biological mechanism."
+          }
+        },
+        "Qwen_Direct": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "inform",
+            "confidence": 0.9,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "pay attention",
+              "daydream",
+              "check twitter feed",
+              "evolutionarily conserved",
+              "learning processes",
+              "drift off",
+              "urge",
+              "studies show",
+              "hard to pay attention"
+            ],
+            "precision": 0.111,
+            "recall": 0.143
+          },
+          "summarization": {
+            "rouge_l": 0.4,
+            "output": "The audio discusses the difficulty in paying attention and mentions studies that show a tendency for people to daydream or check social media during attempts to focus. It also states that this behavior is due to an evolutionary conserved learning process that is currently well understood in science."
+          }
+        }
+      }
+    },
+    "chocolate": {
+      "ground_truth": {
+        "transcript": "you can use this for more than just remembering where food is. you know, next time you feel bad, why dont you try eating something good so you feel better? we think our brains for the great idea. try this and quickly learn that if we eat chocolate or ice cream when were mad or sad we feel better.",
+        "summary": "The speaker discusses how eating something good like chocolate or ice cream when feeling bad can make us feel better, illustrating a learned reward-based behavior.",
+        "sentiment": "neutral",
+        "keywords": [
+          "chocolate",
+          "ice cream",
+          "reward",
+          "brain",
+          "feel better",
+          "food",
+          "learning"
+        ],
+        "intent": "question"
+      },
+      "paths": {
+        "Cascade": {
+          "sentiment": {
+            "predicted": "positive",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "persuade",
+            "confidence": 0.9,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "eating to feel better",
+              "emotional eating",
+              "chocolate",
+              "ice cream",
+              "brain",
+              "mood improvement",
+              "comfort food",
+              "feeling better",
+              "mad or sad",
+              "food and emotions"
+            ],
+            "precision": 0.3,
+            "recall": 0.429
+          },
+          "summarization": {
+            "rouge_l": 0.278,
+            "output": "The transcript suggests using food not just for sustenance but also to improve mood, specifically by eating something good when feeling bad. It credits the brain for this idea and notes that consuming treats like chocolate or ice cream can quickly alleviate feelings of anger or sadness."
+          }
+        },
+        "Oracle": {
+          "sentiment": {
+            "predicted": "positive",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "persuade",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "emotional eating",
+              "comfort food",
+              "mood regulation",
+              "chocolate",
+              "ice cream",
+              "brain reward system",
+              "feeling better",
+              "anger",
+              "sadness",
+              "food and emotions"
+            ],
+            "precision": 0.2,
+            "recall": 0.286
+          },
+          "summarization": {
+            "rouge_l": 0.333,
+            "output": "The transcript suggests using food not just for sustenance but also to improve mood, specifically by eating something good when feeling bad. It credits the brain for this idea and notes that consuming chocolate or ice cream when angry or sad can quickly make one feel better."
+          }
+        },
+        "Qwen_ASR": {
+          "sentiment": {
+            "predicted": "positive",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "persuade",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "eating for mood regulation",
+              "chocolate and ice cream",
+              "feeling better after eating",
+              "brain's reward system",
+              "emotional eating",
+              "comfort food",
+              "mood improvement",
+              "food and emotions"
+            ],
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "summarization": {
+            "rouge_l": 0.274,
+            "output": "The transcript explains that the brain's memory function can be used for more than just locating food. It suggests that when feeling bad, eating something good like chocolate or ice cream can improve mood. This reinforces the idea that we learn to associate certain foods with emotional relief."
+          }
+        },
+        "Qwen_Direct": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "intent": {
+            "predicted": "persuade",
+            "confidence": 0.9,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "emotional regulation",
+              "feel better",
+              "chocolate",
+              "ice cream",
+              "feel bad",
+              "mad or sad",
+              "brain's ability",
+              "thanking the brain",
+              "use this for more than just remembering where food is",
+              "try this and quickly learn"
+            ],
+            "precision": 0.3,
+            "recall": 0.429
+          },
+          "summarization": {
+            "rouge_l": 0.453,
+            "output": "The audio suggests eating something good when feeling bad to improve mood. It implies that chocolate or ice cream can make one feel better after a stressful period."
+          }
+        }
+      }
+    },
+    "comparison": {
+      "ground_truth": {
+        "transcript": "You know that phrase, comparison is the thief of joy? It's a beautiful phrase, but my actor friend, he's kind of intense, he got it tattooed on his arm, one line. Comparison is the thief of joy. Just in case he forgets. And I'm really thinking about getting the same tattoo but bigger.",
+        "summary": "A comedian jokes about an intense friend who got a famous quote tattooed on his arm, and the ironic desire to get the exact same tattoo but larger.",
+        "sentiment": "neutral",
+        "keywords": [
+          "comparison",
+          "thief of joy",
+          "tattoo",
+          "actor friend",
+          "irony",
+          "standup comedy"
+        ],
+        "intent": "entertain"
+      },
+      "paths": {
+        "Cascade": {
+          "sentiment": {
+            "predicted": "positive",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "entertain",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "comparison is the thief of joy",
+              "actor friend",
+              "tattoo",
+              "intense",
+              "forgets",
+              "same tattoo",
+              "bigger"
+            ],
+            "precision": 0.286,
+            "recall": 0.333
+          },
+          "summarization": {
+            "rouge_l": 0.274,
+            "output": "The speaker reflects on the phrase \"comparison is the thief of joy,\" noting that an actor friend has it tattooed on his arm as a permanent reminder. They find the phrase beautiful and are considering getting the same tattoo themselves, but in a larger size."
+          }
+        },
+        "Oracle": {
+          "sentiment": {
+            "predicted": "positive",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "entertain",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "comparison is the thief of joy",
+              "actor friend",
+              "tattoo",
+              "forgets",
+              "getting the same tattoo",
+              "bigger"
+            ],
+            "precision": 0.333,
+            "recall": 0.333
+          },
+          "summarization": {
+            "rouge_l": 0.25,
+            "output": "The speaker reflects on the phrase \"comparison is the thief of joy,\" noting that an actor friend has it tattooed on his arm as a permanent reminder. They find the phrase beautiful and are considering getting the same tattoo, but in a larger size."
+          }
+        },
+        "Qwen_ASR": {
+          "sentiment": {
+            "predicted": "positive",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "entertain",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "comparison is the thief of joy",
+              "actor friend",
+              "tattoo",
+              "intense",
+              "forgetting",
+              "getting the same tattoo",
+              "bigger"
+            ],
+            "precision": 0.286,
+            "recall": 0.333
+          },
+          "summarization": {
+            "rouge_l": 0.274,
+            "output": "The speaker discusses the phrase \"comparison is the thief of joy,\" noting its beauty. They mention an actor friend who has the phrase tattooed on his arm as a permanent reminder. The speaker is now considering getting the same tattoo, but in a larger size."
+          }
+        },
+        "Qwen_Direct": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "intent": {
+            "predicted": "describe",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "comparison is the thief of joy",
+              "actor friend",
+              "tattooed",
+              "beautiful phrase",
+              "intense",
+              "forgets"
+            ],
+            "precision": 0.167,
+            "recall": 0.167
+          },
+          "summarization": {
+            "rouge_l": 0.2,
+            "output": "The speaker is discussing a tattoo on his arm that says 'comparison is the thief of joy.' The speaker mentions that his actor friend got the same tattoo but with one line added: 'just in case he forgets.' The speaker also reveals he is considering getting the tattoo on a larger scale."
+          }
+        }
+      }
+    },
+    "gay": {
+      "ground_truth": {
+        "transcript": "I don't know what it is about me, but I post pictures of myself online. People accuse me of gay baiting. And like, you can't blame the worm for the kind of fish that it catches. And let me tell you, it rubs some people the wrong way that I won't rub them the right way.",
+        "summary": "The speaker addresses online accusations of gay baiting using a clever fishing metaphor and a pun about rubbing people the wrong way.",
+        "sentiment": "neutral",
+        "keywords": [
+          "gay baiting",
+          "online pictures",
+          "worm and fish",
+          "metaphor",
+          "accusations",
+          "humor"
+        ],
+        "intent": "entertain"
+      },
+      "paths": {
+        "Cascade": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.8,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "entertain",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "gay-baiting",
+              "post pictures online",
+              "blame the worm",
+              "kind of fish it catches",
+              "rubs people the wrong way",
+              "won't rub them the right way"
+            ],
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "summarization": {
+            "rouge_l": 0.177,
+            "output": "The speaker defends posting pictures of themselves online against accusations of gay-baiting, arguing that they are not responsible for how others interpret their content. They compare themselves to a worm that cannot control the fish it attracts. The speaker also notes that some people are upset be"
+          }
+        },
+        "Oracle": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "entertain",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "gay baiting",
+              "post pictures online",
+              "blame the worm",
+              "kind of fish it catches",
+              "rubs people the wrong way",
+              "won't rub them the right way"
+            ],
+            "precision": 0.167,
+            "recall": 0.167
+          },
+          "summarization": {
+            "rouge_l": 0.211,
+            "output": "The speaker posts pictures of themselves online and faces accusations of \"gay baiting.\" They defend themselves by comparing their actions to a worm attracting fish, implying they are not responsible for others' interpretations. They also note that some people are upset because the speaker refuses to"
+          }
+        },
+        "Qwen_ASR": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "question",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "gay baiting",
+              "post pictures online",
+              "accusations",
+              "blame the worm",
+              "kind of fish it catches"
+            ],
+            "precision": 0.4,
+            "recall": 0.333
+          },
+          "summarization": {
+            "rouge_l": 0.261,
+            "output": "The speaker expresses frustration that posting pictures of themselves online leads to accusations of \"gay baiting.\" They argue that they should not be blamed for how others perceive or react to their content, using the metaphor of a worm not being responsible for the fish it catches."
+          }
+        },
+        "Qwen_Direct": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "entertain",
+            "confidence": 0.95,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "gay baiting",
+              "post pictures online",
+              "accuse",
+              "can't blame the worm",
+              "kind of fish it catches",
+              "disgusted mood",
+              "male speaking"
+            ],
+            "precision": 0.143,
+            "recall": 0.167
+          },
+          "summarization": {
+            "rouge_l": 0.152,
+            "output": "The speech is a humorous take on being accused of gay bathing due to posting pictures of oneself online. The speaker uses humor to express frustration over the misunderstanding and implies that people are judging him based on appearance rather than understanding his character."
+          }
+        }
+      }
+    },
+    "healthcare": {
+      "ground_truth": {
+        "transcript": "Did you know that Canadian healthcare covers taking your own life? We have that in America too, by the way. We just call it not giving people healthcare. It's kind of a delayed release euthanasia. If you want something more fast acting you gotta become a healthcare CEO.",
+        "summary": "A piece of dark satire comparing Canada's medical assistance policies to America's lack of universal healthcare, framing the latter as delayed euthanasia.",
+        "sentiment": "neutral",
+        "keywords": [
+          "Canadian healthcare",
+          "American healthcare",
+          "euthanasia",
+          "satire",
+          "delayed release",
+          "CEO"
+        ],
+        "intent": "entertain"
+      },
+      "paths": {
+        "Cascade": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.9,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "entertain",
+            "confidence": 0.9,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "Canadian health care",
+              "taking your own life",
+              "America",
+              "not giving people health care",
+              "delayed release euthanasia",
+              "health care CEO"
+            ],
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "summarization": {
+            "rouge_l": 0.152,
+            "output": "The speaker compares Canadian healthcare's coverage of euthanasia to the American system, where lack of healthcare access is framed as a slower form of the same outcome. They add a darkly humorous remark about needing to become a healthcare CEO for a faster option."
+          }
+        },
+        "Oracle": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.95,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "entertain",
+            "confidence": 0.9,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "Canadian healthcare",
+              "euthanasia",
+              "healthcare CEO",
+              "America",
+              "delayed release euthanasia",
+              "taking your own life",
+              "not giving people healthcare"
+            ],
+            "precision": 0.286,
+            "recall": 0.333
+          },
+          "summarization": {
+            "rouge_l": 0.127,
+            "output": "The speaker criticizes Canadian healthcare for covering assisted suicide, drawing a parallel to the U.S. where lack of healthcare access is framed as a form of \"delayed release euthanasia.\" They sarcastically note that for faster results, one would need to become a healthcare CEO. The comment highli"
+          }
+        },
+        "Qwen_ASR": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.9,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "persuade",
+            "confidence": 0.9,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "Canadian health care",
+              "taking your own life",
+              "America",
+              "not giving people health care",
+              "delayed release euthanasia",
+              "fast action",
+              "health care CEO"
+            ],
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "summarization": {
+            "rouge_l": 0.125,
+            "output": "The speaker criticizes Canadian healthcare for covering euthanasia, then compares it to the U.S. system where lack of access to care is described as \"delayed release euthanasia.\" They sarcastically suggest that for faster results, one would need to become a healthcare CEO."
+          }
+        },
+        "Qwen_Direct": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "persuade",
+            "confidence": 0.92,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "Canadian health care",
+              "taking your own life",
+              "America",
+              "not giving people health care",
+              "delayed release euthanasia",
+              "fast action",
+              "become a health care CEO"
+            ],
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "summarization": {
+            "rouge_l": 0.113,
+            "output": "This audio contains a speech where someone is making a comparison between Canadian health care and the lack of access to health care in America, humorously referring to it as a 'delayed release euthanasia'. The speaker also suggests that becoming a health care CEO might expedite access to care."
+          }
+        }
+      }
+    },
+    "her": {
+      "ground_truth": {
+        "transcript": "the specific boxes society has laid out. Like I still do events where, you know, maybe I have a name tag and they want me to put my pronouns. And I always put he/him. But I don't always like the feeling of meeting someone for the first time and being like, Gianmarco Soresi, he/him. I think it'd be more accurate to be like, Gianmarco Soresi, he/him, but I'll smile if you call me girl.",
+        "summary": "Comedian Gianmarco Soresi discusses his relationship with societal pronoun boxes, expressing a lighthearted appreciation for being playfully misgendered.",
+        "sentiment": "positive",
+        "keywords": [
+          "pronouns",
+          "he/him",
+          "gender boxes",
+          "name tag",
+          "Gianmarco Soresi",
+          "identity"
+        ],
+        "intent": "entertain"
+      },
+      "paths": {
+        "Cascade": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "describe",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "pronouns",
+              "gender identity",
+              "societal boxes",
+              "name tags",
+              "first impressions",
+              "gender expression",
+              "he/him pronouns",
+              "gender nonconformity",
+              "identity labels",
+              "social expectations"
+            ],
+            "precision": 0.1,
+            "recall": 0.167
+          },
+          "summarization": {
+            "rouge_l": 0.094,
+            "output": "The speaker resists rigid societal labels, noting that while they use \"he/him\" pronouns at events, they feel it's incomplete. They suggest a more accurate introduction would acknowledge they are also comfortable being called \"girl.\" This reflects a nuanced, non-binary approach to gender identity bey"
+          }
+        },
+        "Oracle": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "describe",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "pronouns",
+              "gender identity",
+              "societal boxes",
+              "name tags",
+              "he/him",
+              "gender expression",
+              "identity labels",
+              "social expectations",
+              "gender fluidity",
+              "self-identification"
+            ],
+            "precision": 0.2,
+            "recall": 0.333
+          },
+          "summarization": {
+            "rouge_l": 0.127,
+            "output": "The speaker discusses discomfort with rigid societal labels, specifically pronouns. While they use \"he/him\" on name tags, they feel it's more accurate to say \"he/him, but I'll smile if you call me girl.\" This reflects a nuanced identity that doesn't fully align with traditional boxes."
+          }
+        },
+        "Qwen_ASR": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.7,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "describe",
+            "confidence": 0.9,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "pronouns",
+              "gender identity",
+              "he/him",
+              "name tags",
+              "social expectations",
+              "gender expression",
+              "identity labels",
+              "Tommarco su Razzie",
+              "gender norms",
+              "self-identification"
+            ],
+            "precision": 0.2,
+            "recall": 0.333
+          },
+          "summarization": {
+            "rouge_l": 0.13,
+            "output": "The speaker describes discomfort with rigid societal gender labels, such as using \"he/him\" pronouns on name tags at events. They feel that introducing themselves with pronouns feels forced, and while they use \"he/him,\" they would accept being called \"girl\" without issue. The main point is a critique"
+          }
+        },
+        "Qwen_Direct": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.75,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "describe",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "pronouns",
+              "he him",
+              "name tag",
+              "society boxes",
+              "meeting someone for the first time",
+              "Charles Marco Srazi",
+              "smile if you call me girl",
+              "gender identity",
+              "events",
+              "feeling"
+            ],
+            "precision": 0.2,
+            "recall": 0.333
+          },
+          "summarization": {
+            "rouge_l": 0.069,
+            "output": "This audio contains spoken words by an English-speaking male with a neutral mood. The transcript of his speech is 'the specific boxes society has laid out like i still do events where you know maybe have a name tag and they want me to put my pronouns. and i always put he him. but i don't always like"
+          }
+        }
+      }
+    },
+    "kill": {
+      "ground_truth": {
+        "transcript": "You'll go to hell! I understood religion more as I get older every day. You know, sometimes you need to believe that there's something worse than staying alive. Listen, some of these jokes are gonna be disrespectful to people who have actually taken their own lives, but none of them are here tonight. So I want you to just enjoy it, okay? Cause listen, my friend is-",
+        "summary": "The comedian delivers dark jokes about religion, hell, and suicide, breaking the tension by pointing out that the subjects of his edgy jokes are not in the audience.",
+        "sentiment": "positive",
+        "keywords": [
+          "religion",
+          "hell",
+          "dark humor",
+          "suicide jokes",
+          "disrespectful",
+          "standup"
+        ],
+        "intent": "entertain"
+      },
+      "paths": {
+        "Cascade": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "entertain",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "religion",
+              "hell",
+              "staying alive",
+              "suicide",
+              "jokes",
+              "disrespectful",
+              "enjoy",
+              "friend"
+            ],
+            "precision": 0.375,
+            "recall": 0.5
+          },
+          "summarization": {
+            "rouge_l": 0.15,
+            "output": "The speaker reflects on understanding religion more with age, suggesting that belief in something worse than staying alive can be necessary. They acknowledge that some jokes may be disrespectful to those who have died by suicide, but since none of those individuals are present, they encourage the au"
+          }
+        },
+        "Oracle": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.8,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "entertain",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "religion",
+              "belief",
+              "staying alive",
+              "suicide",
+              "disrespectful jokes",
+              "enjoyment",
+              "friendship",
+              "mortality",
+              "dark humor",
+              "audience permission"
+            ],
+            "precision": 0.2,
+            "recall": 0.333
+          },
+          "summarization": {
+            "rouge_l": 0.156,
+            "output": "The speaker acknowledges that some jokes may be disrespectful to those who have died by suicide, but notes that no such individuals are present. They encourage the audience to enjoy the performance, referencing a friend's perspective on religion and the belief that there is something worse than stay"
+          }
+        },
+        "Qwen_ASR": {
+          "sentiment": {
+            "predicted": "negative",
+            "confidence": 0.7,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "entertain",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "religion",
+              "hell",
+              "staying alive",
+              "jokes",
+              "disrespectful",
+              "taken their own lives",
+              "enjoy",
+              "friend"
+            ],
+            "precision": 0.375,
+            "recall": 0.5
+          },
+          "summarization": {
+            "rouge_l": 0.156,
+            "output": "The speaker reflects on understanding religion more with age, suggesting a belief in something worse than staying alive. They acknowledge that some jokes may be disrespectful to those who have died by suicide, but since none of those individuals are present, they encourage the audience to enjoy the "
+          }
+        },
+        "Qwen_Direct": {
+          "sentiment": {
+            "predicted": "positive",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "intent": {
+            "predicted": "entertain",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "stand-up comedy",
+              "offensive content",
+              "religion",
+              "strong language",
+              "religious figures",
+              "sarcastic tone",
+              "mocking beliefs"
+            ],
+            "precision": 0.143,
+            "recall": 0.167
+          },
+          "summarization": {
+            "rouge_l": 0.123,
+            "output": "The speaker is encouraging audience members to not take offense to humorous content that may be disrespectful towards those who have lost their lives, since they are present tonight. The speaker then invites everyone to enjoy themselves."
+          }
+        }
+      }
+    },
+    "smoking": {
+      "ground_truth": {
+        "transcript": "We instead tapped into this natural reward-based learning process... but added a twist. What if instead we just got really curious about what was happening in our momentary experience? I'll give you an example. In my lab we studied whether mindfulness training could help people quit smoking. Now, just like trying to force myself to pay attention to my breath, they could try to force themselves to quit smoking.",
+        "summary": "The speaker introduces a novel approach to breaking habits by combining reward-based learning with curiosity and mindfulness, using a smoking cessation study as an example.",
+        "sentiment": "positive",
+        "keywords": [
+          "mindfulness",
+          "curiosity",
+          "quit smoking",
+          "momentary experience",
+          "research",
+          "habits",
+          "training"
+        ],
+        "intent": "inform"
+      },
+      "paths": {
+        "Cascade": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.9,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "inform",
+            "confidence": 0.9,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "mindfulness training",
+              "quit smoking",
+              "natural reward-based learning",
+              "curiosity",
+              "momentary experience",
+              "attention",
+              "breath",
+              "smoking cessation"
+            ],
+            "precision": 0.375,
+            "recall": 0.429
+          },
+          "summarization": {
+            "rouge_l": 0.217,
+            "output": "The speaker describes using the brain's natural reward-based learning process with a twist: cultivating curiosity about momentary experiences. They illustrate this with a lab study on mindfulness training for smoking cessation. Instead of forcing themselves to quit, participants were encouraged to b"
+          }
+        },
+        "Oracle": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "inform",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "mindfulness training",
+              "quit smoking",
+              "natural reward-based learning",
+              "curiosity",
+              "momentary experience",
+              "attention",
+              "force",
+              "habit change"
+            ],
+            "precision": 0.375,
+            "recall": 0.429
+          },
+          "summarization": {
+            "rouge_l": 0.136,
+            "output": "A study explored whether mindfulness training could help people quit smoking by leveraging natural reward-based learning with a twist: cultivating curiosity about momentary experiences rather than forcing change. This approach contrasts with the typical effort of forcing oneself to quit, similar to "
+          }
+        },
+        "Qwen_ASR": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "inform",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "mindfulness training",
+              "quit smoking",
+              "natural reward based learning",
+              "curiosity",
+              "momentary experience",
+              "attention on breath",
+              "force quit smoking"
+            ],
+            "precision": 0.429,
+            "recall": 0.429
+          },
+          "summarization": {
+            "rouge_l": 0.265,
+            "output": "The speaker describes using a natural reward-based learning process with a twist: cultivating curiosity about momentary experiences. They illustrate this with a lab study on mindfulness training for smoking cessation, contrasting it with forced attention or quitting. The approach emphasizes curiosit"
+          }
+        },
+        "Qwen_Direct": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "inform",
+            "confidence": 0.9,
+            "correct": true
+          },
+          "keywords": {
+            "extracted": [
+              "natural reward based learning process",
+              "curious",
+              "momentary experience",
+              "mindfulness training",
+              "quit smoking",
+              "force",
+              "pay attention",
+              "breath"
+            ],
+            "precision": 0.25,
+            "recall": 0.286
+          },
+          "summarization": {
+            "rouge_l": 0.203,
+            "output": "The audio describes a natural reward-based learning process and how curiosity can be used to understand the mind's momentary experiences. It also mentions a study that investigated if mindfulness training could help people quit smoking by forcing them to pay attention to their breath."
+          }
+        }
+      }
+    },
+    "tiger": {
+      "ground_truth": {
+        "transcript": "Hey look, the tiger's in a cage. You know what a cage is? They can't escape from a cage. It's okay to calm down. It's a feedback loop that can help keep the response in check. The hippocampus is also involved. It provides context, saying things like, Hey, we've seen tigers in cages before. We're in a zoo. You are extra safe.",
+        "summary": "This section explains how the brain's hippocampus uses contextual information to create a feedback loop that suppresses the fear response and promotes calmness.",
+        "sentiment": "positive",
+        "keywords": [
+          "hippocampus",
+          "feedback loop",
+          "fear response",
+          "context",
+          "brain function",
+          "calming down",
+          "safety"
+        ],
+        "intent": "describe"
+      },
+      "paths": {
+        "Cascade": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "inform",
+            "confidence": 0.9,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "tiger in a cage",
+              "cage",
+              "escape",
+              "calm down",
+              "feedback loop",
+              "response in check",
+              "hippocampus",
+              "context",
+              "zoo",
+              "safe"
+            ],
+            "precision": 0.3,
+            "recall": 0.429
+          },
+          "summarization": {
+            "rouge_l": 0.133,
+            "output": "The speaker explains that a tiger in a cage cannot escape, which helps calm fear through a feedback loop. The hippocampus provides context by recalling past experiences, such as seeing caged tigers at a zoo, reinforcing safety."
+          }
+        },
+        "Oracle": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "inform",
+            "confidence": 0.9,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "tiger in a cage",
+              "feedback loop",
+              "response in check",
+              "hippocampus",
+              "context",
+              "zoo",
+              "safe",
+              "calm down",
+              "escape"
+            ],
+            "precision": 0.333,
+            "recall": 0.429
+          },
+          "summarization": {
+            "rouge_l": 0.19,
+            "output": "The speaker uses a tiger in a cage as a metaphor to explain how calming down works through a feedback loop that regulates emotional responses. The hippocampus provides context by recalling past experiences, such as seeing caged tigers at a zoo, to reinforce safety. This process helps keep reactions "
+          }
+        },
+        "Qwen_ASR": {
+          "sentiment": {
+            "predicted": "neutral",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "intent": {
+            "predicted": "inform",
+            "confidence": 0.9,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "tigers in a cage",
+              "cage",
+              "escape",
+              "calm down",
+              "feedback loop",
+              "response in check",
+              "hippocampus",
+              "context",
+              "zoo",
+              "safe"
+            ],
+            "precision": 0.3,
+            "recall": 0.429
+          },
+          "summarization": {
+            "rouge_l": 0.222,
+            "output": "The speaker uses a tiger in a cage as a metaphor to explain how to manage emotional responses. They describe a feedback loop that helps keep reactions in check, with the hippocampus providing context by recalling past safe experiences. This process reassures that the current situation is not dangero"
+          }
+        },
+        "Qwen_Direct": {
+          "sentiment": {
+            "predicted": "positive",
+            "confidence": 0.85,
+            "correct": true
+          },
+          "intent": {
+            "predicted": "inform",
+            "confidence": 0.85,
+            "correct": false
+          },
+          "keywords": {
+            "extracted": [
+              "tigers in a cage",
+              "cage",
+              "escape",
+              "calm down",
+              "feedback loop",
+              "response in check",
+              "hippocampus",
+              "context",
+              "zoo",
+              "safe"
+            ],
+            "precision": 0.3,
+            "recall": 0.429
+          },
+          "summarization": {
+            "rouge_l": 0.194,
+            "output": "The audio discusses a scenario where tigers are in a cage and mentions a feedback loop and the Hippo campus being involved. It also implies that tigers have been seen in cages before and that the location is safe."
+          }
+        }
+      }
+    }
+  }
+}

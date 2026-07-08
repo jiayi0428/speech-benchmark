@@ -3,7 +3,7 @@
 [简体中文](human_speech_v1_report.zh-CN.md)
 
 **Date:** 2026-07-02  
-**Authors:** Jiayi Li, Liu Luofei (刘洛菲), Zhang Yuchen (张予辰)
+**Authors:** Jiayi Li（李佳宜）, Liu Luofei（刘洛菲）, Zhang Yuchen（张予辰）
 **Scope:** 8 paired as-recorded English speech samples, 4 tasks  
 **Status:** Preliminary descriptive pilot
 

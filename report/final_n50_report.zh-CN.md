@@ -1,6 +1,6 @@
 # N=50 人声与 TTS 四路径语音理解报告
 
-**作者：** Jiayi Li、Liu Luofei（刘洛菲）、Zhang Yuchen（张予辰）  
+**作者：** Jiayi Li（李佳宜）、Liu Luofei（刘洛菲）、Zhang Yuchen（张予辰）  
 **日期：** 2026-07-08  
 **任务：** 摘要、情感、关键词、意图  
 **路径：** A Oracle、B Whisper 级联、C Qwen 转写级联、D Qwen Direct
@@ -24,6 +24,8 @@ TTS 最终意图分布：`{'describe': 8, 'entertain': 8, 'inform': 19, 'persuad
 | C Qwen转写→DeepSeek | 0.2564 | 72.0% | 0.3421 | 54.0% |
 | D Direct（Qwen音频直推） | 0.1854 | 62.0% | 0.2765 | 50.0% |
 
+![人声 N=50 四路径任务得分](figures/final_n50_human_metrics.png)
+
 人声中，A/B/C 仍然整体强于 D。最重要的是：D 并不是全面失败，它在部分情感场景有信号；但作为通用四任务方案，显式转写后交给 DeepSeek 的级联路径更可靠。
 
 | 任务 | D-B | D-C | 解释 |
@@ -32,6 +34,8 @@ TTS 最终意图分布：`{'describe': 8, 'entertain': 8, 'inform': 19, 'persuad
 | 情感 | -0.0600 | -0.1000 | Direct 落后 |
 | 关键词 | -0.0559 | -0.0656 | Direct 落后 |
 | 意图 | -0.1400 | -0.0400 | Direct 落后 |
+
+![Direct 相对级联路径的差值](figures/final_n50_direct_deltas.png)
 
 ### 2.1 人声路径优劣
 
@@ -50,6 +54,8 @@ TTS 最终意图分布：`{'describe': 8, 'entertain': 8, 'inform': 19, 'persuad
 | C_qwen_transcript | 0.2062 | 37.5% | 0.3232 | 25.0% |
 | D_qwen_direct | 0.1552 | 50.0% | 0.1483 | 25.0% |
 
+![人声按真实 intent 的 Direct 信号](figures/final_n50_human_intent_heatmap.png)
+
 在人声 `entertain` 子集上，D 的情感准确率高于 B/C。这支持一个更积极的判断：**当语气、笑点、讽刺和表演性比纯文本更重要时，端到端音频模型可能捕捉到级联转写丢失的线索。**
 
 但是，D 在同一 `entertain` 子集的摘要、关键词和意图上仍然落后。也就是说，Direct 的现有优势更像是“声学情绪线索优势”，不是完整语义理解优势。
@@ -62,6 +68,8 @@ TTS 最终意图分布：`{'describe': 8, 'entertain': 8, 'inform': 19, 'persuad
 | B Cascade（Whisper→DeepSeek） | 0.3160 | 78.0% | 0.3188 | 98.0% |
 | C Qwen转写→DeepSeek | 0.3299 | 68.0% | 0.2978 | 94.0% |
 | D Direct（Qwen音频直推） | 0.3251 | 72.0% | 0.3124 | 80.0% |
+
+![TTS N=50 四路径任务得分](figures/final_n50_tts_metrics.png)
 
 TTS 的结论更直接：**级联路径明显更强，尤其是意图识别。** B 的意图准确率达到 98%，D 为 80%。在合成、清晰、无环境噪声的语音里，Direct 没有从声学信息中获得额外收益，反而暴露出任务遵循和标签稳定性问题。
 

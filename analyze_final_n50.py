@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import csv
 import json
+import os
 import shutil
 from collections import Counter, defaultdict
 from itertools import combinations
@@ -20,6 +21,8 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parent
+os.environ.setdefault("MPLBACKEND", "Agg")
+os.environ.setdefault("MPLCONFIGDIR", str(ROOT / ".cache" / "matplotlib"))
 EXTERNAL_ROOT = ROOT.parent
 HUMAN_SOURCE = EXTERNAL_ROOT / "yinpin" / "rensheng_results.json"
 TTS_SOURCE = EXTERNAL_ROOT / "TTS_50_results.json"
@@ -27,6 +30,8 @@ TTS_SOURCE = EXTERNAL_ROOT / "TTS_50_results.json"
 HUMAN_OUT = ROOT / "data" / "results" / "human_speech_final_n50"
 TTS_OUT = ROOT / "data" / "results" / "tts_speech_final_n50"
 REPORT_OUT = ROOT / "report" / "final_n50_report.zh-CN.md"
+REPORT_EN_OUT = ROOT / "report" / "final_n50_report.md"
+FIGURE_DIR = ROOT / "report" / "figures"
 
 TASKS = ["summarization", "sentiment", "keywords", "intent"]
 PIPELINES = [
@@ -317,6 +322,125 @@ def fmt(value: float) -> str:
     return f"{value:.4f}"
 
 
+def add_value_labels(ax, fmt_spec: str = "{:.3f}") -> None:
+    for container in ax.containers:
+        ax.bar_label(
+            container,
+            labels=[
+                fmt_spec.format(bar.get_height())
+                for bar in container
+            ],
+            fontsize=8,
+            padding=2,
+        )
+
+
+def plot_metric_bars(summary: dict[str, Any], output: Path, title: str) -> None:
+    import matplotlib.pyplot as plt
+
+    labels = ["Summary", "Sentiment", "Keywords", "Intent"]
+    task_keys = TASKS
+    pipeline_labels = ["A Oracle", "B Cascade", "C Qwen-ASR", "D Direct"]
+    colors = ["#6c757d", "#1f77b4", "#2ca02c", "#d62728"]
+    x = np.arange(len(labels))
+    width = 0.18
+    fig, ax = plt.subplots(figsize=(11, 5.8), dpi=180)
+    for i, (pipeline, label, color) in enumerate(zip(PIPELINES, pipeline_labels, colors)):
+        values = [summary["means"][pipeline][task] for task in task_keys]
+        ax.bar(x + (i - 1.5) * width, values, width, label=label, color=color)
+    ax.set_title(title)
+    ax.set_ylabel("Score")
+    ax.set_ylim(0, 1.05)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.legend(ncol=4, loc="upper center", bbox_to_anchor=(0.5, -0.1))
+    ax.grid(axis="y", linestyle="--", alpha=0.25)
+    add_value_labels(ax)
+    fig.tight_layout()
+    output.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output)
+    plt.close(fig)
+
+
+def plot_direct_deltas(human: dict[str, Any], tts: dict[str, Any], output: Path) -> None:
+    import matplotlib.pyplot as plt
+
+    labels = ["Summary", "Sentiment", "Keywords", "Intent"]
+    x = np.arange(len(labels))
+    width = 0.2
+    series = [
+        ("Human D-B", human, "B_whisper_cascade", "#1f77b4"),
+        ("Human D-C", human, "C_qwen_transcript", "#2ca02c"),
+        ("TTS D-B", tts, "B_whisper_cascade", "#ff7f0e"),
+        ("TTS D-C", tts, "C_qwen_transcript", "#9467bd"),
+    ]
+    fig, ax = plt.subplots(figsize=(11, 5.8), dpi=180)
+    for i, (label, summary, baseline, color) in enumerate(series):
+        values = [
+            summary["means"]["D_qwen_direct"][task]
+            - summary["means"][baseline][task]
+            for task in TASKS
+        ]
+        ax.bar(x + (i - 1.5) * width, values, width, label=label, color=color)
+    ax.axhline(0, color="black", linewidth=1)
+    ax.set_title("Direct advantage/disadvantage versus cascade baselines")
+    ax.set_ylabel("D score minus baseline score")
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.legend(ncol=4, loc="upper center", bbox_to_anchor=(0.5, -0.1))
+    ax.grid(axis="y", linestyle="--", alpha=0.25)
+    fig.tight_layout()
+    output.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output)
+    plt.close(fig)
+
+
+def plot_human_intent_heatmap(summary: dict[str, Any], output: Path) -> None:
+    import matplotlib.pyplot as plt
+
+    intents = sorted(summary["intent_counts"])
+    task_labels = ["Summary", "Sentiment", "Keywords", "Intent"]
+    matrix = []
+    for intent in intents:
+        row = []
+        for task in TASKS:
+            d = summary["means_by_intent"][intent]["D_qwen_direct"][task]
+            b = summary["means_by_intent"][intent]["B_whisper_cascade"][task]
+            c = summary["means_by_intent"][intent]["C_qwen_transcript"][task]
+            row.append(d - max(b, c))
+        matrix.append(row)
+    fig, ax = plt.subplots(figsize=(9, 5.8), dpi=180)
+    im = ax.imshow(matrix, cmap="RdBu", vmin=-0.25, vmax=0.25)
+    ax.set_title("Human N=50: Direct minus best cascade by intent")
+    ax.set_xticks(np.arange(len(task_labels)))
+    ax.set_xticklabels(task_labels)
+    ax.set_yticks(np.arange(len(intents)))
+    ax.set_yticklabels([f"{intent} (n={summary['intent_counts'][intent]})" for intent in intents])
+    for i, _intent in enumerate(intents):
+        for j, _task in enumerate(TASKS):
+            ax.text(j, i, f"{matrix[i][j]:+.3f}", ha="center", va="center", fontsize=8)
+    fig.colorbar(im, ax=ax, label="D - max(B, C)")
+    fig.tight_layout()
+    output.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output)
+    plt.close(fig)
+
+
+def generate_figures(human: dict[str, Any], tts: dict[str, Any]) -> dict[str, str]:
+    FIGURE_DIR.mkdir(parents=True, exist_ok=True)
+    paths = {
+        "human_metrics": FIGURE_DIR / "final_n50_human_metrics.png",
+        "tts_metrics": FIGURE_DIR / "final_n50_tts_metrics.png",
+        "direct_deltas": FIGURE_DIR / "final_n50_direct_deltas.png",
+        "human_intent_heatmap": FIGURE_DIR / "final_n50_human_intent_heatmap.png",
+    }
+    plot_metric_bars(human, paths["human_metrics"], "Human speech N=50: four-path task scores")
+    plot_metric_bars(tts, paths["tts_metrics"], "TTS N=50: four-path task scores")
+    plot_direct_deltas(human, tts, paths["direct_deltas"])
+    plot_human_intent_heatmap(human, paths["human_intent_heatmap"])
+    return {key: f"figures/{path.name}" for key, path in paths.items()}
+
+
 def table_for_summary(summary: dict[str, Any]) -> str:
     lines = [
         "| 路径 | 摘要 ROUGE-L | 情感准确率 | 关键词 F1 | 意图准确率 |",
@@ -376,10 +500,10 @@ def intent_focus_table(summary: dict[str, Any], intent: str) -> str:
     return "\n".join(lines)
 
 
-def write_report(human: dict[str, Any], tts: dict[str, Any]) -> None:
+def write_report(human: dict[str, Any], tts: dict[str, Any], figures: dict[str, str]) -> None:
     report = f"""# N=50 人声与 TTS 四路径语音理解报告
 
-**作者：** Jiayi Li、Liu Luofei（刘洛菲）、Zhang Yuchen（张予辰）  
+**作者：** Jiayi Li（李佳宜）、Liu Luofei（刘洛菲）、Zhang Yuchen（张予辰）  
 **日期：** 2026-07-08  
 **任务：** 摘要、情感、关键词、意图  
 **路径：** A Oracle、B Whisper 级联、C Qwen 转写级联、D Qwen Direct
@@ -398,9 +522,13 @@ TTS 最终意图分布：`{tts['intent_counts']}`。
 
 {table_for_summary(human)}
 
+![人声 N=50 四路径任务得分]({figures['human_metrics']})
+
 人声中，A/B/C 仍然整体强于 D。最重要的是：D 并不是全面失败，它在部分情感场景有信号；但作为通用四任务方案，显式转写后交给 DeepSeek 的级联路径更可靠。
 
 {direct_delta_table(human)}
+
+![Direct 相对级联路径的差值]({figures['direct_deltas']})
 
 ### 2.1 人声路径优劣
 
@@ -415,6 +543,8 @@ TTS 最终意图分布：`{tts['intent_counts']}`。
 
 {intent_focus_table(human, 'entertain')}
 
+![人声按真实 intent 的 Direct 信号]({figures['human_intent_heatmap']})
+
 在人声 `entertain` 子集上，D 的情感准确率高于 B/C。这支持一个更积极的判断：**当语气、笑点、讽刺和表演性比纯文本更重要时，端到端音频模型可能捕捉到级联转写丢失的线索。**
 
 但是，D 在同一 `entertain` 子集的摘要、关键词和意图上仍然落后。也就是说，Direct 的现有优势更像是“声学情绪线索优势”，不是完整语义理解优势。
@@ -422,6 +552,8 @@ TTS 最终意图分布：`{tts['intent_counts']}`。
 ## 3. TTS N=50 结果
 
 {table_for_summary(tts)}
+
+![TTS N=50 四路径任务得分]({figures['tts_metrics']})
 
 TTS 的结论更直接：**级联路径明显更强，尤其是意图识别。** B 的意图准确率达到 98%，D 为 80%。在合成、清晰、无环境噪声的语音里，Direct 没有从声学信息中获得额外收益，反而暴露出任务遵循和标签稳定性问题。
 
@@ -476,11 +608,81 @@ TTS 的结论更直接：**级联路径明显更强，尤其是意图识别。**
 """
     REPORT_OUT.write_text(report, encoding="utf-8")
 
+    english = f"""# N=50 Human Speech and TTS Four-Path Speech Understanding Report
+
+**Authors:** Jiayi Li（李佳宜）, Liu Luofei（刘洛菲）, Zhang Yuchen（张予辰）  
+**Date:** 2026-07-08  
+**Tasks:** summarization, sentiment, keywords, intent  
+**Paths:** A Oracle, B Whisper Cascade, C Qwen Transcript Cascade, D Qwen Direct
+
+## 1. Dataset protocol
+
+This report uses two matched N=50 evaluation sets.
+
+- **Human speech N=50:** start from the existing N=66 human set, remove 16 non-v5 samples whose ground-truth intent is `describe`, keep all v5 samples, and replace v5 with the external `rensheng_results.json` results.
+- **TTS N=50:** use the 50 Microsoft Edge TTS samples in `TTS_50_results.json`.
+
+Human intent distribution: `{human['intent_counts']}`.  
+TTS intent distribution: `{tts['intent_counts']}`.
+
+## 2. Human speech N=50
+
+{table_for_summary(human)}
+
+![Human N=50 four-path scores]({figures['human_metrics']})
+
+In human speech, A/B/C remain stronger than D overall. Direct is not useless: its clearest signal appears in sentiment analysis for entertainment-style speech. But as a general four-task architecture, explicit transcription followed by DeepSeek remains more reliable.
+
+{direct_delta_table(human)}
+
+![Direct deltas versus cascade baselines]({figures['direct_deltas']})
+
+### Direct by intent
+
+The strongest Direct signal is in `entertain` sentiment:
+
+{intent_focus_table(human, 'entertain')}
+
+![Human intent heatmap]({figures['human_intent_heatmap']})
+
+This supports a positive but narrow interpretation: when tone, irony, delivery, and performance matter, an end-to-end audio model can preserve cues that a transcript may flatten. However, Direct still trails on summarization, keywords, and intent in the same subset.
+
+## 3. TTS N=50
+
+{table_for_summary(tts)}
+
+![TTS N=50 four-path scores]({figures['tts_metrics']})
+
+The TTS result is more straightforward: cascade is stronger, especially for intent. B reaches 98% intent accuracy, while D reaches 80%. In clean synthetic speech, Direct does not gain much from acoustic information and still shows weaker task-following for labels.
+
+{direct_delta_table(tts)}
+
+## 4. Final interpretation
+
+The combined N=50 human and N=50 TTS evidence supports a clear practical conclusion:
+
+**Cascade remains the better default architecture for the current semantic tasks.**
+
+Direct should not be discarded. Its entertainment-sentiment signal suggests that audio-native models may be valuable for tasks where acoustic cues are central: irony, sarcasm, affect intensity, delivery style, laughter, hesitation, or emotional reversal. But for summarization, keywords, and intent, transcription-based pipelines are currently stronger.
+
+## 5. Files
+
+- Human N=50 summary: `data/results/human_speech_final_n50/summary.json`
+- Human N=50 scores: `data/results/human_speech_final_n50/scores.csv`
+- Human N=50 selection: `data/results/human_speech_final_n50/selection.json`
+- TTS N=50 summary: `data/results/tts_speech_final_n50/summary.json`
+- TTS N=50 scores: `data/results/tts_speech_final_n50/scores.csv`
+- Chinese report: `report/final_n50_report.zh-CN.md`
+- English report: `report/final_n50_report.md`
+"""
+    REPORT_EN_OUT.write_text(english, encoding="utf-8")
+
 
 def main() -> None:
     human = build_human_final()
     tts = build_tts_final()
-    write_report(human, tts)
+    figures = generate_figures(human, tts)
+    write_report(human, tts, figures)
     print(json.dumps({"human": human["means"], "tts": tts["means"]}, indent=2, ensure_ascii=False))
     print(f"Human summary: {HUMAN_OUT / 'summary.json'}")
     print(f"TTS summary: {TTS_OUT / 'summary.json'}")
